@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+/**
+ * A public key used to verify message signatures
+ * @param attester ECDSA uncompressed public key, hex encoded
+ */
+message Attester {
+  string attester = 1;
+}

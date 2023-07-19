@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+// TODO switch to use multiple admin roles
+//    updating the authority -> (each role has a updateRole method, controlled by the owner)
+//    toggling attesters -> handled by attesterManager
+//    toggling pausing -> handled by pauser
+//    linking/unlinking token pairs -> handled by tokenController
+//    adding/removing token messengers -> handled by owner
+//
+//    updating parameters (max message body size, per message burn limit, signature threshold)
+//
+//    max message body size: owner
+//    per message burn limit: token controller
+//    signature threshold: attester manager
+
+/**
+ * Authority address allowed to perform administrative functions
+ * @param address the bech32 authority address
+ */
+message Authority {
+  string address = 1;
+}

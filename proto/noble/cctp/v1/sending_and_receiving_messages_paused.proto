@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+/**
+ * Message format for SendingAndReceivingMessagesPaused
+ * @param paused true if paused, false if not paused
+ */
+message SendingAndReceivingMessagesPaused {
+  bool paused = 1;
+}

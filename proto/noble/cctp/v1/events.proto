@@ -1,0 +1,178 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+/**
+ * Event signatures in the CCTP module
+ */
+
+/**
+ * Emitted when an attester is enabled
+ * @param attester newly enabled attester
+ */
+message AttesterEnabled {
+  string attester = 1;
+}
+
+/**
+ * Emitted when an attester is disabled
+ * @param attester newly disabled attester
+ */
+message AttesterDisabled {
+  string attester = 1;
+}
+
+/**
+ * Emitted when threshold number of attestations (m in m/n multisig) is updated
+ * @param old_signature_threshold old signature threshold
+ * @param new_signature_threshold new signature threshold
+ */
+message SignatureThresholdUpdated {
+  uint64 old_signature_threshold = 1;
+  uint64 new_signature_threshold = 2;
+}
+
+/**
+ * Emitted when authority address is updated
+ * @param previous_authority representing the address of the previous authority
+ * @param new_authority representing the address of the new authority
+ */
+message AuthorityUpdated {
+  string previous_authority = 1;
+  string new_authority = 2;
+}
+
+/**
+ * Emitted when burning and minting tokens is paused
+ */
+message BurningAndMintingPausedEvent {}
+
+/**
+ * Emitted when burning and minting tokens is unpaused
+ */
+message BurningAndMintingUnpausedEvent {}
+
+/**
+ * Emitted when sending and receiving messages is paused
+ */
+message SendingAndReceivingPausedEvent {}
+
+/**
+ * Emitted when sending and receiving messages is paused
+ */
+message SendingAndReceivingUnpausedEvent {}
+
+/**
+ * Emitted when a DepositForBurn message is sent
+ * @param nonce unique nonce reserved by message
+ * @param burn_token address of token burnt on source domain
+ * @param amount deposit amount
+ * @param depositor address where deposit is transferred from
+ * @param mint_recipient address receiving minted tokens on destination domain as bytes32
+ * @param destination_domain destination domain
+ * @param destination_token_messenger address of TokenMessenger on destination domain as bytes32
+ * @param destination_caller authorized caller as bytes32 of receiveMessage() on destination domain, if not equal to bytes32(0).
+ * If equal to bytes32(0), any address can call receiveMessage().
+ */
+message DepositForBurn {
+  uint64 nonce = 1;
+  string burn_token = 2;
+  string amount = 3 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string depositor = 4;
+  bytes mint_recipient = 5;
+  uint32 destination_domain = 6;
+  bytes destination_token_messenger = 7;
+  bytes destination_caller = 8;
+}
+
+/**
+ * Emitted when tokens are minted
+ * @param mint_recipient recipient address of minted tokens
+ * @param amount amount of minted tokens
+ * @param mint_token contract address of minted token
+ */
+message MintAndWithdraw {
+  string mint_recipient = 1;
+  string amount = 2 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string mint_token = 3;
+}
+
+/**
+ * Emitted when a token pair is linked
+ * @param local_token local token to support
+ * @param remote_domain remote domain
+ * @param remote_token token on `remoteDomain` corresponding to `localToken`
+ */
+message TokenPairLinked {
+  string local_token = 1;
+  uint32 remote_domain = 2;
+  string remote_token = 3;
+}
+
+/**
+ * Emitted when a token pair is unlinked
+ * @param local_token local token address
+ * @param remote_domain remote domain
+ * @param remote_token token on `remoteDomain` unlinked from `localToken`
+ */
+message TokenPairUnlinked {
+  string local_token = 1;
+  uint32 remote_domain = 2;
+  string remote_token = 3;
+}
+
+/**
+ * Emitted when a new message is dispatched
+ * @param message Raw bytes of message
+ */
+message MessageSent {
+  bytes message = 1;
+}
+
+/**
+ * Emitted when a new message is received
+ * @param caller caller (msg.sender) on destination domain
+ * @param source_domain the source domain this message originated from
+ * @param nonce the nonce unique to this message
+ * @param sender the sender of this message
+ * @param message_body message body bytes
+ */
+message MessageReceived {
+  string caller = 1;
+  uint32 source_domain = 2;
+  uint64 nonce = 3;
+  bytes sender = 4;
+  bytes message_body = 5;
+}
+
+/**
+ * Emitted when max message body size is updated
+ * @param new_max_message_body_size new maximum message body size, in bytes
+ */
+message MaxMessageBodySizeUpdated {
+  uint64 new_max_message_body_size = 1;
+}
+
+/**
+ * Emitted when a remote TokenMessenger is added
+ * @param domain remote domain
+ * @param token_messenger TokenMessenger on remote domain
+ */
+message RemoteTokenMessengerAdded {
+  uint32 domain = 1;
+  bytes token_messenger = 2;
+}
+
+/**
+ * Emitted when a remote TokenMessenger is removed
+ * @param domain remote domain
+ * @param token_messenger TokenMessenger on remote domain
+ */
+message RemoteTokenMessengerRemoved {
+  uint32 domain = 1;
+  bytes token_messenger = 2;
+}

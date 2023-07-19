@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+/**
+ * TokenMessenger TODO
+ * @param domain_id
+ * @param address
+ */
+message TokenMessenger {
+  uint32 domain_id = 1;
+  string address = 2;
+}

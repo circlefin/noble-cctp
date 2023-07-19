@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package noble.cctp.v1;
+
+option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
+
+/**
+ * Message format for BurningAndMintingPaused
+ * @param paused true if paused, false if not paused
+ */
+message BurningAndMintingPaused {
+  bool paused = 1;
+}
