@@ -159,19 +159,26 @@ func local_request_Query_Attesters_0(ctx context.Context, marshaler runtime.Mars
 
 }
 
-var (
-	filter_Query_PerMessageBurnLimit_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_Query_PerMessageBurnLimit_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryGetPerMessageBurnLimitRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["denom"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "denom")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_PerMessageBurnLimit_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.Denom, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "denom", err)
 	}
 
 	msg, err := client.PerMessageBurnLimit(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -183,14 +190,61 @@ func local_request_Query_PerMessageBurnLimit_0(ctx context.Context, marshaler ru
 	var protoReq QueryGetPerMessageBurnLimitRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["denom"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "denom")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_PerMessageBurnLimit_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.Denom, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "denom", err)
 	}
 
 	msg, err := server.PerMessageBurnLimit(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_Query_PerMessageBurnLimits_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_Query_PerMessageBurnLimits_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq QueryAllPerMessageBurnLimitsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_PerMessageBurnLimits_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.PerMessageBurnLimits(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Query_PerMessageBurnLimits_0(ctx context.Context, marshaler runtime.Marshaler, server QueryServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq QueryAllPerMessageBurnLimitsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_PerMessageBurnLimits_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.PerMessageBurnLimits(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -698,6 +752,29 @@ func RegisterQueryHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 
 	})
 
+	mux.Handle("GET", pattern_Query_PerMessageBurnLimits_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Query_PerMessageBurnLimits_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Query_PerMessageBurnLimits_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_Query_BurningAndMintingPaused_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1092,6 +1169,26 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 
 	})
 
+	mux.Handle("GET", pattern_Query_PerMessageBurnLimits_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Query_PerMessageBurnLimits_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Query_PerMessageBurnLimits_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_Query_BurningAndMintingPaused_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1316,37 +1413,39 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Authority_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "authority"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Authority_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "authority"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Attester_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "attesters", "attester"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Attester_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "attesters", "attester"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Attesters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "attesters"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Attesters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "attesters"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_PerMessageBurnLimit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "per_message_burn_limit"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_PerMessageBurnLimit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "per_message_burn_limits", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_BurningAndMintingPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "burning_and_minting_paused"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_PerMessageBurnLimits_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "per_message_burn_limits"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SendingAndReceivingMessagesPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "sending_and_receiving_messages_paused"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurningAndMintingPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "burning_and_minting_paused"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MaxMessageBodySize_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "max_message_body_size"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SendingAndReceivingMessagesPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "sending_and_receiving_messages_paused"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_NextAvailableNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "next_available_nonce"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MaxMessageBodySize_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "max_message_body_size"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SignatureThreshold_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "signature_threshold"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_NextAvailableNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "next_available_nonce"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"circle", "cctp", "v1", "token_pairs", "remote_domain", "remote_token"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SignatureThreshold_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "signature_threshold"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "token_pairs"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TokenPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"noble", "cctp", "v1", "token_pairs", "remote_domain", "remote_token"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_UsedNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "used_nonces", "nonce"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TokenPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "token_pairs"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_UsedNonces_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "used_nonces"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_UsedNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "used_nonces", "nonce"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenMessenger_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "token_messengers", "domain_id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_UsedNonces_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "used_nonces"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenMessengers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "token_messengers"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TokenMessenger_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "token_messengers", "domain_id"}, "", runtime.AssumeColonVerbOpt(true)))
+
+	pattern_Query_TokenMessengers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "token_messengers"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
@@ -1359,6 +1458,8 @@ var (
 	forward_Query_Attesters_0 = runtime.ForwardResponseMessage
 
 	forward_Query_PerMessageBurnLimit_0 = runtime.ForwardResponseMessage
+
+	forward_Query_PerMessageBurnLimits_0 = runtime.ForwardResponseMessage
 
 	forward_Query_BurningAndMintingPaused_0 = runtime.ForwardResponseMessage
 

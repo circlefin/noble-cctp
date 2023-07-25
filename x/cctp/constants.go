@@ -28,5 +28,7 @@ const (
 	NobleMessageVersion = 0
 	MessageBodyVersion  = 0
 	NobleDomainId       = 4
-	Bytes32Len          = 32
+
+	DomainBytesLen = 4
+	UsedNonceLen   = 8
 )

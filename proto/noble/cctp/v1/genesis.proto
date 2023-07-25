@@ -22,7 +22,7 @@ message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
   Authority authority = 2;
   repeated Attester attester_list = 3 [(gogoproto.nullable) = false];
-  PerMessageBurnLimit per_message_burn_limit = 4;
+  repeated PerMessageBurnLimit per_message_burn_limit_list = 4 [(gogoproto.nullable) = false];
   BurningAndMintingPaused burning_and_minting_paused = 5;
   SendingAndReceivingMessagesPaused sending_and_receiving_messages_paused = 6;
   MaxMessageBodySize max_message_body_size = 7;

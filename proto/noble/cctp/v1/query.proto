@@ -37,9 +37,13 @@ service Query {
   rpc Attesters(QueryAllAttestersRequest) returns (QueryAllAttestersResponse) {
     option (google.api.http).get = "/noble/cctp/v1/attesters";
   }
-  // Queries the PerMessageBurnLimit
+  // Queries a PerMessageBurnLimit by index
   rpc PerMessageBurnLimit(QueryGetPerMessageBurnLimitRequest) returns (QueryGetPerMessageBurnLimitResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/per_message_burn_limit";
+    option (google.api.http).get = "/noble/cctp/v1/per_message_burn_limits/{denom}";
+  }
+  // Queries a list of PerMessageBurnLimits
+  rpc PerMessageBurnLimits(QueryAllPerMessageBurnLimitsRequest) returns (QueryAllPerMessageBurnLimitsResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/per_message_burn_limits";
   }
   // Queries BurningAndMintingPaused
   rpc BurningAndMintingPaused(QueryGetBurningAndMintingPausedRequest) returns (QueryGetBurningAndMintingPausedResponse) {
@@ -145,7 +149,18 @@ message QueryGetPerMessageBurnLimitRequest {
 
 // QueryPerMessageBurnLimitResponse is the response type for the Query/PerMessageBurnLimit RPC method.
 message QueryGetPerMessageBurnLimitResponse {
-  PerMessageBurnLimit amount = 1 [(gogoproto.nullable) = false];
+  PerMessageBurnLimit burn_limit = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryAllPerMessageBurnLimitsRequest is the response type for the Query/PerMessageBurnLimit RPC method.
+message QueryAllPerMessageBurnLimitsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryAllPerMessageBurnLimitsRequest is the response type for the Query/PerMessageBurnLimit RPC method.
+message QueryAllPerMessageBurnLimitsResponse {
+  repeated PerMessageBurnLimit burn_limits = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 // QueryBurningAndMintingPausedRequest is the request type for the Query/BurningAndMintingPaused RPC method.
