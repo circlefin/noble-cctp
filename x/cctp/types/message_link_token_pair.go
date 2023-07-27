@@ -9,12 +9,12 @@ const TypeMsgLinkTokenPair = "link_token_pair"
 
 var _ sdk.Msg = &MsgLinkTokenPair{}
 
-func NewMsgLinkTokenPair(from string, remoteDomain uint32, remoteToken string, localToken string) *MsgLinkTokenPair {
+func NewMsgLinkTokenPair(from string, localToken string, remoteToken string, remoteDomain uint32) *MsgLinkTokenPair {
 	return &MsgLinkTokenPair{
 		From:         from,
-		RemoteDomain: remoteDomain,
-		RemoteToken:  remoteToken,
 		LocalToken:   localToken,
+		RemoteToken:  remoteToken,
+		RemoteDomain: remoteDomain,
 	}
 }
 

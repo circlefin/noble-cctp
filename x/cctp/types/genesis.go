@@ -51,7 +51,7 @@ func (gs GenesisState) Validate() error {
 	for _, elem := range gs.PerMessageBurnLimitList {
 		index := string(PerMessageBurnLimitKey(elem.Denom))
 		if _, ok := perMessageBurnLimitIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for attesters")
+			return fmt.Errorf("duplicated index for per message burn limits")
 		}
 		perMessageBurnLimitIndexMap[index] = struct{}{}
 	}
@@ -84,12 +84,12 @@ func (gs GenesisState) Validate() error {
 		usedNonceIndexMap[index] = struct{}{}
 	}
 
-	// Check for duplicated index in the used nonce list
+	// Check for duplicated index in token messengers
 	tokenMessengerIndexMap := make(map[string]struct{})
 	for _, elem := range gs.TokenMessengerList {
-		index := string(TokenMessengerKey(elem.DomainId, elem.Address))
+		index := string(TokenMessengerKey(elem.DomainId))
 		if _, ok := tokenMessengerIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for used nonces")
+			return fmt.Errorf("duplicated index for token messengers")
 		}
 		tokenMessengerIndexMap[index] = struct{}{}
 	}

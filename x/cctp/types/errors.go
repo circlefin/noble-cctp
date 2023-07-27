@@ -27,4 +27,5 @@ var (
 	ErrSignatureVerification    = sdkerrors.Register(ModuleName, 27, "unable to verify signature")
 	ErrReplaceMessage           = sdkerrors.Register(ModuleName, 28, "error in replace message")
 	ErrDuringPause              = sdkerrors.Register(ModuleName, 29, "error while trying to pause or unpause")
+	ErrInvalidAmount            = sdkerrors.Register(ModuleName, 30, "invalid amount")
 )

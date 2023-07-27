@@ -2,7 +2,6 @@ package types
 
 import (
 	"encoding/binary"
-	"github.com/circlefin/noble-cctp/x/cctp"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/crypto"
@@ -54,10 +53,10 @@ func PerMessageBurnLimitKey(denom string) []byte {
 
 // UsedNonceKey returns the store key to retrieve a UsedNonce from the index fields
 func UsedNonceKey(nonce uint64, sourceDomain uint32) []byte {
-	sourceDomainBz := make([]byte, cctp.DomainBytesLen)
+	sourceDomainBz := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(sourceDomainBz, sourceDomain)
 
-	nonceBz := make([]byte, cctp.UsedNonceLen)
+	nonceBz := make([]byte, UsedNonceLen)
 	binary.BigEndian.PutUint64(nonceBz, nonce)
 
 	result := append(sourceDomainBz, nonceBz...)
@@ -66,8 +65,7 @@ func UsedNonceKey(nonce uint64, sourceDomain uint32) []byte {
 
 // TokenPairKey returns the store key to retrieve a TokenPair from the index fields
 func TokenPairKey(remoteDomain uint32, remoteToken string) []byte {
-
-	remoteDomainBytes := make([]byte, cctp.DomainBytesLen)
+	remoteDomainBytes := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(remoteDomainBytes, remoteDomain)
 
 	combinedBytes := append(remoteDomainBytes, []byte(strings.ToLower(remoteToken))...)
@@ -77,14 +75,11 @@ func TokenPairKey(remoteDomain uint32, remoteToken string) []byte {
 }
 
 // TokenMessengerKey returns the store key to retrieve a TokenMessenger from the index fields
-func TokenMessengerKey(domain uint32, address string) []byte {
-
-	domainBytes := make([]byte, cctp.DomainBytesLen)
+func TokenMessengerKey(domain uint32) []byte {
+	domainBytes := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(domainBytes, domain)
 
-	combinedBytes := append(domainBytes, []byte(address)...)
-
-	key := crypto.Keccak256(combinedBytes)
+	key := crypto.Keccak256(domainBytes)
 
 	return append(key, []byte("/")...)
 }

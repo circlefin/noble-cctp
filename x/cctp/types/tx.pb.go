@@ -2121,97 +2121,97 @@ func init() {
 func init() { proto.RegisterFile("noble/cctp/v1/tx.proto", fileDescriptor_49e431ce1d7c177f) }
 
 var fileDescriptor_49e431ce1d7c177f = []byte{
-	// 1430 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0xdd, 0x6f, 0xdc, 0x44,
-	0x10, 0x8f, 0xd3, 0xa4, 0x6d, 0x26, 0x1f, 0x4d, 0x4d, 0x1a, 0xae, 0x6e, 0x7b, 0xb9, 0x38, 0xa4,
-	0xdf, 0xb9, 0x23, 0xfd, 0x90, 0x80, 0xf2, 0x92, 0x34, 0x54, 0x2a, 0xea, 0x49, 0x95, 0x53, 0x84,
-	0x40, 0x95, 0x4e, 0x8e, 0xbd, 0x75, 0x56, 0x3d, 0xef, 0x1e, 0xde, 0xbd, 0xa4, 0x89, 0x84, 0xf8,
-	0x07, 0x90, 0xf8, 0x10, 0x0f, 0x3c, 0xf3, 0xd7, 0xf4, 0x05, 0xa9, 0x12, 0x2f, 0x88, 0x87, 0x0a,
-	0xb5, 0xe2, 0x9d, 0x3f, 0x01, 0x79, 0x6d, 0xef, 0xd9, 0xe7, 0xdd, 0xbb, 0x0b, 0x15, 0x08, 0xde,
-	0xce, 0xbb, 0xbf, 0x99, 0xf9, 0xcd, 0xec, 0xcc, 0xec, 0xce, 0xc1, 0x22, 0xa1, 0x3b, 0x6d, 0xd4,
-	0xf0, 0x3c, 0xde, 0x69, 0xec, 0xad, 0x37, 0xf8, 0xb3, 0x7a, 0x27, 0xa2, 0x9c, 0x9a, 0xb3, 0x62,
-	0xbd, 0x1e, 0xaf, 0xd7, 0xf7, 0xd6, 0xad, 0x85, 0x80, 0x06, 0x54, 0xec, 0x34, 0xe2, 0x5f, 0x09,
-	0xc8, 0x6e, 0x82, 0xd9, 0x64, 0xc1, 0x27, 0x1d, 0xdf, 0xe5, 0x68, 0xa3, 0xcb, 0x77, 0x69, 0x84,
-	0xf9, 0x81, 0x69, 0xc2, 0xc4, 0x93, 0x88, 0x86, 0x15, 0xa3, 0x66, 0x5c, 0x9e, 0x72, 0xc4, 0x6f,
-	0x73, 0x05, 0x66, 0x09, 0xda, 0x6f, 0xb9, 0x19, 0xa8, 0x32, 0x2e, 0x36, 0x67, 0x08, 0xda, 0x97,
-	0x82, 0xf6, 0x79, 0xb0, 0xca, 0xea, 0x1c, 0xc4, 0x3a, 0x94, 0x30, 0x64, 0xdf, 0x85, 0xd3, 0x4d,
-	0x16, 0x7c, 0x44, 0xdc, 0x9d, 0x36, 0xda, 0xe0, 0x1c, 0x31, 0x8e, 0x22, 0xa5, 0x2d, 0x0b, 0x4e,
-	0xba, 0xe9, 0xbe, 0x30, 0x33, 0xe3, 0xc8, 0x6f, 0xfb, 0x1c, 0x9c, 0x2d, 0x29, 0x91, 0x16, 0xb6,
-	0x84, 0x3b, 0x5b, 0x98, 0xbd, 0x91, 0x89, 0xc4, 0x8b, 0x3e, 0x2d, 0xd2, 0x46, 0x43, 0x10, 0x78,
-	0xe8, 0x76, 0x19, 0xda, 0xec, 0x46, 0x04, 0x93, 0x60, 0x83, 0xf8, 0x4d, 0x4c, 0x38, 0x26, 0x81,
-	0xca, 0x94, 0xbd, 0x02, 0xcb, 0x5a, 0x01, 0xa9, 0x75, 0x1d, 0xce, 0xc5, 0x91, 0x23, 0x9d, 0xd1,
-	0xf5, 0xae, 0xc2, 0xca, 0x00, 0x11, 0xa9, 0xf9, 0x7d, 0x01, 0x13, 0xe6, 0xb7, 0x11, 0xf1, 0x13,
-	0x90, 0x83, 0x3c, 0x84, 0xf7, 0x30, 0x09, 0x9a, 0x88, 0x31, 0x37, 0x40, 0x4c, 0x69, 0x61, 0x0d,
-	0xae, 0x8d, 0x20, 0x2a, 0x2d, 0xdd, 0x81, 0xd5, 0x1e, 0xa1, 0xa3, 0xda, 0x6a, 0xc0, 0xda, 0x48,
-	0xc2, 0xd2, 0xda, 0xa3, 0x24, 0x62, 0x22, 0xd7, 0x9a, 0xee, 0xb3, 0x74, 0x7f, 0x93, 0xfa, 0x07,
-	0xdb, 0xf8, 0x10, 0x29, 0x0f, 0x7d, 0x19, 0x66, 0xc2, 0x04, 0xd6, 0x62, 0xf8, 0x10, 0x89, 0x83,
-	0x9f, 0x70, 0xa6, 0xd3, 0xb5, 0x58, 0x2c, 0x0b, 0xaa, 0x46, 0xab, 0x34, 0xfe, 0x15, 0x9c, 0x97,
-	0xb0, 0x87, 0x28, 0xca, 0x60, 0xdd, 0x88, 0x3c, 0xc0, 0x21, 0xe6, 0x4a, 0xeb, 0x0b, 0x30, 0xe9,
-	0x23, 0x42, 0xc3, 0xb4, 0x72, 0x92, 0x0f, 0xf3, 0x36, 0x1c, 0x77, 0x43, 0xda, 0x25, 0xbc, 0x72,
-	0x2c, 0x5e, 0xde, 0xbc, 0xf0, 0xfc, 0xe5, 0xd2, 0xd8, 0x6f, 0x2f, 0x97, 0xce, 0x78, 0x94, 0x85,
-	0x94, 0x31, 0xff, 0x69, 0x1d, 0xd3, 0x46, 0xe8, 0xf2, 0xdd, 0xfa, 0x7d, 0xc2, 0x9d, 0x14, 0x6c,
-	0x5f, 0x84, 0x77, 0x06, 0x11, 0x90, 0x44, 0x7f, 0x31, 0x44, 0xd1, 0x6d, 0xa1, 0x0e, 0x65, 0x98,
-	0xdf, 0xa3, 0x51, 0x0c, 0x51, 0xd2, 0xeb, 0x11, 0x19, 0x3f, 0x02, 0x11, 0x73, 0x0d, 0x4c, 0x1f,
-	0x31, 0x8e, 0x89, 0xcb, 0x31, 0x25, 0x2d, 0x9f, 0x86, 0x2e, 0x26, 0xc2, 0x97, 0x59, 0xe7, 0x74,
-	0x6e, 0x67, 0x4b, 0x6c, 0x98, 0xab, 0x30, 0x17, 0x62, 0xc2, 0x5b, 0x11, 0xf2, 0x70, 0x07, 0x23,
-	0xc2, 0x2b, 0x13, 0xa2, 0xfa, 0x66, 0xe3, 0x55, 0x27, 0x5b, 0x34, 0x2f, 0x00, 0xec, 0x74, 0x23,
-	0xd2, 0xe2, 0xf4, 0x29, 0x22, 0x95, 0x49, 0x41, 0x73, 0x2a, 0x5e, 0x79, 0x14, 0x2f, 0xd8, 0xeb,
-	0xa2, 0x06, 0x8b, 0x4e, 0x65, 0x2e, 0xc7, 0x71, 0x26, 0x94, 0x78, 0x48, 0x78, 0x37, 0xe1, 0x24,
-	0x1f, 0xf6, 0xd7, 0xe3, 0x22, 0x5f, 0x8a, 0x32, 0x9f, 0x62, 0xbe, 0x7b, 0xd7, 0x6d, 0xb7, 0x35,
-	0x4d, 0xe2, 0x7f, 0x14, 0x92, 0x7e, 0xa3, 0x9e, 0xf0, 0xaa, 0x72, 0x5c, 0x68, 0xca, 0x1b, 0x4d,
-	0xdc, 0xb5, 0xef, 0x88, 0x3c, 0xd7, 0x45, 0x63, 0x48, 0x2c, 0xff, 0x34, 0xa0, 0xd2, 0x64, 0x81,
-	0x83, 0x3a, 0x6d, 0xd7, 0x43, 0x23, 0xe4, 0xd6, 0x15, 0x98, 0xa7, 0x11, 0x0e, 0x30, 0x71, 0xdb,
-	0xad, 0xb4, 0xda, 0xd2, 0xae, 0x7b, 0x2a, 0x5b, 0x4f, 0x33, 0xd8, 0x5c, 0x87, 0x05, 0x09, 0x4d,
-	0x3a, 0xb2, 0xa0, 0x2d, 0xc2, 0x37, 0xe3, 0xbc, 0x95, 0xed, 0x6d, 0xf4, 0xb6, 0xcc, 0x5b, 0xb0,
-	0x18, 0x5f, 0x4d, 0x0a, 0xf7, 0x93, 0x40, 0x2e, 0x10, 0xb4, 0xbf, 0xd5, 0x1f, 0x01, 0xf3, 0x3a,
-	0x98, 0xb1, 0x54, 0x5f, 0xe8, 0x27, 0x85, 0xc4, 0x3c, 0x41, 0xfb, 0xcd, 0x7c, 0xf4, 0x6d, 0x1b,
-	0x6a, 0x3a, 0x8f, 0x65, 0xad, 0x79, 0xa2, 0xd4, 0x92, 0x8e, 0x85, 0x32, 0x7f, 0x54, 0xe1, 0xa8,
-	0xc0, 0x89, 0x62, 0x14, 0xb2, 0x4f, 0xb3, 0x06, 0xd3, 0x65, 0xa7, 0xf3, 0x4b, 0xf6, 0x6d, 0x91,
-	0xfa, 0x45, 0x23, 0xf2, 0xb8, 0x2a, 0x70, 0x82, 0x75, 0x3d, 0x0f, 0x31, 0x26, 0xec, 0x9d, 0x74,
-	0xb2, 0x4f, 0xfb, 0x07, 0x03, 0xe6, 0x9a, 0x2c, 0x88, 0x1b, 0xeb, 0x20, 0x66, 0xea, 0xd4, 0x1d,
-	0xd7, 0xa5, 0xee, 0x79, 0x98, 0xea, 0x85, 0x2e, 0x21, 0xdb, 0x5b, 0xc8, 0xb7, 0xdb, 0x1d, 0xea,
-	0x1f, 0xa4, 0xa7, 0x91, 0xb5, 0xdb, 0xb8, 0xa7, 0xda, 0x75, 0x58, 0x2c, 0xb2, 0x1a, 0x92, 0x79,
-	0x3f, 0x27, 0x99, 0x97, 0x13, 0x18, 0x52, 0xc2, 0xff, 0xb2, 0x43, 0x9a, 0x32, 0x9c, 0xd4, 0x95,
-	0xe1, 0x7b, 0x22, 0xad, 0x94, 0xee, 0x0c, 0x89, 0xc4, 0x1f, 0x46, 0x9a, 0x6d, 0x22, 0x23, 0x07,
-	0x9d, 0xe9, 0x3f, 0x5b, 0x7c, 0x97, 0x61, 0x5e, 0x94, 0x51, 0x39, 0x2e, 0x73, 0x71, 0x11, 0xe5,
-	0x42, 0xa3, 0x2f, 0xd3, 0x49, 0x7d, 0x99, 0xa6, 0xef, 0xbd, 0xa2, 0x9b, 0xb2, 0xe2, 0xee, 0xe7,
-	0xde, 0x00, 0xdb, 0x38, 0x20, 0x2e, 0xef, 0x46, 0xe8, 0xd1, 0x6e, 0x84, 0xd8, 0x2e, 0x6d, 0xfb,
-	0xca, 0x68, 0x2c, 0x16, 0x7a, 0xfa, 0xac, 0xbc, 0x50, 0xf3, 0x17, 0x7f, 0x59, 0x95, 0xb4, 0xf8,
-	0x8d, 0x01, 0xf3, 0x4d, 0x16, 0x3c, 0xc0, 0xe4, 0xa9, 0xe8, 0xbb, 0x0f, 0x5d, 0x1c, 0xe9, 0xde,
-	0xcb, 0x11, 0x0a, 0x29, 0x47, 0xc5, 0x9c, 0x9b, 0x49, 0x16, 0xd3, 0x74, 0x5b, 0x86, 0xf4, 0x3b,
-	0xed, 0xea, 0xe2, 0x09, 0xe0, 0x4c, 0x27, 0x6b, 0x49, 0x5f, 0x5f, 0x82, 0xe9, 0x36, 0xf5, 0xdc,
-	0x76, 0x8a, 0x98, 0x10, 0x08, 0x10, 0x4b, 0xc9, 0x5d, 0x68, 0x89, 0x8a, 0x28, 0x10, 0x92, 0x6c,
-	0xbf, 0x33, 0x92, 0xf7, 0x3d, 0x69, 0xff, 0x77, 0xf8, 0xa6, 0x33, 0x42, 0x91, 0x92, 0x64, 0xec,
-	0xc2, 0x42, 0x93, 0x05, 0x1b, 0xbe, 0x2f, 0xb6, 0xe2, 0xf3, 0x46, 0x24, 0xd0, 0xd4, 0xf6, 0x39,
-	0x98, 0x4a, 0xb8, 0xb6, 0xb0, 0x9f, 0xd2, 0x3d, 0x99, 0x2c, 0xdc, 0xf7, 0xe3, 0x56, 0xe8, 0xfa,
-	0x7e, 0x14, 0xb7, 0xc2, 0x84, 0x65, 0xf6, 0x69, 0x57, 0xc5, 0xdb, 0xad, 0x64, 0x42, 0x52, 0xf8,
-	0x18, 0xde, 0x16, 0x19, 0x17, 0xd2, 0x3d, 0xf4, 0x86, 0x2c, 0xec, 0x65, 0x58, 0xd2, 0xe8, 0xca,
-	0xcc, 0xdd, 0xf8, 0xc9, 0x84, 0x63, 0x4d, 0x16, 0x98, 0x2d, 0x38, 0xd5, 0x3f, 0x87, 0x2d, 0xd7,
-	0x0b, 0x33, 0x5c, 0xbd, 0x3c, 0x5b, 0x59, 0x57, 0x86, 0x42, 0x64, 0x1f, 0x79, 0x0c, 0x73, 0x7d,
-	0xb3, 0x57, 0xad, 0x2c, 0x5c, 0x44, 0x58, 0x97, 0x87, 0x21, 0xa4, 0xf6, 0x16, 0x9c, 0xea, 0x9f,
-	0xbb, 0x14, 0xf4, 0xfb, 0x20, 0x2a, 0xfa, 0x9a, 0xb9, 0xcb, 0xe4, 0xb0, 0xa8, 0x19, 0xba, 0x14,
-	0x24, 0xd5, 0x48, 0xeb, 0xdd, 0x51, 0x91, 0xd2, 0xea, 0x21, 0x54, 0xb4, 0x43, 0xd9, 0x55, 0x45,
-	0xec, 0x35, 0x58, 0xeb, 0xc6, 0xe8, 0x58, 0x69, 0xfb, 0x7b, 0x03, 0x6a, 0x43, 0xe7, 0xb6, 0x1b,
-	0x1a, 0x97, 0x06, 0xc8, 0x58, 0x1f, 0x1c, 0x5d, 0x46, 0x92, 0xfa, 0xd1, 0x00, 0x7b, 0x84, 0x11,
-	0xef, 0x96, 0xd6, 0xdf, 0x41, 0xc4, 0x3e, 0xfc, 0x3b, 0x52, 0x85, 0xb3, 0xd2, 0x8d, 0x83, 0x57,
-	0x75, 0x75, 0x52, 0xc6, 0x2a, 0xcf, 0x6a, 0xc8, 0x40, 0x68, 0x7e, 0x09, 0x67, 0xf5, 0xd3, 0xe0,
-	0x35, 0x9d, 0x42, 0x05, 0xd8, 0xba, 0x79, 0x04, 0x70, 0xd9, 0x75, 0xc5, 0x2d, 0xa8, 0x75, 0xbd,
-	0x8c, 0xd5, 0xbb, 0xae, 0xbf, 0x12, 0xcd, 0xcf, 0x60, 0xb6, 0x78, 0x1d, 0x2e, 0x95, 0x95, 0x14,
-	0x00, 0xd6, 0xa5, 0x21, 0x80, 0x7c, 0x53, 0xe9, 0xbf, 0xbb, 0x54, 0x3d, 0xb1, 0x08, 0x51, 0xf6,
-	0x44, 0xf5, 0x75, 0x63, 0x22, 0x38, 0x5d, 0xbe, 0x6b, 0x56, 0xca, 0xf2, 0x25, 0x90, 0x75, 0x6d,
-	0x04, 0x90, 0x34, 0x43, 0x60, 0x41, 0x79, 0x9f, 0x5c, 0x2c, 0x2b, 0x51, 0xe1, 0xac, 0xfa, 0x68,
-	0xb8, 0x7c, 0xab, 0xef, 0x9b, 0xca, 0x14, 0xad, 0xbe, 0x88, 0x50, 0xb5, 0x7a, 0xcd, 0x80, 0x7d,
-	0x08, 0x15, 0xed, 0x18, 0x7d, 0x75, 0x98, 0x96, 0x1e, 0x56, 0x95, 0x6c, 0x43, 0x07, 0xd2, 0xc7,
-	0x30, 0xd7, 0x37, 0x60, 0xd5, 0x54, 0xb1, 0xc9, 0x23, 0x54, 0x9e, 0x69, 0xe6, 0xa7, 0x2f, 0xe0,
-	0x8c, 0x7a, 0xa8, 0xbd, 0xa4, 0x52, 0xa1, 0x00, 0x5a, 0x8d, 0x11, 0x81, 0x45, 0x87, 0x0a, 0x6f,
-	0xf8, 0x9a, 0x56, 0xc5, 0x40, 0x87, 0x54, 0x0f, 0x64, 0x73, 0x1b, 0xa6, 0xf3, 0x23, 0xdf, 0x85,
-	0xb2, 0x60, 0x6e, 0xdb, 0x5a, 0x1d, 0xb8, 0x9d, 0x8f, 0x92, 0x7a, 0x00, 0xbb, 0x34, 0x50, 0x3e,
-	0x77, 0xf2, 0x8d, 0x11, 0x81, 0x99, 0xc9, 0xcd, 0x7b, 0xcf, 0x5f, 0x55, 0x8d, 0x17, 0xaf, 0xaa,
-	0xc6, 0xef, 0xaf, 0xaa, 0xc6, 0xb7, 0xaf, 0xab, 0x63, 0x2f, 0x5e, 0x57, 0xc7, 0x7e, 0x7d, 0x5d,
-	0x1d, 0xfb, 0xfc, 0x7a, 0x80, 0xf9, 0x6e, 0x77, 0xa7, 0xee, 0xd1, 0xb0, 0xe1, 0xe1, 0xc8, 0x6b,
-	0xa3, 0x27, 0x98, 0x34, 0x84, 0xfa, 0x35, 0xf1, 0x9f, 0xf8, 0xb3, 0xe4, 0xaf, 0x71, 0x7e, 0xd0,
-	0x41, 0x6c, 0xe7, 0xb8, 0xf8, 0xdb, 0xfb, 0xe6, 0x5f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xae, 0x56,
-	0xd0, 0xd3, 0x35, 0x17, 0x00, 0x00,
+	// 1425 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0x5b, 0x6f, 0xdc, 0xc4,
+	0x17, 0x8f, 0xd3, 0xa4, 0x6d, 0x4e, 0x2e, 0x4d, 0xfd, 0x4f, 0xf3, 0xdf, 0xba, 0xed, 0x26, 0x71,
+	0x48, 0xef, 0xd9, 0x25, 0xbd, 0x48, 0x40, 0x79, 0x49, 0x1a, 0x2a, 0x15, 0xd5, 0x52, 0xe5, 0x14,
+	0x21, 0x10, 0xd2, 0xca, 0xb1, 0xa7, 0xce, 0xa8, 0xeb, 0x99, 0xc5, 0x33, 0x9b, 0x34, 0x95, 0x10,
+	0x5f, 0x00, 0x89, 0x8b, 0x78, 0xe0, 0x99, 0x4f, 0xd3, 0x17, 0xa4, 0x4a, 0xbc, 0x20, 0x1e, 0x2a,
+	0xd4, 0x8a, 0x77, 0x3e, 0x02, 0xf2, 0xd8, 0x9e, 0xb5, 0xd7, 0x33, 0xbb, 0x1b, 0x2a, 0x10, 0xbc,
+	0xd9, 0x33, 0xbf, 0x73, 0xfb, 0xcd, 0x39, 0xc7, 0xc7, 0x03, 0x8b, 0x84, 0xee, 0xb6, 0x51, 0xd3,
+	0xf7, 0x79, 0xa7, 0xb9, 0xbf, 0xd1, 0xe4, 0x4f, 0x1b, 0x9d, 0x98, 0x72, 0x6a, 0xce, 0x8a, 0xf5,
+	0x46, 0xb2, 0xde, 0xd8, 0xdf, 0xb0, 0x16, 0x42, 0x1a, 0x52, 0xb1, 0xd3, 0x4c, 0x9e, 0x52, 0x90,
+	0xed, 0x80, 0xe9, 0xb0, 0xf0, 0xa3, 0x4e, 0xe0, 0x71, 0xb4, 0xd9, 0xe5, 0x7b, 0x34, 0xc6, 0xfc,
+	0xd0, 0x34, 0x61, 0xe2, 0x71, 0x4c, 0xa3, 0x9a, 0xb1, 0x6c, 0x5c, 0x9e, 0x72, 0xc5, 0xb3, 0xb9,
+	0x0a, 0xb3, 0x04, 0x1d, 0xb4, 0xbc, 0x1c, 0x54, 0x1b, 0x17, 0x9b, 0x33, 0x04, 0x1d, 0x48, 0x41,
+	0xfb, 0x3c, 0x58, 0x55, 0x75, 0x2e, 0x62, 0x1d, 0x4a, 0x18, 0xb2, 0xef, 0xc2, 0x69, 0x87, 0x85,
+	0x1f, 0x10, 0x6f, 0xb7, 0x8d, 0x36, 0x39, 0x47, 0x8c, 0xa3, 0x58, 0x69, 0xcb, 0x82, 0x93, 0x5e,
+	0xb6, 0x2f, 0xcc, 0xcc, 0xb8, 0xf2, 0xdd, 0x3e, 0x07, 0x67, 0x2b, 0x4a, 0xa4, 0x85, 0x6d, 0x11,
+	0xce, 0x36, 0x66, 0x6f, 0x64, 0x22, 0x8d, 0xa2, 0x4f, 0x8b, 0xb4, 0xd1, 0x14, 0x0e, 0x3c, 0xf4,
+	0xba, 0x0c, 0x6d, 0x75, 0x63, 0x82, 0x49, 0xb8, 0x49, 0x02, 0x07, 0x13, 0x8e, 0x49, 0xa8, 0x32,
+	0x65, 0xaf, 0xc2, 0x8a, 0x56, 0x40, 0x6a, 0xdd, 0x80, 0x73, 0x09, 0x73, 0xa4, 0x33, 0xba, 0xde,
+	0x35, 0x58, 0x1d, 0x20, 0x22, 0x35, 0xbf, 0x2b, 0x60, 0xc2, 0xfc, 0x0e, 0x22, 0x41, 0x0a, 0x72,
+	0x91, 0x8f, 0xf0, 0x3e, 0x26, 0xa1, 0x83, 0x18, 0xf3, 0x42, 0xc4, 0x94, 0x16, 0xd6, 0xe1, 0xda,
+	0x08, 0xa2, 0xd2, 0xd2, 0x1d, 0x58, 0xeb, 0x39, 0x74, 0x54, 0x5b, 0x4d, 0x58, 0x1f, 0x49, 0x58,
+	0x5a, 0x7b, 0x94, 0x32, 0x26, 0x72, 0xcd, 0xf1, 0x9e, 0x66, 0xfb, 0x5b, 0x34, 0x38, 0xdc, 0xc1,
+	0xcf, 0x90, 0xf2, 0xd0, 0x57, 0x60, 0x26, 0x4a, 0x61, 0x2d, 0x86, 0x9f, 0x21, 0x71, 0xf0, 0x13,
+	0xee, 0x74, 0xb6, 0x96, 0x88, 0xe5, 0xa4, 0x6a, 0xb4, 0x4a, 0xe3, 0x5f, 0xc2, 0x79, 0x09, 0x7b,
+	0x88, 0xe2, 0x1c, 0xd6, 0x8d, 0xc9, 0x03, 0x1c, 0x61, 0xae, 0xb4, 0xbe, 0x00, 0x93, 0x01, 0x22,
+	0x34, 0xca, 0x2a, 0x27, 0x7d, 0x31, 0x6f, 0xc3, 0x71, 0x2f, 0xa2, 0x5d, 0xc2, 0x6b, 0xc7, 0x92,
+	0xe5, 0xad, 0x0b, 0xcf, 0x5f, 0x2e, 0x8d, 0xfd, 0xfa, 0x72, 0xe9, 0x8c, 0x4f, 0x59, 0x44, 0x19,
+	0x0b, 0x9e, 0x34, 0x30, 0x6d, 0x46, 0x1e, 0xdf, 0x6b, 0xdc, 0x27, 0xdc, 0xcd, 0xc0, 0xf6, 0x45,
+	0x78, 0x6b, 0x90, 0x03, 0xd2, 0xd1, 0x9f, 0x0d, 0x51, 0x74, 0xdb, 0xa8, 0x43, 0x19, 0xe6, 0xf7,
+	0x68, 0x9c, 0x40, 0x94, 0xee, 0xf5, 0x1c, 0x19, 0x3f, 0x82, 0x23, 0xe6, 0x3a, 0x98, 0x01, 0x62,
+	0x1c, 0x13, 0x8f, 0x63, 0x4a, 0x5a, 0x01, 0x8d, 0x3c, 0x4c, 0x44, 0x2c, 0xb3, 0xee, 0xe9, 0xc2,
+	0xce, 0xb6, 0xd8, 0x30, 0xd7, 0x60, 0x2e, 0xc2, 0x84, 0xb7, 0x62, 0xe4, 0xe3, 0x0e, 0x46, 0x84,
+	0xd7, 0x26, 0x44, 0xf5, 0xcd, 0x26, 0xab, 0x6e, 0xbe, 0x68, 0x5e, 0x00, 0xd8, 0xed, 0xc6, 0xa4,
+	0xc5, 0xe9, 0x13, 0x44, 0x6a, 0x93, 0xc2, 0xcd, 0xa9, 0x64, 0xe5, 0x51, 0xb2, 0x60, 0x6f, 0x88,
+	0x1a, 0x2c, 0x07, 0x95, 0x87, 0x9c, 0xf0, 0x4c, 0x28, 0xf1, 0x91, 0x88, 0x6e, 0xc2, 0x4d, 0x5f,
+	0xec, 0xaf, 0xc6, 0x45, 0xbe, 0x94, 0x65, 0x3e, 0xc6, 0x7c, 0xef, 0xae, 0xd7, 0x6e, 0x6b, 0x9a,
+	0xc4, 0x7f, 0x88, 0x92, 0x7e, 0xa3, 0xbe, 0x88, 0xaa, 0x76, 0x5c, 0x68, 0x2a, 0x1a, 0x4d, 0xc3,
+	0xb5, 0xef, 0x88, 0x3c, 0xd7, 0xb1, 0x31, 0x84, 0xcb, 0x3f, 0x0c, 0xa8, 0x39, 0x2c, 0x74, 0x51,
+	0xa7, 0xed, 0xf9, 0x68, 0x84, 0xdc, 0xba, 0x02, 0xf3, 0x34, 0xc6, 0x21, 0x26, 0x5e, 0xbb, 0x95,
+	0x55, 0x5b, 0xd6, 0x75, 0x4f, 0xe5, 0xeb, 0x59, 0x06, 0x9b, 0x1b, 0xb0, 0x20, 0xa1, 0x69, 0x47,
+	0x16, 0x6e, 0x0b, 0xfa, 0x66, 0xdc, 0xff, 0xe5, 0x7b, 0x9b, 0xbd, 0x2d, 0xf3, 0x16, 0x2c, 0x26,
+	0x9f, 0x26, 0x45, 0xf8, 0x29, 0x91, 0x0b, 0x04, 0x1d, 0x6c, 0xf7, 0x33, 0x60, 0x5e, 0x07, 0x33,
+	0x91, 0xea, 0xa3, 0x7e, 0x52, 0x48, 0xcc, 0x13, 0x74, 0xe0, 0x14, 0xd9, 0xb7, 0x6d, 0x58, 0xd6,
+	0x45, 0x2c, 0x6b, 0xcd, 0x17, 0xa5, 0x96, 0x76, 0x2c, 0x94, 0xc7, 0xa3, 0xa2, 0xa3, 0x06, 0x27,
+	0xca, 0x2c, 0xe4, 0xaf, 0xe6, 0x32, 0x4c, 0x57, 0x83, 0x2e, 0x2e, 0xd9, 0xb7, 0x45, 0xea, 0x97,
+	0x8d, 0xc8, 0xe3, 0xaa, 0xc1, 0x09, 0xd6, 0xf5, 0x7d, 0xc4, 0x98, 0xb0, 0x77, 0xd2, 0xcd, 0x5f,
+	0xed, 0xef, 0x0d, 0x98, 0x73, 0x58, 0x98, 0x34, 0xd6, 0x41, 0x9e, 0xa9, 0x53, 0x77, 0x5c, 0x97,
+	0xba, 0xe7, 0x61, 0xaa, 0x47, 0x5d, 0xea, 0x6c, 0x6f, 0xa1, 0xd8, 0x6e, 0x77, 0x69, 0x70, 0x98,
+	0x9d, 0x46, 0xde, 0x6e, 0x93, 0x9e, 0x6a, 0x37, 0x60, 0xb1, 0xec, 0xd5, 0x90, 0xcc, 0xfb, 0x29,
+	0xcd, 0xbc, 0x82, 0xc0, 0x90, 0x12, 0xfe, 0x87, 0x03, 0xd2, 0x94, 0xe1, 0xa4, 0xae, 0x0c, 0xdf,
+	0x11, 0x69, 0xa5, 0x0c, 0x67, 0x08, 0x13, 0xbf, 0x1b, 0x59, 0xb6, 0x89, 0x8c, 0x1c, 0x74, 0xa6,
+	0x7f, 0x6f, 0xf1, 0x5d, 0x86, 0x79, 0x51, 0x46, 0x55, 0x5e, 0xe6, 0x92, 0x22, 0x2a, 0x50, 0xa3,
+	0x2f, 0xd3, 0x49, 0x7d, 0x99, 0x66, 0xf3, 0x5e, 0x39, 0x4c, 0x59, 0x71, 0xf7, 0x0b, 0x33, 0xc0,
+	0x0e, 0x0e, 0x89, 0xc7, 0xbb, 0x31, 0x7a, 0xb4, 0x17, 0x23, 0xb6, 0x47, 0xdb, 0x81, 0x92, 0x8d,
+	0xc5, 0x52, 0x4f, 0x9f, 0x95, 0x1f, 0xd4, 0xe2, 0x87, 0xbf, 0xaa, 0x4a, 0x5a, 0xfc, 0xda, 0x80,
+	0x79, 0x87, 0x85, 0x0f, 0x30, 0x79, 0x22, 0xfa, 0xee, 0x43, 0x0f, 0xc7, 0xba, 0x79, 0x39, 0x46,
+	0x11, 0xe5, 0xa8, 0x9c, 0x73, 0x33, 0xe9, 0x62, 0x96, 0x6e, 0x2b, 0x90, 0xbd, 0x67, 0x5d, 0x5d,
+	0x8c, 0x00, 0xee, 0x74, 0xba, 0x96, 0xf6, 0xf5, 0x25, 0x98, 0x6e, 0x53, 0xdf, 0x6b, 0x67, 0x88,
+	0x09, 0x81, 0x00, 0xb1, 0x94, 0x7e, 0x0b, 0x2d, 0x51, 0x11, 0x25, 0x87, 0xa4, 0xb7, 0xdf, 0x1a,
+	0xe9, 0x7c, 0x4f, 0xda, 0xff, 0x1e, 0x7f, 0xb3, 0x7f, 0x84, 0xb2, 0x4b, 0xd2, 0x63, 0x0f, 0x16,
+	0x1c, 0x16, 0x6e, 0x06, 0x81, 0xd8, 0x4a, 0xce, 0x1b, 0x91, 0x50, 0x53, 0xdb, 0xe7, 0x60, 0x2a,
+	0xf5, 0xb5, 0x85, 0x83, 0xcc, 0xdd, 0x93, 0xe9, 0xc2, 0xfd, 0x20, 0x69, 0x85, 0x5e, 0x10, 0xc4,
+	0x49, 0x2b, 0x4c, 0xbd, 0xcc, 0x5f, 0xed, 0xba, 0x98, 0xdd, 0x2a, 0x26, 0xa4, 0x0b, 0x1f, 0xc2,
+	0xff, 0x45, 0xc6, 0x45, 0x74, 0x1f, 0xbd, 0xa1, 0x17, 0xf6, 0x0a, 0x2c, 0x69, 0x74, 0xe5, 0xe6,
+	0x6e, 0xfc, 0x68, 0xc2, 0x31, 0x87, 0x85, 0x26, 0x82, 0xd3, 0xd5, 0xb0, 0x57, 0x1b, 0xa5, 0xbf,
+	0xb8, 0x86, 0xca, 0x71, 0xeb, 0xda, 0x08, 0x20, 0xd9, 0x4d, 0x3e, 0x83, 0xb9, 0xbe, 0x0f, 0xf6,
+	0x72, 0x55, 0xbc, 0x8c, 0xb0, 0x2e, 0x0f, 0x43, 0x48, 0xed, 0xcf, 0xa0, 0xa6, 0x9d, 0xb0, 0xae,
+	0x0e, 0xd3, 0xd2, 0xc3, 0x5a, 0x37, 0x46, 0xc7, 0x4a, 0xdb, 0x2d, 0x38, 0xd5, 0xff, 0xe7, 0xb7,
+	0xa2, 0x50, 0x53, 0x86, 0x58, 0x57, 0x86, 0x42, 0x8a, 0xd4, 0xf5, 0xfd, 0xbc, 0x2a, 0xa8, 0x2b,
+	0x23, 0x54, 0xd4, 0xa9, 0xff, 0x5d, 0xcd, 0x4f, 0x60, 0xb6, 0xdc, 0x55, 0x96, 0xaa, 0xa2, 0x25,
+	0x80, 0x75, 0x69, 0x08, 0x40, 0xaa, 0xe6, 0xb0, 0xa8, 0xf9, 0x5f, 0x55, 0xb8, 0xa7, 0x46, 0x5a,
+	0x6f, 0x8f, 0x8a, 0x94, 0x56, 0xbf, 0x33, 0x60, 0x79, 0xe8, 0x6f, 0xe7, 0x0d, 0x8d, 0xda, 0x01,
+	0x32, 0xd6, 0x7b, 0x47, 0x97, 0x29, 0x9e, 0x61, 0xdf, 0x80, 0xa6, 0x38, 0xc3, 0x32, 0x42, 0x75,
+	0x86, 0x9a, 0xf9, 0x8b, 0xc0, 0x82, 0xb2, 0x6f, 0x5c, 0x54, 0x69, 0xa8, 0xe2, 0xac, 0xc6, 0x68,
+	0x38, 0x69, 0xef, 0x73, 0x38, 0xa3, 0x1e, 0xc2, 0x2f, 0xa9, 0x14, 0x29, 0x80, 0x56, 0x73, 0x44,
+	0x60, 0x99, 0xc0, 0xd2, 0xcc, 0xb1, 0xac, 0x55, 0x31, 0x90, 0x40, 0xd5, 0x07, 0xdd, 0xdc, 0x81,
+	0xe9, 0xe2, 0x88, 0x7a, 0xa1, 0x2a, 0x58, 0xd8, 0xb6, 0xd6, 0x06, 0x6e, 0x17, 0x59, 0x52, 0x0f,
+	0x8c, 0x97, 0x06, 0xca, 0x17, 0xda, 0x51, 0x73, 0x44, 0x60, 0xb1, 0x17, 0xf5, 0x7f, 0x74, 0x15,
+	0xbd, 0xa8, 0x0f, 0xa2, 0xea, 0x45, 0x9a, 0xef, 0x64, 0xd2, 0x68, 0xb5, 0x97, 0x45, 0x57, 0x55,
+	0x6a, 0xd4, 0x58, 0x55, 0xa3, 0x1d, 0x76, 0xa3, 0x64, 0xfe, 0x60, 0x80, 0x3d, 0xc2, 0x2d, 0xcf,
+	0x2d, 0xad, 0xea, 0x41, 0xc5, 0xfd, 0xfe, 0x5f, 0x91, 0x2a, 0xf1, 0xde, 0x77, 0x99, 0xa9, 0xe2,
+	0xbd, 0x0c, 0x51, 0xf2, 0xae, 0xbe, 0xc3, 0x14, 0xbc, 0xeb, 0xae, 0x9c, 0xae, 0xea, 0xd4, 0x54,
+	0xb1, 0x4a, 0xde, 0x87, 0x5c, 0x3a, 0x99, 0x5f, 0xc0, 0x59, 0xfd, 0x8d, 0xd3, 0x35, 0x9d, 0x42,
+	0x05, 0xd8, 0xba, 0x79, 0x04, 0x70, 0x35, 0x74, 0xc5, 0xa4, 0xad, 0x0d, 0xbd, 0x8a, 0xd5, 0x87,
+	0xae, 0x1f, 0xbb, 0xb7, 0xee, 0x3d, 0x7f, 0x55, 0x37, 0x5e, 0xbc, 0xaa, 0x1b, 0xbf, 0xbd, 0xaa,
+	0x1b, 0xdf, 0xbc, 0xae, 0x8f, 0xbd, 0x78, 0x5d, 0x1f, 0xfb, 0xe5, 0x75, 0x7d, 0xec, 0xd3, 0xeb,
+	0x21, 0xe6, 0x7b, 0xdd, 0xdd, 0x86, 0x4f, 0xa3, 0xa6, 0x8f, 0x63, 0xbf, 0x8d, 0x1e, 0x63, 0xd2,
+	0x14, 0x16, 0xd6, 0xc5, 0x9d, 0xf8, 0xd3, 0xf4, 0x6a, 0x9c, 0x1f, 0x76, 0x10, 0xdb, 0x3d, 0x2e,
+	0xae, 0xbd, 0x6f, 0xfe, 0x19, 0x00, 0x00, 0xff, 0xff, 0xe3, 0x88, 0x2a, 0xc2, 0x35, 0x17, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2226,27 +2226,27 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error)
-	EnableAttester(ctx context.Context, in *MsgEnableAttester, opts ...grpc.CallOption) (*MsgEnableAttesterResponse, error)
-	DisableAttester(ctx context.Context, in *MsgDisableAttester, opts ...grpc.CallOption) (*MsgDisableAttesterResponse, error)
-	PauseBurningAndMinting(ctx context.Context, in *MsgPauseBurningAndMinting, opts ...grpc.CallOption) (*MsgPauseBurningAndMintingResponse, error)
-	UnpauseBurningAndMinting(ctx context.Context, in *MsgUnpauseBurningAndMinting, opts ...grpc.CallOption) (*MsgUnpauseBurningAndMintingResponse, error)
-	PauseSendingAndReceivingMessages(ctx context.Context, in *MsgPauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgPauseSendingAndReceivingMessagesResponse, error)
-	UnpauseSendingAndReceivingMessages(ctx context.Context, in *MsgUnpauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
-	UpdateMaxMessageBodySize(ctx context.Context, in *MsgUpdateMaxMessageBodySize, opts ...grpc.CallOption) (*MsgUpdateMaxMessageBodySizeResponse, error)
-	UpdatePerMessageBurnLimit(ctx context.Context, in *MsgUpdatePerMessageBurnLimit, opts ...grpc.CallOption) (*MsgUpdatePerMessageBurnLimitResponse, error)
-	UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateSignatureThreshold, opts ...grpc.CallOption) (*MsgUpdateSignatureThresholdResponse, error)
-	LinkTokenPair(ctx context.Context, in *MsgLinkTokenPair, opts ...grpc.CallOption) (*MsgLinkTokenPairResponse, error)
-	UnlinkTokenPair(ctx context.Context, in *MsgUnlinkTokenPair, opts ...grpc.CallOption) (*MsgUnlinkTokenPairResponse, error)
 	AddTokenMessenger(ctx context.Context, in *MsgAddTokenMessenger, opts ...grpc.CallOption) (*MsgAddTokenMessengerResponse, error)
-	RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error)
 	DepositForBurn(ctx context.Context, in *MsgDepositForBurn, opts ...grpc.CallOption) (*MsgDepositForBurnResponse, error)
 	DepositForBurnWithCaller(ctx context.Context, in *MsgDepositForBurnWithCaller, opts ...grpc.CallOption) (*MsgDepositForBurnWithCallerResponse, error)
+	DisableAttester(ctx context.Context, in *MsgDisableAttester, opts ...grpc.CallOption) (*MsgDisableAttesterResponse, error)
+	EnableAttester(ctx context.Context, in *MsgEnableAttester, opts ...grpc.CallOption) (*MsgEnableAttesterResponse, error)
+	LinkTokenPair(ctx context.Context, in *MsgLinkTokenPair, opts ...grpc.CallOption) (*MsgLinkTokenPairResponse, error)
+	PauseBurningAndMinting(ctx context.Context, in *MsgPauseBurningAndMinting, opts ...grpc.CallOption) (*MsgPauseBurningAndMintingResponse, error)
+	PauseSendingAndReceivingMessages(ctx context.Context, in *MsgPauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgPauseSendingAndReceivingMessagesResponse, error)
 	ReceiveMessage(ctx context.Context, in *MsgReceiveMessage, opts ...grpc.CallOption) (*MsgReceiveMessageResponse, error)
+	RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error)
 	ReplaceDepositForBurn(ctx context.Context, in *MsgReplaceDepositForBurn, opts ...grpc.CallOption) (*MsgReplaceDepositForBurnResponse, error)
 	ReplaceMessage(ctx context.Context, in *MsgReplaceMessage, opts ...grpc.CallOption) (*MsgReplaceMessageResponse, error)
 	SendMessage(ctx context.Context, in *MsgSendMessage, opts ...grpc.CallOption) (*MsgSendMessageResponse, error)
 	SendMessageWithCaller(ctx context.Context, in *MsgSendMessageWithCaller, opts ...grpc.CallOption) (*MsgSendMessageWithCallerResponse, error)
+	UnlinkTokenPair(ctx context.Context, in *MsgUnlinkTokenPair, opts ...grpc.CallOption) (*MsgUnlinkTokenPairResponse, error)
+	UnpauseBurningAndMinting(ctx context.Context, in *MsgUnpauseBurningAndMinting, opts ...grpc.CallOption) (*MsgUnpauseBurningAndMintingResponse, error)
+	UnpauseSendingAndReceivingMessages(ctx context.Context, in *MsgUnpauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
+	UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error)
+	UpdateMaxMessageBodySize(ctx context.Context, in *MsgUpdateMaxMessageBodySize, opts ...grpc.CallOption) (*MsgUpdateMaxMessageBodySizeResponse, error)
+	UpdatePerMessageBurnLimit(ctx context.Context, in *MsgUpdatePerMessageBurnLimit, opts ...grpc.CallOption) (*MsgUpdatePerMessageBurnLimitResponse, error)
+	UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateSignatureThreshold, opts ...grpc.CallOption) (*MsgUpdateSignatureThresholdResponse, error)
 }
 
 type msgClient struct {
@@ -2257,126 +2257,9 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error) {
-	out := new(MsgUpdateAuthorityResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateAuthority", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) EnableAttester(ctx context.Context, in *MsgEnableAttester, opts ...grpc.CallOption) (*MsgEnableAttesterResponse, error) {
-	out := new(MsgEnableAttesterResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/EnableAttester", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) DisableAttester(ctx context.Context, in *MsgDisableAttester, opts ...grpc.CallOption) (*MsgDisableAttesterResponse, error) {
-	out := new(MsgDisableAttesterResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/DisableAttester", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) PauseBurningAndMinting(ctx context.Context, in *MsgPauseBurningAndMinting, opts ...grpc.CallOption) (*MsgPauseBurningAndMintingResponse, error) {
-	out := new(MsgPauseBurningAndMintingResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/PauseBurningAndMinting", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UnpauseBurningAndMinting(ctx context.Context, in *MsgUnpauseBurningAndMinting, opts ...grpc.CallOption) (*MsgUnpauseBurningAndMintingResponse, error) {
-	out := new(MsgUnpauseBurningAndMintingResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnpauseBurningAndMinting", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) PauseSendingAndReceivingMessages(ctx context.Context, in *MsgPauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgPauseSendingAndReceivingMessagesResponse, error) {
-	out := new(MsgPauseSendingAndReceivingMessagesResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/PauseSendingAndReceivingMessages", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UnpauseSendingAndReceivingMessages(ctx context.Context, in *MsgUnpauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgUnpauseSendingAndReceivingMessagesResponse, error) {
-	out := new(MsgUnpauseSendingAndReceivingMessagesResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnpauseSendingAndReceivingMessages", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UpdateMaxMessageBodySize(ctx context.Context, in *MsgUpdateMaxMessageBodySize, opts ...grpc.CallOption) (*MsgUpdateMaxMessageBodySizeResponse, error) {
-	out := new(MsgUpdateMaxMessageBodySizeResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateMaxMessageBodySize", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UpdatePerMessageBurnLimit(ctx context.Context, in *MsgUpdatePerMessageBurnLimit, opts ...grpc.CallOption) (*MsgUpdatePerMessageBurnLimitResponse, error) {
-	out := new(MsgUpdatePerMessageBurnLimitResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdatePerMessageBurnLimit", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateSignatureThreshold, opts ...grpc.CallOption) (*MsgUpdateSignatureThresholdResponse, error) {
-	out := new(MsgUpdateSignatureThresholdResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateSignatureThreshold", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) LinkTokenPair(ctx context.Context, in *MsgLinkTokenPair, opts ...grpc.CallOption) (*MsgLinkTokenPairResponse, error) {
-	out := new(MsgLinkTokenPairResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/LinkTokenPair", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) UnlinkTokenPair(ctx context.Context, in *MsgUnlinkTokenPair, opts ...grpc.CallOption) (*MsgUnlinkTokenPairResponse, error) {
-	out := new(MsgUnlinkTokenPairResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnlinkTokenPair", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *msgClient) AddTokenMessenger(ctx context.Context, in *MsgAddTokenMessenger, opts ...grpc.CallOption) (*MsgAddTokenMessengerResponse, error) {
 	out := new(MsgAddTokenMessengerResponse)
 	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/AddTokenMessenger", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error) {
-	out := new(MsgRemoveTokenMessengerResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/RemoveTokenMessenger", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2401,9 +2284,63 @@ func (c *msgClient) DepositForBurnWithCaller(ctx context.Context, in *MsgDeposit
 	return out, nil
 }
 
+func (c *msgClient) DisableAttester(ctx context.Context, in *MsgDisableAttester, opts ...grpc.CallOption) (*MsgDisableAttesterResponse, error) {
+	out := new(MsgDisableAttesterResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/DisableAttester", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) EnableAttester(ctx context.Context, in *MsgEnableAttester, opts ...grpc.CallOption) (*MsgEnableAttesterResponse, error) {
+	out := new(MsgEnableAttesterResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/EnableAttester", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) LinkTokenPair(ctx context.Context, in *MsgLinkTokenPair, opts ...grpc.CallOption) (*MsgLinkTokenPairResponse, error) {
+	out := new(MsgLinkTokenPairResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/LinkTokenPair", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PauseBurningAndMinting(ctx context.Context, in *MsgPauseBurningAndMinting, opts ...grpc.CallOption) (*MsgPauseBurningAndMintingResponse, error) {
+	out := new(MsgPauseBurningAndMintingResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/PauseBurningAndMinting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PauseSendingAndReceivingMessages(ctx context.Context, in *MsgPauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgPauseSendingAndReceivingMessagesResponse, error) {
+	out := new(MsgPauseSendingAndReceivingMessagesResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/PauseSendingAndReceivingMessages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) ReceiveMessage(ctx context.Context, in *MsgReceiveMessage, opts ...grpc.CallOption) (*MsgReceiveMessageResponse, error) {
 	out := new(MsgReceiveMessageResponse)
 	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/ReceiveMessage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error) {
+	out := new(MsgRemoveTokenMessengerResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/RemoveTokenMessenger", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2446,76 +2383,100 @@ func (c *msgClient) SendMessageWithCaller(ctx context.Context, in *MsgSendMessag
 	return out, nil
 }
 
+func (c *msgClient) UnlinkTokenPair(ctx context.Context, in *MsgUnlinkTokenPair, opts ...grpc.CallOption) (*MsgUnlinkTokenPairResponse, error) {
+	out := new(MsgUnlinkTokenPairResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnlinkTokenPair", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UnpauseBurningAndMinting(ctx context.Context, in *MsgUnpauseBurningAndMinting, opts ...grpc.CallOption) (*MsgUnpauseBurningAndMintingResponse, error) {
+	out := new(MsgUnpauseBurningAndMintingResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnpauseBurningAndMinting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UnpauseSendingAndReceivingMessages(ctx context.Context, in *MsgUnpauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgUnpauseSendingAndReceivingMessagesResponse, error) {
+	out := new(MsgUnpauseSendingAndReceivingMessagesResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UnpauseSendingAndReceivingMessages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error) {
+	out := new(MsgUpdateAuthorityResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateAuthority", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateMaxMessageBodySize(ctx context.Context, in *MsgUpdateMaxMessageBodySize, opts ...grpc.CallOption) (*MsgUpdateMaxMessageBodySizeResponse, error) {
+	out := new(MsgUpdateMaxMessageBodySizeResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateMaxMessageBodySize", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdatePerMessageBurnLimit(ctx context.Context, in *MsgUpdatePerMessageBurnLimit, opts ...grpc.CallOption) (*MsgUpdatePerMessageBurnLimitResponse, error) {
+	out := new(MsgUpdatePerMessageBurnLimitResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdatePerMessageBurnLimit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateSignatureThreshold, opts ...grpc.CallOption) (*MsgUpdateSignatureThresholdResponse, error) {
+	out := new(MsgUpdateSignatureThresholdResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateSignatureThreshold", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	UpdateAuthority(context.Context, *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error)
-	EnableAttester(context.Context, *MsgEnableAttester) (*MsgEnableAttesterResponse, error)
-	DisableAttester(context.Context, *MsgDisableAttester) (*MsgDisableAttesterResponse, error)
-	PauseBurningAndMinting(context.Context, *MsgPauseBurningAndMinting) (*MsgPauseBurningAndMintingResponse, error)
-	UnpauseBurningAndMinting(context.Context, *MsgUnpauseBurningAndMinting) (*MsgUnpauseBurningAndMintingResponse, error)
-	PauseSendingAndReceivingMessages(context.Context, *MsgPauseSendingAndReceivingMessages) (*MsgPauseSendingAndReceivingMessagesResponse, error)
-	UnpauseSendingAndReceivingMessages(context.Context, *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
-	UpdateMaxMessageBodySize(context.Context, *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error)
-	UpdatePerMessageBurnLimit(context.Context, *MsgUpdatePerMessageBurnLimit) (*MsgUpdatePerMessageBurnLimitResponse, error)
-	UpdateSignatureThreshold(context.Context, *MsgUpdateSignatureThreshold) (*MsgUpdateSignatureThresholdResponse, error)
-	LinkTokenPair(context.Context, *MsgLinkTokenPair) (*MsgLinkTokenPairResponse, error)
-	UnlinkTokenPair(context.Context, *MsgUnlinkTokenPair) (*MsgUnlinkTokenPairResponse, error)
 	AddTokenMessenger(context.Context, *MsgAddTokenMessenger) (*MsgAddTokenMessengerResponse, error)
-	RemoveTokenMessenger(context.Context, *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error)
 	DepositForBurn(context.Context, *MsgDepositForBurn) (*MsgDepositForBurnResponse, error)
 	DepositForBurnWithCaller(context.Context, *MsgDepositForBurnWithCaller) (*MsgDepositForBurnWithCallerResponse, error)
+	DisableAttester(context.Context, *MsgDisableAttester) (*MsgDisableAttesterResponse, error)
+	EnableAttester(context.Context, *MsgEnableAttester) (*MsgEnableAttesterResponse, error)
+	LinkTokenPair(context.Context, *MsgLinkTokenPair) (*MsgLinkTokenPairResponse, error)
+	PauseBurningAndMinting(context.Context, *MsgPauseBurningAndMinting) (*MsgPauseBurningAndMintingResponse, error)
+	PauseSendingAndReceivingMessages(context.Context, *MsgPauseSendingAndReceivingMessages) (*MsgPauseSendingAndReceivingMessagesResponse, error)
 	ReceiveMessage(context.Context, *MsgReceiveMessage) (*MsgReceiveMessageResponse, error)
+	RemoveTokenMessenger(context.Context, *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error)
 	ReplaceDepositForBurn(context.Context, *MsgReplaceDepositForBurn) (*MsgReplaceDepositForBurnResponse, error)
 	ReplaceMessage(context.Context, *MsgReplaceMessage) (*MsgReplaceMessageResponse, error)
 	SendMessage(context.Context, *MsgSendMessage) (*MsgSendMessageResponse, error)
 	SendMessageWithCaller(context.Context, *MsgSendMessageWithCaller) (*MsgSendMessageWithCallerResponse, error)
+	UnlinkTokenPair(context.Context, *MsgUnlinkTokenPair) (*MsgUnlinkTokenPairResponse, error)
+	UnpauseBurningAndMinting(context.Context, *MsgUnpauseBurningAndMinting) (*MsgUnpauseBurningAndMintingResponse, error)
+	UnpauseSendingAndReceivingMessages(context.Context, *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
+	UpdateAuthority(context.Context, *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error)
+	UpdateMaxMessageBodySize(context.Context, *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error)
+	UpdatePerMessageBurnLimit(context.Context, *MsgUpdatePerMessageBurnLimit) (*MsgUpdatePerMessageBurnLimitResponse, error)
+	UpdateSignatureThreshold(context.Context, *MsgUpdateSignatureThreshold) (*MsgUpdateSignatureThresholdResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) UpdateAuthority(ctx context.Context, req *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAuthority not implemented")
-}
-func (*UnimplementedMsgServer) EnableAttester(ctx context.Context, req *MsgEnableAttester) (*MsgEnableAttesterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnableAttester not implemented")
-}
-func (*UnimplementedMsgServer) DisableAttester(ctx context.Context, req *MsgDisableAttester) (*MsgDisableAttesterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DisableAttester not implemented")
-}
-func (*UnimplementedMsgServer) PauseBurningAndMinting(ctx context.Context, req *MsgPauseBurningAndMinting) (*MsgPauseBurningAndMintingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PauseBurningAndMinting not implemented")
-}
-func (*UnimplementedMsgServer) UnpauseBurningAndMinting(ctx context.Context, req *MsgUnpauseBurningAndMinting) (*MsgUnpauseBurningAndMintingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnpauseBurningAndMinting not implemented")
-}
-func (*UnimplementedMsgServer) PauseSendingAndReceivingMessages(ctx context.Context, req *MsgPauseSendingAndReceivingMessages) (*MsgPauseSendingAndReceivingMessagesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PauseSendingAndReceivingMessages not implemented")
-}
-func (*UnimplementedMsgServer) UnpauseSendingAndReceivingMessages(ctx context.Context, req *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnpauseSendingAndReceivingMessages not implemented")
-}
-func (*UnimplementedMsgServer) UpdateMaxMessageBodySize(ctx context.Context, req *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateMaxMessageBodySize not implemented")
-}
-func (*UnimplementedMsgServer) UpdatePerMessageBurnLimit(ctx context.Context, req *MsgUpdatePerMessageBurnLimit) (*MsgUpdatePerMessageBurnLimitResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdatePerMessageBurnLimit not implemented")
-}
-func (*UnimplementedMsgServer) UpdateSignatureThreshold(ctx context.Context, req *MsgUpdateSignatureThreshold) (*MsgUpdateSignatureThresholdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSignatureThreshold not implemented")
-}
-func (*UnimplementedMsgServer) LinkTokenPair(ctx context.Context, req *MsgLinkTokenPair) (*MsgLinkTokenPairResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LinkTokenPair not implemented")
-}
-func (*UnimplementedMsgServer) UnlinkTokenPair(ctx context.Context, req *MsgUnlinkTokenPair) (*MsgUnlinkTokenPairResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnlinkTokenPair not implemented")
-}
 func (*UnimplementedMsgServer) AddTokenMessenger(ctx context.Context, req *MsgAddTokenMessenger) (*MsgAddTokenMessengerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTokenMessenger not implemented")
-}
-func (*UnimplementedMsgServer) RemoveTokenMessenger(ctx context.Context, req *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveTokenMessenger not implemented")
 }
 func (*UnimplementedMsgServer) DepositForBurn(ctx context.Context, req *MsgDepositForBurn) (*MsgDepositForBurnResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DepositForBurn not implemented")
@@ -2523,8 +2484,26 @@ func (*UnimplementedMsgServer) DepositForBurn(ctx context.Context, req *MsgDepos
 func (*UnimplementedMsgServer) DepositForBurnWithCaller(ctx context.Context, req *MsgDepositForBurnWithCaller) (*MsgDepositForBurnWithCallerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DepositForBurnWithCaller not implemented")
 }
+func (*UnimplementedMsgServer) DisableAttester(ctx context.Context, req *MsgDisableAttester) (*MsgDisableAttesterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DisableAttester not implemented")
+}
+func (*UnimplementedMsgServer) EnableAttester(ctx context.Context, req *MsgEnableAttester) (*MsgEnableAttesterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnableAttester not implemented")
+}
+func (*UnimplementedMsgServer) LinkTokenPair(ctx context.Context, req *MsgLinkTokenPair) (*MsgLinkTokenPairResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LinkTokenPair not implemented")
+}
+func (*UnimplementedMsgServer) PauseBurningAndMinting(ctx context.Context, req *MsgPauseBurningAndMinting) (*MsgPauseBurningAndMintingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PauseBurningAndMinting not implemented")
+}
+func (*UnimplementedMsgServer) PauseSendingAndReceivingMessages(ctx context.Context, req *MsgPauseSendingAndReceivingMessages) (*MsgPauseSendingAndReceivingMessagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PauseSendingAndReceivingMessages not implemented")
+}
 func (*UnimplementedMsgServer) ReceiveMessage(ctx context.Context, req *MsgReceiveMessage) (*MsgReceiveMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReceiveMessage not implemented")
+}
+func (*UnimplementedMsgServer) RemoveTokenMessenger(ctx context.Context, req *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTokenMessenger not implemented")
 }
 func (*UnimplementedMsgServer) ReplaceDepositForBurn(ctx context.Context, req *MsgReplaceDepositForBurn) (*MsgReplaceDepositForBurnResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReplaceDepositForBurn not implemented")
@@ -2538,225 +2517,30 @@ func (*UnimplementedMsgServer) SendMessage(ctx context.Context, req *MsgSendMess
 func (*UnimplementedMsgServer) SendMessageWithCaller(ctx context.Context, req *MsgSendMessageWithCaller) (*MsgSendMessageWithCallerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessageWithCaller not implemented")
 }
+func (*UnimplementedMsgServer) UnlinkTokenPair(ctx context.Context, req *MsgUnlinkTokenPair) (*MsgUnlinkTokenPairResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnlinkTokenPair not implemented")
+}
+func (*UnimplementedMsgServer) UnpauseBurningAndMinting(ctx context.Context, req *MsgUnpauseBurningAndMinting) (*MsgUnpauseBurningAndMintingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnpauseBurningAndMinting not implemented")
+}
+func (*UnimplementedMsgServer) UnpauseSendingAndReceivingMessages(ctx context.Context, req *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnpauseSendingAndReceivingMessages not implemented")
+}
+func (*UnimplementedMsgServer) UpdateAuthority(ctx context.Context, req *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAuthority not implemented")
+}
+func (*UnimplementedMsgServer) UpdateMaxMessageBodySize(ctx context.Context, req *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMaxMessageBodySize not implemented")
+}
+func (*UnimplementedMsgServer) UpdatePerMessageBurnLimit(ctx context.Context, req *MsgUpdatePerMessageBurnLimit) (*MsgUpdatePerMessageBurnLimitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePerMessageBurnLimit not implemented")
+}
+func (*UnimplementedMsgServer) UpdateSignatureThreshold(ctx context.Context, req *MsgUpdateSignatureThreshold) (*MsgUpdateSignatureThresholdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSignatureThreshold not implemented")
+}
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
-}
-
-func _Msg_UpdateAuthority_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateAuthority)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UpdateAuthority(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UpdateAuthority",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateAuthority(ctx, req.(*MsgUpdateAuthority))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_EnableAttester_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgEnableAttester)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).EnableAttester(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/EnableAttester",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).EnableAttester(ctx, req.(*MsgEnableAttester))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_DisableAttester_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgDisableAttester)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).DisableAttester(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/DisableAttester",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).DisableAttester(ctx, req.(*MsgDisableAttester))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_PauseBurningAndMinting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgPauseBurningAndMinting)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).PauseBurningAndMinting(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/PauseBurningAndMinting",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).PauseBurningAndMinting(ctx, req.(*MsgPauseBurningAndMinting))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UnpauseBurningAndMinting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUnpauseBurningAndMinting)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UnpauseBurningAndMinting(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UnpauseBurningAndMinting",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UnpauseBurningAndMinting(ctx, req.(*MsgUnpauseBurningAndMinting))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_PauseSendingAndReceivingMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgPauseSendingAndReceivingMessages)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).PauseSendingAndReceivingMessages(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/PauseSendingAndReceivingMessages",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).PauseSendingAndReceivingMessages(ctx, req.(*MsgPauseSendingAndReceivingMessages))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UnpauseSendingAndReceivingMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUnpauseSendingAndReceivingMessages)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UnpauseSendingAndReceivingMessages(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UnpauseSendingAndReceivingMessages",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UnpauseSendingAndReceivingMessages(ctx, req.(*MsgUnpauseSendingAndReceivingMessages))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UpdateMaxMessageBodySize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateMaxMessageBodySize)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UpdateMaxMessageBodySize(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UpdateMaxMessageBodySize",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateMaxMessageBodySize(ctx, req.(*MsgUpdateMaxMessageBodySize))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UpdatePerMessageBurnLimit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdatePerMessageBurnLimit)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UpdatePerMessageBurnLimit(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UpdatePerMessageBurnLimit",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdatePerMessageBurnLimit(ctx, req.(*MsgUpdatePerMessageBurnLimit))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UpdateSignatureThreshold_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateSignatureThreshold)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UpdateSignatureThreshold(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UpdateSignatureThreshold",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateSignatureThreshold(ctx, req.(*MsgUpdateSignatureThreshold))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_LinkTokenPair_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgLinkTokenPair)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).LinkTokenPair(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/LinkTokenPair",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).LinkTokenPair(ctx, req.(*MsgLinkTokenPair))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_UnlinkTokenPair_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUnlinkTokenPair)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).UnlinkTokenPair(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UnlinkTokenPair",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UnlinkTokenPair(ctx, req.(*MsgUnlinkTokenPair))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Msg_AddTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -2773,24 +2557,6 @@ func _Msg_AddTokenMessenger_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).AddTokenMessenger(ctx, req.(*MsgAddTokenMessenger))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_RemoveTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgRemoveTokenMessenger)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).RemoveTokenMessenger(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/RemoveTokenMessenger",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RemoveTokenMessenger(ctx, req.(*MsgRemoveTokenMessenger))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2831,6 +2597,96 @@ func _Msg_DepositForBurnWithCaller_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_DisableAttester_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDisableAttester)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DisableAttester(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/DisableAttester",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DisableAttester(ctx, req.(*MsgDisableAttester))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_EnableAttester_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEnableAttester)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EnableAttester(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/EnableAttester",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EnableAttester(ctx, req.(*MsgEnableAttester))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_LinkTokenPair_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLinkTokenPair)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LinkTokenPair(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/LinkTokenPair",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LinkTokenPair(ctx, req.(*MsgLinkTokenPair))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PauseBurningAndMinting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPauseBurningAndMinting)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PauseBurningAndMinting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/PauseBurningAndMinting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PauseBurningAndMinting(ctx, req.(*MsgPauseBurningAndMinting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PauseSendingAndReceivingMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPauseSendingAndReceivingMessages)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PauseSendingAndReceivingMessages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/PauseSendingAndReceivingMessages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PauseSendingAndReceivingMessages(ctx, req.(*MsgPauseSendingAndReceivingMessages))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_ReceiveMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgReceiveMessage)
 	if err := dec(in); err != nil {
@@ -2845,6 +2701,24 @@ func _Msg_ReceiveMessage_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).ReceiveMessage(ctx, req.(*MsgReceiveMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_RemoveTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRemoveTokenMessenger)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).RemoveTokenMessenger(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/RemoveTokenMessenger",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).RemoveTokenMessenger(ctx, req.(*MsgRemoveTokenMessenger))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2921,65 +2795,139 @@ func _Msg_SendMessageWithCaller_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_UnlinkTokenPair_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUnlinkTokenPair)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UnlinkTokenPair(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UnlinkTokenPair",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UnlinkTokenPair(ctx, req.(*MsgUnlinkTokenPair))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UnpauseBurningAndMinting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUnpauseBurningAndMinting)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UnpauseBurningAndMinting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UnpauseBurningAndMinting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UnpauseBurningAndMinting(ctx, req.(*MsgUnpauseBurningAndMinting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UnpauseSendingAndReceivingMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUnpauseSendingAndReceivingMessages)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UnpauseSendingAndReceivingMessages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UnpauseSendingAndReceivingMessages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UnpauseSendingAndReceivingMessages(ctx, req.(*MsgUnpauseSendingAndReceivingMessages))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateAuthority_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateAuthority)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateAuthority(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UpdateAuthority",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateAuthority(ctx, req.(*MsgUpdateAuthority))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateMaxMessageBodySize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateMaxMessageBodySize)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateMaxMessageBodySize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UpdateMaxMessageBodySize",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateMaxMessageBodySize(ctx, req.(*MsgUpdateMaxMessageBodySize))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdatePerMessageBurnLimit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdatePerMessageBurnLimit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdatePerMessageBurnLimit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UpdatePerMessageBurnLimit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdatePerMessageBurnLimit(ctx, req.(*MsgUpdatePerMessageBurnLimit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateSignatureThreshold_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateSignatureThreshold)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateSignatureThreshold(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Msg/UpdateSignatureThreshold",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateSignatureThreshold(ctx, req.(*MsgUpdateSignatureThreshold))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "noble.cctp.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "UpdateAuthority",
-			Handler:    _Msg_UpdateAuthority_Handler,
-		},
-		{
-			MethodName: "EnableAttester",
-			Handler:    _Msg_EnableAttester_Handler,
-		},
-		{
-			MethodName: "DisableAttester",
-			Handler:    _Msg_DisableAttester_Handler,
-		},
-		{
-			MethodName: "PauseBurningAndMinting",
-			Handler:    _Msg_PauseBurningAndMinting_Handler,
-		},
-		{
-			MethodName: "UnpauseBurningAndMinting",
-			Handler:    _Msg_UnpauseBurningAndMinting_Handler,
-		},
-		{
-			MethodName: "PauseSendingAndReceivingMessages",
-			Handler:    _Msg_PauseSendingAndReceivingMessages_Handler,
-		},
-		{
-			MethodName: "UnpauseSendingAndReceivingMessages",
-			Handler:    _Msg_UnpauseSendingAndReceivingMessages_Handler,
-		},
-		{
-			MethodName: "UpdateMaxMessageBodySize",
-			Handler:    _Msg_UpdateMaxMessageBodySize_Handler,
-		},
-		{
-			MethodName: "UpdatePerMessageBurnLimit",
-			Handler:    _Msg_UpdatePerMessageBurnLimit_Handler,
-		},
-		{
-			MethodName: "UpdateSignatureThreshold",
-			Handler:    _Msg_UpdateSignatureThreshold_Handler,
-		},
-		{
-			MethodName: "LinkTokenPair",
-			Handler:    _Msg_LinkTokenPair_Handler,
-		},
-		{
-			MethodName: "UnlinkTokenPair",
-			Handler:    _Msg_UnlinkTokenPair_Handler,
-		},
-		{
 			MethodName: "AddTokenMessenger",
 			Handler:    _Msg_AddTokenMessenger_Handler,
-		},
-		{
-			MethodName: "RemoveTokenMessenger",
-			Handler:    _Msg_RemoveTokenMessenger_Handler,
 		},
 		{
 			MethodName: "DepositForBurn",
@@ -2990,8 +2938,32 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_DepositForBurnWithCaller_Handler,
 		},
 		{
+			MethodName: "DisableAttester",
+			Handler:    _Msg_DisableAttester_Handler,
+		},
+		{
+			MethodName: "EnableAttester",
+			Handler:    _Msg_EnableAttester_Handler,
+		},
+		{
+			MethodName: "LinkTokenPair",
+			Handler:    _Msg_LinkTokenPair_Handler,
+		},
+		{
+			MethodName: "PauseBurningAndMinting",
+			Handler:    _Msg_PauseBurningAndMinting_Handler,
+		},
+		{
+			MethodName: "PauseSendingAndReceivingMessages",
+			Handler:    _Msg_PauseSendingAndReceivingMessages_Handler,
+		},
+		{
 			MethodName: "ReceiveMessage",
 			Handler:    _Msg_ReceiveMessage_Handler,
+		},
+		{
+			MethodName: "RemoveTokenMessenger",
+			Handler:    _Msg_RemoveTokenMessenger_Handler,
 		},
 		{
 			MethodName: "ReplaceDepositForBurn",
@@ -3008,6 +2980,34 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendMessageWithCaller",
 			Handler:    _Msg_SendMessageWithCaller_Handler,
+		},
+		{
+			MethodName: "UnlinkTokenPair",
+			Handler:    _Msg_UnlinkTokenPair_Handler,
+		},
+		{
+			MethodName: "UnpauseBurningAndMinting",
+			Handler:    _Msg_UnpauseBurningAndMinting_Handler,
+		},
+		{
+			MethodName: "UnpauseSendingAndReceivingMessages",
+			Handler:    _Msg_UnpauseSendingAndReceivingMessages_Handler,
+		},
+		{
+			MethodName: "UpdateAuthority",
+			Handler:    _Msg_UpdateAuthority_Handler,
+		},
+		{
+			MethodName: "UpdateMaxMessageBodySize",
+			Handler:    _Msg_UpdateMaxMessageBodySize_Handler,
+		},
+		{
+			MethodName: "UpdatePerMessageBurnLimit",
+			Handler:    _Msg_UpdatePerMessageBurnLimit_Handler,
+		},
+		{
+			MethodName: "UpdateSignatureThreshold",
+			Handler:    _Msg_UpdateSignatureThreshold_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

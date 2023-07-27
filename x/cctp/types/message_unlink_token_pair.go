@@ -9,12 +9,12 @@ const TypeMsgUnlinkTokenPair = "unlink_token_pair"
 
 var _ sdk.Msg = &MsgUnlinkTokenPair{}
 
-func NewMsgUnlinkTokenPair(from string, remoteDomain uint32, remoteToken string, localToken string) *MsgUnlinkTokenPair {
+func NewMsgUnlinkTokenPair(from string, localToken string, remoteToken string, remoteDomain uint32) *MsgUnlinkTokenPair {
 	return &MsgUnlinkTokenPair{
 		From:         from,
+		LocalToken:   localToken,
 		RemoteDomain: remoteDomain,
 		RemoteToken:  remoteToken,
-		LocalToken:   localToken,
 	}
 }
 

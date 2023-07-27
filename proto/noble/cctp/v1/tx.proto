@@ -8,28 +8,27 @@ option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateAuthority(MsgUpdateAuthority) returns (MsgUpdateAuthorityResponse);
-  rpc EnableAttester(MsgEnableAttester) returns (MsgEnableAttesterResponse);
-  rpc DisableAttester(MsgDisableAttester) returns (MsgDisableAttesterResponse);
-  rpc PauseBurningAndMinting(MsgPauseBurningAndMinting) returns (MsgPauseBurningAndMintingResponse);
-  rpc UnpauseBurningAndMinting(MsgUnpauseBurningAndMinting) returns (MsgUnpauseBurningAndMintingResponse);
-  rpc PauseSendingAndReceivingMessages(MsgPauseSendingAndReceivingMessages) returns (MsgPauseSendingAndReceivingMessagesResponse);
-  rpc UnpauseSendingAndReceivingMessages(MsgUnpauseSendingAndReceivingMessages) returns (MsgUnpauseSendingAndReceivingMessagesResponse);
-  rpc UpdateMaxMessageBodySize(MsgUpdateMaxMessageBodySize) returns (MsgUpdateMaxMessageBodySizeResponse);
-  rpc UpdatePerMessageBurnLimit(MsgUpdatePerMessageBurnLimit) returns (MsgUpdatePerMessageBurnLimitResponse);
-  rpc UpdateSignatureThreshold(MsgUpdateSignatureThreshold) returns (MsgUpdateSignatureThresholdResponse);
-  rpc LinkTokenPair(MsgLinkTokenPair) returns (MsgLinkTokenPairResponse);
-  rpc UnlinkTokenPair(MsgUnlinkTokenPair) returns (MsgUnlinkTokenPairResponse);
   rpc AddTokenMessenger(MsgAddTokenMessenger) returns (MsgAddTokenMessengerResponse);
-  rpc RemoveTokenMessenger(MsgRemoveTokenMessenger) returns (MsgRemoveTokenMessengerResponse);
-
   rpc DepositForBurn(MsgDepositForBurn) returns (MsgDepositForBurnResponse);
   rpc DepositForBurnWithCaller(MsgDepositForBurnWithCaller) returns (MsgDepositForBurnWithCallerResponse);
+  rpc DisableAttester(MsgDisableAttester) returns (MsgDisableAttesterResponse);
+  rpc EnableAttester(MsgEnableAttester) returns (MsgEnableAttesterResponse);
+  rpc LinkTokenPair(MsgLinkTokenPair) returns (MsgLinkTokenPairResponse);
+  rpc PauseBurningAndMinting(MsgPauseBurningAndMinting) returns (MsgPauseBurningAndMintingResponse);
+  rpc PauseSendingAndReceivingMessages(MsgPauseSendingAndReceivingMessages) returns (MsgPauseSendingAndReceivingMessagesResponse);
   rpc ReceiveMessage(MsgReceiveMessage) returns (MsgReceiveMessageResponse);
+  rpc RemoveTokenMessenger(MsgRemoveTokenMessenger) returns (MsgRemoveTokenMessengerResponse);
   rpc ReplaceDepositForBurn(MsgReplaceDepositForBurn) returns (MsgReplaceDepositForBurnResponse);
   rpc ReplaceMessage(MsgReplaceMessage) returns (MsgReplaceMessageResponse);
   rpc SendMessage(MsgSendMessage) returns (MsgSendMessageResponse);
   rpc SendMessageWithCaller(MsgSendMessageWithCaller) returns (MsgSendMessageWithCallerResponse);
+  rpc UnlinkTokenPair(MsgUnlinkTokenPair) returns (MsgUnlinkTokenPairResponse);
+  rpc UnpauseBurningAndMinting(MsgUnpauseBurningAndMinting) returns (MsgUnpauseBurningAndMintingResponse);
+  rpc UnpauseSendingAndReceivingMessages(MsgUnpauseSendingAndReceivingMessages) returns (MsgUnpauseSendingAndReceivingMessagesResponse);
+  rpc UpdateAuthority(MsgUpdateAuthority) returns (MsgUpdateAuthorityResponse);
+  rpc UpdateMaxMessageBodySize(MsgUpdateMaxMessageBodySize) returns (MsgUpdateMaxMessageBodySizeResponse);
+  rpc UpdatePerMessageBurnLimit(MsgUpdatePerMessageBurnLimit) returns (MsgUpdatePerMessageBurnLimitResponse);
+  rpc UpdateSignatureThreshold(MsgUpdateSignatureThreshold) returns (MsgUpdateSignatureThresholdResponse);
 }
 // TODO add comments
 message MsgUpdateAuthority {

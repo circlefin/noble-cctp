@@ -160,7 +160,7 @@ message QueryAllPerMessageBurnLimitsRequest {
 // QueryAllPerMessageBurnLimitsRequest is the response type for the Query/PerMessageBurnLimit RPC method.
 message QueryAllPerMessageBurnLimitsResponse {
   repeated PerMessageBurnLimit burn_limits = 1 [(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // QueryBurningAndMintingPausedRequest is the request type for the Query/BurningAndMintingPaused RPC method.
