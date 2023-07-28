@@ -5,7 +5,7 @@ package noble.cctp.v1;
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * TokenMessenger TODO
+ * TODO rename to RemoteTokenMessenger everywhere
  * @param domain_id
  * @param address
  */

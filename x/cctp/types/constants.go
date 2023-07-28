@@ -36,4 +36,6 @@ const (
 	NonceBitLen                 = 32
 	SignatureThresholdBitLength = 32
 	BaseTen                     = 10
+
+	SignatureLength = 65
 )
