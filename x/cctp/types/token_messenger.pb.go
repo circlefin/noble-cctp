@@ -23,7 +23,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // *
-// TokenMessenger TODO
+// TODO rename to RemoteTokenMessenger everywhere
 // @param domain_id
 // @param address
 type TokenMessenger struct {
