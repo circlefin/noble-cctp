@@ -26,3 +26,15 @@ func (k Keeper) SetNextAvailableNonce(ctx sdk.Context, key types.Nonce) {
 	b := k.cdc.MustMarshal(&key)
 	store.Set(types.KeyPrefix(types.NextAvailableNonceKey), b)
 }
+
+func (k Keeper) ReserveAndIncrementNonce(ctx sdk.Context) (val types.Nonce) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NextAvailableNonceKey))
+	b := store.Get(types.KeyPrefix(types.NextAvailableNonceKey))
+	k.cdc.MustUnmarshal(b, &val)
+
+	newNonce := types.Nonce{Nonce: val.Nonce + 1}
+	b = k.cdc.MustMarshal(&newNonce)
+
+	store.Set(types.KeyPrefix(types.NextAvailableNonceKey), b)
+	return val
+}

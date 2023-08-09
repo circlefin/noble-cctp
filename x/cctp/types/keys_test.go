@@ -71,7 +71,7 @@ func TestKeys_TokenMessengerKey(t *testing.T) {
 		{
 			name:     "happy path",
 			domain:   uint32(2),
-			expected: []byte{0, 0, 2, '/'},
+			expected: []byte{0, 0, 0, 2, '/'},
 		},
 	}
 	for _, tt := range tests {

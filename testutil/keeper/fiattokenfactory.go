@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"testing"
 
 	"github.com/strangelove-ventures/noble/testutil/sample"
@@ -69,4 +70,51 @@ func (MockFiatTokenfactoryKeeper) Burn(ctx context.Context, msg *types.MsgBurn) 
 
 func (MockFiatTokenfactoryKeeper) GetMintingDenom(ctx sdk.Context) (val types.MintingDenom) {
 	return types.MintingDenom{Denom: "uusdc"}
+}
+
+func ErrFiatTokenfactoryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+
+	db := tmdb.NewMemDB()
+	stateStore := store.NewCommitMultiStore(db)
+	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+	require.NoError(t, stateStore.LoadLatestVersion())
+
+	registry := codectypes.NewInterfaceRegistry()
+	cdc := codec.NewProtoCodec(registry)
+
+	paramsSubspace := typesparams.NewSubspace(cdc,
+		codec.NewLegacyAmino(),
+		storeKey,
+		nil,
+		"TokenfactoryParams",
+	)
+	k := keeper.NewKeeper(
+		cdc,
+		storeKey,
+		paramsSubspace,
+		MockBankKeeper{},
+	)
+
+	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+
+	// Initialize params
+	k.SetParams(ctx, types.DefaultParams())
+
+	return k, ctx
+}
+
+// MockErrFiatTokenfactoryKeeper - all dependencies err
+type MockErrFiatTokenfactoryKeeper struct{}
+
+func (k MockErrFiatTokenfactoryKeeper) Mint(ctx context.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
+	return nil, sdkerrors.Wrap(types.ErrBurn, "error calling mint")
+}
+
+func (k MockErrFiatTokenfactoryKeeper) GetMintingDenom(ctx sdk.Context) (val types.MintingDenom) {
+	return types.MintingDenom{Denom: "uusdc"}
+}
+
+func (MockErrFiatTokenfactoryKeeper) Burn(ctx context.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
+	return &types.MsgBurnResponse{}, types.ErrBurn
 }

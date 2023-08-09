@@ -38,3 +38,37 @@ func TestNextAvailableNonce(t *testing.T) {
 		nullify.Fill(&next),
 	)
 }
+
+func TestNextAvailableNonceReserveAndIncrement(t *testing.T) {
+
+	keeper, ctx := keepertest.CctpKeeper(t)
+
+	savedNonce := types.Nonce{Nonce: 21}
+	keeper.SetNextAvailableNonce(ctx, savedNonce)
+
+	prev, found := keeper.GetNextAvailableNonce(ctx)
+	require.True(t, found)
+	require.Equal(t,
+		savedNonce,
+		nullify.Fill(&prev),
+	)
+
+	// method returns the nonce being reserved
+	nextFromMethod := keeper.ReserveAndIncrementNonce(ctx)
+	require.Equal(t,
+		types.Nonce{
+			Nonce: prev.Nonce,
+		},
+		nullify.Fill(&nextFromMethod),
+	)
+
+	// retrieving the nonce should get reserved nonce + 1
+	next, found := keeper.GetNextAvailableNonce(ctx)
+	require.True(t, found)
+	require.Equal(t,
+		types.Nonce{
+			Nonce: prev.Nonce + 1,
+		},
+		nullify.Fill(&next),
+	)
+}

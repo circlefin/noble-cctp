@@ -13,10 +13,10 @@ import (
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 	"google.golang.org/grpc/status"
 
+	"github.com/circlefin/noble-cctp/testutil/nullify"
 	"github.com/circlefin/noble-cctp/x/cctp/client/cli"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	"github.com/strangelove-ventures/noble/testutil/network"
-	"github.com/strangelove-ventures/noble/testutil/nullify"
 )
 
 func networkWithAttesterObjects(t *testing.T, n int) (*network.Network, []types.Attester) {
@@ -117,10 +117,10 @@ func TestListAttesters(t *testing.T) {
 			require.NoError(t, err)
 			var resp types.QueryAllAttestersResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-			require.LessOrEqual(t, len(resp.Attester), step)
+			require.LessOrEqual(t, len(resp.Attesters), step)
 			require.Subset(t,
 				nullify.Fill(objs),
-				nullify.Fill(resp.Attester),
+				nullify.Fill(resp.Attesters),
 			)
 		}
 	})
@@ -133,10 +133,10 @@ func TestListAttesters(t *testing.T) {
 			require.NoError(t, err)
 			var resp types.QueryAllAttestersResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-			require.LessOrEqual(t, len(resp.Attester), step)
+			require.LessOrEqual(t, len(resp.Attesters), step)
 			require.Subset(t,
 				nullify.Fill(objs),
-				nullify.Fill(resp.Attester),
+				nullify.Fill(resp.Attesters),
 			)
 			next = resp.Pagination.NextKey
 		}
@@ -151,7 +151,7 @@ func TestListAttesters(t *testing.T) {
 		require.Equal(t, len(objs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(objs),
-			nullify.Fill(resp.Attester),
+			nullify.Fill(resp.Attesters),
 		)
 	})
 }

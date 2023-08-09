@@ -79,7 +79,5 @@ func TokenMessengerKey(domain uint32) []byte {
 	domainBytes := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(domainBytes, domain)
 
-	key := crypto.Keccak256(domainBytes)
-
-	return append(key, []byte("/")...)
+	return append(domainBytes, []byte("/")...)
 }

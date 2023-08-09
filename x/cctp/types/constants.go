@@ -29,11 +29,14 @@ const (
 	MessageBodyVersion  = 0
 	NobleDomainId       = 4
 
-	DomainBytesLen = 4
-	UsedNonceLen   = 8
+	DomainBytesLen  = 4
+	UsedNonceLen    = 8
+	NonceBytesLen   = 8
+	AddressBytesLen = 32
 
 	DomainBitLen                = 32
 	NonceBitLen                 = 32
+	DestinationCallerLen        = 32
 	SignatureThresholdBitLength = 32
 	BaseTen                     = 10
 
