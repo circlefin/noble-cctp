@@ -1,6 +1,8 @@
 package cctp_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/nullify"
@@ -8,7 +10,6 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestGenesisHappyPath(t *testing.T) {
@@ -53,12 +54,12 @@ func TestGenesisHappyPath(t *testing.T) {
 		TokenPairList: []types.TokenPair{
 			{
 				RemoteDomain: uint32(0),
-				RemoteToken:  "1",
+				RemoteToken:  []byte("1"),
 				LocalToken:   "uusdc",
 			},
 			{
 				RemoteDomain: uint32(1),
-				RemoteToken:  "2",
+				RemoteToken:  []byte("2"),
 				LocalToken:   "uusdc",
 			},
 		},

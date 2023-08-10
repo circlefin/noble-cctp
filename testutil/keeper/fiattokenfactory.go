@@ -1,9 +1,9 @@
 package keeper
 
 import (
-	"context"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"testing"
+
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/strangelove-ventures/noble/testutil/sample"
 	cctpmoduletypes "github.com/strangelove-ventures/noble/x/cctp/types"
@@ -60,11 +60,11 @@ func (k MockFiatTokenfactoryKeeper) GetAuthority(ctx sdk.Context) (val cctpmodul
 	return cctpmoduletypes.Authority{Address: sample.AccAddress()}, true
 }
 
-func (MockFiatTokenfactoryKeeper) Mint(ctx context.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
+func (MockFiatTokenfactoryKeeper) Mint(ctx sdk.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
 	return &types.MsgMintResponse{}, nil
 }
 
-func (MockFiatTokenfactoryKeeper) Burn(ctx context.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
+func (MockFiatTokenfactoryKeeper) Burn(ctx sdk.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
 	return &types.MsgBurnResponse{}, nil
 }
 
@@ -107,7 +107,7 @@ func ErrFiatTokenfactoryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 // MockErrFiatTokenfactoryKeeper - all dependencies err
 type MockErrFiatTokenfactoryKeeper struct{}
 
-func (k MockErrFiatTokenfactoryKeeper) Mint(ctx context.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
+func (k MockErrFiatTokenfactoryKeeper) Mint(ctx sdk.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
 	return nil, sdkerrors.Wrap(types.ErrBurn, "error calling mint")
 }
 
@@ -115,6 +115,6 @@ func (k MockErrFiatTokenfactoryKeeper) GetMintingDenom(ctx sdk.Context) (val typ
 	return types.MintingDenom{Denom: "uusdc"}
 }
 
-func (MockErrFiatTokenfactoryKeeper) Burn(ctx context.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
+func (MockErrFiatTokenfactoryKeeper) Burn(ctx sdk.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
 	return &types.MsgBurnResponse{}, types.ErrBurn
 }

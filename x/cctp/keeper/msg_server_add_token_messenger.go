@@ -2,10 +2,11 @@ package keeper
 
 import (
 	"context"
+	"strings"
+
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"strings"
 )
 
 func (k msgServer) AddTokenMessenger(goCtx context.Context, msg *types.MsgAddTokenMessenger) (*types.MsgAddTokenMessengerResponse, error) {
@@ -23,6 +24,10 @@ func (k msgServer) AddTokenMessenger(goCtx context.Context, msg *types.MsgAddTok
 	_, found = k.GetTokenMessenger(ctx, msg.DomainId)
 	if found {
 		return nil, sdkerrors.Wrapf(types.ErrTokenMessengerAlreadyFound, "a token messenger for this domain already exists")
+	}
+
+	if msg.Address == "" {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "address cannot be empty")
 	}
 
 	newTokenMessenger := types.TokenMessenger{

@@ -8,7 +8,17 @@ import (
 )
 
 // GetTokenPair returns a token pair
-func (k Keeper) GetTokenPair(ctx sdk.Context, remoteDomain uint32, remoteToken string) (val types.TokenPair, found bool) {
+func (k Keeper) GetTokenPairHex(ctx sdk.Context, remoteDomain uint32, remoteTokenHex string) (val types.TokenPair, found bool) {
+	remoteTokenPadded, err := types.RemoteTokenPadded(remoteTokenHex)
+	if err != nil {
+		return val, false
+	}
+
+	return k.GetTokenPair(ctx, remoteDomain, remoteTokenPadded)
+}
+
+// GetTokenPair returns a token pair
+func (k Keeper) GetTokenPair(ctx sdk.Context, remoteDomain uint32, remoteToken []byte) (val types.TokenPair, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TokenPairKeyPrefix))
 
 	b := store.Get(types.TokenPairKey(remoteDomain, remoteToken))
@@ -31,7 +41,7 @@ func (k Keeper) SetTokenPair(ctx sdk.Context, tokenPair types.TokenPair) {
 func (k Keeper) DeleteTokenPair(
 	ctx sdk.Context,
 	remoteDomain uint32,
-	remoteToken string,
+	remoteToken []byte,
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TokenPairKeyPrefix))
 	store.Delete(types.TokenPairKey(remoteDomain, remoteToken))

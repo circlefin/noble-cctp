@@ -2,7 +2,6 @@ package types
 
 import (
 	"encoding/binary"
-	"strings"
 
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -64,11 +63,11 @@ func UsedNonceKey(nonce uint64, sourceDomain uint32) []byte {
 }
 
 // TokenPairKey returns the store key to retrieve a TokenPair from the index fields
-func TokenPairKey(remoteDomain uint32, remoteToken string) []byte {
+func TokenPairKey(remoteDomain uint32, remoteToken []byte) []byte {
 	remoteDomainBytes := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(remoteDomainBytes, remoteDomain)
 
-	combinedBytes := append(remoteDomainBytes, []byte(strings.ToLower(remoteToken))...)
+	combinedBytes := append(remoteDomainBytes, remoteToken...)
 	hashedKey := crypto.Keccak256(combinedBytes)
 
 	return append(hashedKey, []byte("/")...)

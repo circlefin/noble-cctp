@@ -3,10 +3,11 @@ package keeper
 import (
 	"bytes"
 	"context"
-	"cosmossdk.io/math"
 	"encoding/hex"
-	"github.com/ethereum/go-ethereum/crypto"
 	"strings"
+
+	"cosmossdk.io/math"
+	"github.com/ethereum/go-ethereum/crypto"
 
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -57,13 +58,13 @@ func (k msgServer) depositForBurn(
 
 	// Note: fiat token factory only supports burning 1 token denom
 	denom := k.fiattokenfactory.GetMintingDenom(ctx)
-	if strings.ToLower(denom.Denom) != strings.ToLower(burnToken) {
+	if !strings.EqualFold(denom.Denom, burnToken) {
 		return 0, sdkerrors.Wrapf(types.ErrBurn, "burning denom: %s is not supported", burnToken)
 	}
 
 	// check if burning/minting is paused
-	paused, found := k.GetBurningAndMintingPaused(ctx)
-	if found && paused.Paused {
+	paused, _ := k.GetBurningAndMintingPaused(ctx)
+	if paused.Paused {
 		return 0, sdkerrors.Wrap(types.ErrBurn, "burning and minting are paused")
 	}
 
@@ -83,9 +84,9 @@ func (k msgServer) depositForBurn(
 			Amount: sdk.NewIntFromBigInt(amount.BigInt()),
 		},
 	}
-	_, err := k.fiattokenfactory.Burn(ctx.Context(), &fiatBurnMsg)
+	_, err := k.fiattokenfactory.Burn(ctx, &fiatBurnMsg)
 	if err != nil {
-		return 0, sdkerrors.Wrapf(types.ErrBurn, err.Error())
+		return 0, sdkerrors.Wrapf(err, "error during burn")
 	}
 
 	burnMessage := types.BurnMessage{
@@ -98,17 +99,17 @@ func (k msgServer) depositForBurn(
 
 	var nonce types.Nonce
 
-	encodedBurnMessage, err := EncodeBurnMessage(burnMessage)
+	newMessageBodyBytes, err := burnMessage.Bytes()
 	if err != nil {
 		return 0, sdkerrors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message into bytes")
 	}
 
-	if bytes.Equal(destinationCaller, []byte{}) {
+	if len(destinationCaller) == 0 {
 		message := types.MsgSendMessage{
 			From:              from,
 			DestinationDomain: destinationDomain,
-			Recipient:         burnMessage.MintRecipient,
-			MessageBody:       encodedBurnMessage,
+			Recipient:         []byte(tokenMessenger.Address),
+			MessageBody:       newMessageBodyBytes,
 		}
 
 		resp, err := k.SendMessage(sdk.WrapSDKContext(ctx), &message)
@@ -120,8 +121,8 @@ func (k msgServer) depositForBurn(
 		message := types.MsgSendMessageWithCaller{
 			From:              from,
 			DestinationDomain: destinationDomain,
-			Recipient:         burnMessage.MintRecipient,
-			MessageBody:       encodedBurnMessage,
+			Recipient:         []byte(tokenMessenger.Address),
+			MessageBody:       newMessageBodyBytes,
 			DestinationCaller: destinationCaller,
 		}
 

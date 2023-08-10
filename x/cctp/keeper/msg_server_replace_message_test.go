@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
@@ -8,7 +10,6 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -39,7 +40,7 @@ func TestReplaceMessageHappyPath(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -52,7 +53,7 @@ func TestReplaceMessageHappyPath(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -106,7 +107,7 @@ func TestReplaceMessageSignatureThresholdNotFound(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -119,7 +120,7 @@ func TestReplaceMessageSignatureThresholdNotFound(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -161,7 +162,7 @@ func TestReplaceMessageSignatureVerificationFailed(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -174,7 +175,7 @@ func TestReplaceMessageSignatureVerificationFailed(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -220,7 +221,7 @@ func TestReplaceMessageMessageBodyTooShort(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -233,7 +234,7 @@ func TestReplaceMessageMessageBodyTooShort(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 	// make it too small
 	originalMessageBytes = originalMessageBytes[0:115]
 
@@ -256,8 +257,8 @@ func TestReplaceMessageMessageBodyTooShort(t *testing.T) {
 	}
 
 	_, err = server.ReplaceMessage(sdk.WrapSDKContext(ctx), &msg)
-	require.ErrorIs(t, types.ErrReplaceMessage, err)
-	require.Contains(t, err.Error(), "invalid message: too short")
+	require.ErrorIs(t, types.ErrParsingMessage, err)
+	require.Contains(t, err.Error(), "cctp message must be at least 116 bytes, got 115: error while parsing message into bytes")
 }
 
 func TestReplaceMessageInvalidSender(t *testing.T) {
@@ -278,7 +279,7 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -291,7 +292,7 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -334,7 +335,7 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	originalMessage := types.Message{
@@ -347,7 +348,7 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)

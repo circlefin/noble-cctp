@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
@@ -8,7 +10,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	fiattokenfactorytypes "github.com/strangelove-ventures/noble/x/fiattokenfactory/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -34,7 +35,7 @@ func TestDepositForBurnHappyPath(t *testing.T) {
 
 	tokenMessenger := types.TokenMessenger{
 		DomainId: 0,
-		Address:  "destination-token-messenger",
+		Address:  "12345678901234567890123456789012",
 	}
 	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
 

@@ -3,8 +3,9 @@ package keeper
 import (
 	"bytes"
 	"context"
-	sdkerrors "cosmossdk.io/errors"
 	"encoding/hex"
+
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -19,16 +20,16 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 	}
 
 	// verify and parse original originalMessage
-	if len(msg.OriginalMessage) < types.MessageBodyIndex {
-		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "invalid message: too short")
+	originalMessage, err := new(types.Message).Parse(msg.OriginalMessage)
+	if err != nil {
+		return nil, err
 	}
-	originalMessage := DecodeMessage(msg.OriginalMessage)
 
 	// verify and parse BurnMessage
-	if len(originalMessage.MessageBody) != types.BurnMessageLen {
-		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "burn message body is not the correct length")
+	burnMessage, err := new(types.BurnMessage).Parse(originalMessage.MessageBody)
+	if err != nil {
+		return nil, err
 	}
-	burnMessage := DecodeBurnMessage(originalMessage.MessageBody)
 
 	// validate originalMessage sender is the same as this message sender
 	if msg.From != string(originalMessage.Sender) {
@@ -49,7 +50,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 		MessageSender: burnMessage.MessageSender,
 	}
 
-	newMessageBodyBytes, err := EncodeBurnMessage(newMessageBody)
+	newMessageBodyBytes, err := newMessageBody.Bytes()
 	if err != nil {
 		return nil, sdkerrors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message")
 	}

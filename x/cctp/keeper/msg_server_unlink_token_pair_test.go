@@ -1,13 +1,14 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -25,7 +26,7 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteToken:  []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD},
 		LocalToken:   "uusdc",
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
@@ -40,7 +41,7 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 	_, err := server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	_, found := testkeeper.GetTokenPair(ctx, message.RemoteDomain, message.RemoteToken)
+	_, found := testkeeper.GetTokenPairHex(ctx, message.RemoteDomain, message.RemoteToken)
 	require.False(t, found)
 }
 

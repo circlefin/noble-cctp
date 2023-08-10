@@ -1,8 +1,6 @@
 package types
 
 import (
-	"context"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	fiattokenfactorytypes "github.com/strangelove-ventures/noble/x/fiattokenfactory/types"
@@ -19,8 +17,8 @@ type BankKeeper interface {
 }
 
 type FiatTokenfactoryKeeper interface {
-	Burn(ctx context.Context, msg *fiattokenfactorytypes.MsgBurn) (*fiattokenfactorytypes.MsgBurnResponse, error)
-	Mint(ctx context.Context, msg *fiattokenfactorytypes.MsgMint) (*fiattokenfactorytypes.MsgMintResponse, error)
+	Burn(ctx sdk.Context, msg *fiattokenfactorytypes.MsgBurn) (*fiattokenfactorytypes.MsgBurnResponse, error)
+	Mint(ctx sdk.Context, msg *fiattokenfactorytypes.MsgMint) (*fiattokenfactorytypes.MsgMintResponse, error)
 	GetMintingDenom(ctx sdk.Context) (val fiattokenfactorytypes.MintingDenom)
 }
 

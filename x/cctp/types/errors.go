@@ -34,4 +34,5 @@ var (
 	ErrTokenMessengerNotFound     = sdkerrors.Register(ModuleName, 53, "token messenger not found")
 	ErrParsingMessage             = sdkerrors.Register(ModuleName, 54, "error while parsing message into bytes")
 	ErrParsingBurnMessage         = sdkerrors.Register(ModuleName, 55, "error while parsing burn message into bytes")
+	ErrInvalidRemoteToken         = sdkerrors.Register(ModuleName, 56, "invalid remote token")
 )

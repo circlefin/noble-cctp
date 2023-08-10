@@ -3,6 +3,7 @@ package keeper
 import (
 	"bytes"
 	"context"
+
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -63,7 +64,7 @@ func (k msgServer) sendMessage(
 		MessageBody:       messageBody,
 	}
 
-	messageBytes, err := EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	if err != nil {
 		return err
 	}

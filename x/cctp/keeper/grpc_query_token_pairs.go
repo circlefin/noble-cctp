@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
@@ -17,7 +18,7 @@ func (k Keeper) TokenPair(c context.Context, req *types.QueryGetTokenPairRequest
 	}
 	ctx := sdk.UnwrapSDKContext(c)
 
-	val, found := k.GetTokenPair(ctx, req.RemoteDomain, req.RemoteToken)
+	val, found := k.GetTokenPairHex(ctx, req.RemoteDomain, req.RemoteToken)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")
 	}

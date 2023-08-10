@@ -35,7 +35,8 @@ func TestReplaceDepositForBurnHappyPath(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.NoError(t, err)
 
 	originalMessage := types.Message{
 		Version:           1,
@@ -47,7 +48,8 @@ func TestReplaceDepositForBurnHappyPath(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -75,12 +77,12 @@ func TestReplaceDepositForBurnFailsWhenPaused(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	paused := types.BurningAndMintingPaused{Paused: true}
+	paused := types.BurningAndMintingPaused{Paused: false}
 	testkeeper.SetBurningAndMintingPaused(ctx, paused)
 
 	_, err := server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &types.MsgReplaceDepositForBurn{})
 	require.ErrorIs(t, types.ErrDepositForBurn, err)
-	require.Contains(t, err.Error(), "burning and minting are paused")
+	require.Contains(t, err.Error(), "sending and receiving messages are paused")
 }
 
 func TestReplaceDepositForBurnOuterMessageTooShort(t *testing.T) {
@@ -91,8 +93,8 @@ func TestReplaceDepositForBurnOuterMessageTooShort(t *testing.T) {
 	testkeeper.SetBurningAndMintingPaused(ctx, paused)
 
 	_, err := server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &types.MsgReplaceDepositForBurn{})
-	require.ErrorIs(t, types.ErrDepositForBurn, err)
-	require.Contains(t, err.Error(), "invalid message: too short")
+	require.ErrorIs(t, types.ErrParsingMessage, err)
+	require.Contains(t, err.Error(), "cctp message must be at least 116 bytes, got 0: error while parsing message into bytes")
 }
 
 func TestReplaceDepositForBurnBurnMessageInvalidLength(t *testing.T) {
@@ -114,7 +116,8 @@ func TestReplaceDepositForBurnBurnMessageInvalidLength(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -154,7 +157,8 @@ func TestReplaceDepositForBurnInvalidSender(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.NoError(t, err)
 
 	originalMessage := types.Message{
 		Version:           1,
@@ -166,7 +170,8 @@ func TestReplaceDepositForBurnInvalidSender(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -195,8 +200,8 @@ func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	paused := types.BurningAndMintingPaused{Paused: false}
-	testkeeper.SetBurningAndMintingPaused(ctx, paused)
+	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
+	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
 	burnMessage := types.BurnMessage{
 		Version:       1,
@@ -206,7 +211,8 @@ func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
 		MessageSender: make([]byte, 32),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.NoError(t, err)
 
 	originalMessage := types.Message{
 		Version:           1,
@@ -218,7 +224,8 @@ func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := keeper.EncodeMessage(originalMessage)
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)

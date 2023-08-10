@@ -1,9 +1,10 @@
 package types
 
 import (
-	"github.com/stretchr/testify/assert"
 	"math"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestKeys_UsedNonceKey(t *testing.T) {
@@ -38,20 +39,14 @@ func TestKeys_TokenPairKey(t *testing.T) {
 	tests := []struct {
 		name         string
 		remoteDomain uint32
-		remoteToken  string
+		remoteToken  []byte
 		expected     []byte
 	}{
 		{
 			name:         "happy path",
 			remoteDomain: uint32(2),
-			remoteToken:  "abc",
+			remoteToken:  []byte("abc"),
 			expected:     []byte{0x27, 0xcc, 0x87, 0x7e, 0x1b, 0xc4, 0x72, 0xff, 0xb8, 0x5c, 0xd, 0x32, 0x20, 0x4d, 0xce, 0x7f, 0x5f, 0x7f, 0xfa, 0xfa, 0xf5, 0x91, 0x27, 0x59, 0x44, 0x5a, 0x35, 0xb2, 0xec, 0xc0, 0xb6, 0xda, 0x2f},
-		},
-		{
-			name:         "capitalization doesn't impact",
-			remoteDomain: uint32(234),
-			remoteToken:  "ABC",
-			expected:     TokenPairKey(uint32(234), "abc"),
 		},
 	}
 	for _, tt := range tests {

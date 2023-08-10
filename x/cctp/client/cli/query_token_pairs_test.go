@@ -1,11 +1,13 @@
 package cli_test
 
 import (
+	"encoding/hex"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	"google.golang.org/grpc/codes"
 	"strconv"
 	"testing"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"google.golang.org/grpc/codes"
 
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"
@@ -27,7 +29,7 @@ func networkWithTokenPairObjects(t *testing.T, n int) (*network.Network, []types
 	for i := 0; i < n; i++ {
 		tokenPair := types.TokenPair{
 			RemoteDomain: uint32(i),
-			RemoteToken:  strconv.Itoa(i),
+			RemoteToken:  []byte{byte(i)},
 			LocalToken:   strconv.Itoa(i),
 		}
 		nullify.Fill(&tokenPair)
@@ -49,7 +51,7 @@ func TestShowTokenPair(t *testing.T) {
 	for _, tc := range []struct {
 		desc         string
 		remoteDomain string
-		remoteToken  string
+		remoteToken  []byte
 
 		args []string
 		err  error
@@ -73,7 +75,7 @@ func TestShowTokenPair(t *testing.T) {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
 				tc.remoteDomain,
-				tc.remoteToken,
+				hex.EncodeToString(tc.remoteToken),
 			}
 			args = append(args, tc.args...)
 			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowTokenPair(), args)

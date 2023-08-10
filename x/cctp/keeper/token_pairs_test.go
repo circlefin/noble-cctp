@@ -1,9 +1,10 @@
 package keeper_test
 
 import (
-	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"strconv"
 	"testing"
+
+	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/nullify"
@@ -16,7 +17,7 @@ func createNTokenPairs(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.To
 	items := make([]types.TokenPair, n)
 	for i := range items {
 		items[i].RemoteDomain = uint32(i)
-		items[i].RemoteToken = strconv.Itoa(i)
+		items[i].RemoteToken = []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, byte(i)}
 		items[i].LocalToken = "token" + strconv.Itoa(i)
 
 		keeper.SetTokenPair(ctx, items[i])

@@ -1,13 +1,15 @@
 package keeper_test
 
 import (
+	"encoding/hex"
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -31,11 +33,11 @@ func TestLinkTokenPairHappyPath(t *testing.T) {
 	}
 
 	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
-	require.Nil(t, err)
+	require.NoError(t, err)
 
-	actual, found := testkeeper.GetTokenPair(ctx, message.RemoteDomain, message.RemoteToken)
+	actual, found := testkeeper.GetTokenPairHex(ctx, message.RemoteDomain, message.RemoteToken)
 	require.True(t, found)
-	require.Equal(t, message.RemoteToken, actual.RemoteToken)
+	require.Equal(t, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD}, actual.RemoteToken)
 	require.Equal(t, message.RemoteDomain, actual.RemoteDomain)
 	require.Equal(t, message.LocalToken, actual.LocalToken)
 }
@@ -53,7 +55,6 @@ func TestLinkTokenPairAuthorityNotSet(t *testing.T) {
 
 	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority is not set")
 }
 
 func TestLinkTokenPairInvalidAuthority(t *testing.T) {
@@ -72,7 +73,6 @@ func TestLinkTokenPairInvalidAuthority(t *testing.T) {
 
 	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrUnauthorized, err)
-	require.Contains(t, err.Error(), "this message sender cannot link token pairs")
 }
 
 func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
@@ -84,7 +84,7 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 
 	existingTokenPair := types.TokenPair{
 		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteToken:  []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD},
 		LocalToken:   "uusdc",
 	}
 
@@ -93,11 +93,10 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 	message := types.MsgLinkTokenPair{
 		From:         authority.Address,
 		RemoteDomain: existingTokenPair.RemoteDomain,
-		RemoteToken:  existingTokenPair.RemoteToken,
+		RemoteToken:  hex.EncodeToString(existingTokenPair.RemoteToken),
 		LocalToken:   existingTokenPair.LocalToken,
 	}
 
 	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrTokenPairAlreadyFound, err)
-	require.Contains(t, err.Error(), "local token for this remote domain + remote token mapping already exists in store")
 }

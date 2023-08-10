@@ -2,9 +2,9 @@ package keeper
 
 import (
 	"context"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"strings"
 
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 )
@@ -21,17 +21,17 @@ func (k msgServer) UnlinkTokenPair(goCtx context.Context, msg *types.MsgUnlinkTo
 		return nil, sdkerrors.Wrap(types.ErrUnauthorized, "this message sender cannot unlink token pairs")
 	}
 
-	tokenPair, found := k.GetTokenPair(ctx, msg.RemoteDomain, strings.ToLower(msg.RemoteToken))
+	tokenPair, found := k.GetTokenPairHex(ctx, msg.RemoteDomain, msg.RemoteToken)
 	if !found {
 		return nil, sdkerrors.Wrap(types.ErrTokenPairNotFound, "token pair doesn't exist in store")
 	}
 
-	k.DeleteTokenPair(ctx, msg.RemoteDomain, strings.ToLower(msg.RemoteToken))
+	k.DeleteTokenPair(ctx, msg.RemoteDomain, tokenPair.RemoteToken)
 
 	event := types.TokenPairUnlinked{
 		LocalToken:   tokenPair.LocalToken,
 		RemoteDomain: tokenPair.RemoteDomain,
-		RemoteToken:  tokenPair.RemoteToken,
+		RemoteToken:  msg.RemoteToken,
 	}
 	err := ctx.EventManager().EmitTypedEvent(&event)
 	return &types.MsgUnlinkTokenPairResponse{}, err

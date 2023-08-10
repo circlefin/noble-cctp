@@ -3,8 +3,8 @@ package types
 import (
 	"testing"
 
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/strangelove-ventures/noble/testutil/sample"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,7 +29,7 @@ func TestMsgLinkTokenPair_ValidateBasic(t *testing.T) {
 			msg: MsgLinkTokenPair{
 				From:         sample.AccAddress(),
 				RemoteDomain: 1,
-				RemoteToken:  "12345",
+				RemoteToken:  "0x012345",
 				LocalToken:   "uusdc",
 			},
 		},

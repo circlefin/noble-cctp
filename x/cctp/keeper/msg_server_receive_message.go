@@ -9,7 +9,21 @@ import (
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/bech32"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/ethereum/go-ethereum/crypto"
 	fiattokenfactorytypes "github.com/strangelove-ventures/noble/x/fiattokenfactory/types"
+)
+
+var (
+	tokenMessengerRecipient = crypto.Keccak256([]byte("cctp/TokenMessenger"))
+
+	zeroByteArray = []byte{ // 32 bytes
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0,
+	}
 )
 
 func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMessage) (*types.MsgReceiveMessageResponse, error) {
@@ -31,17 +45,15 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "signature threshold not found")
 	}
 
-	verified, err := VerifyAttestationSignatures(msg.Message, msg.Attestation, publicKeys, signatureThreshold.Amount)
-	if err != nil || !verified {
+	if err := VerifyAttestationSignatures(msg.Message, msg.Attestation, publicKeys, signatureThreshold.Amount); err != nil {
 		return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to verify signatures")
 	}
 
-	// validate message format
-	if len(msg.Message) < types.MessageBodyIndex {
-		return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "invalid message: too short")
+	// parse message
+	message, err := new(types.Message).Parse(msg.Message)
+	if err != nil {
+		return nil, err
 	}
-
-	message := DecodeMessage(msg.Message)
 
 	// validate domain
 	if message.DestinationDomain != types.NobleDomainId {
@@ -49,9 +61,16 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 	}
 
 	// validate destination caller
-	emptyByteArr := make([]byte, types.DestinationCallerLen)
-	if !bytes.Equal(message.DestinationCaller, emptyByteArr) && string(message.DestinationCaller) != msg.From {
-		return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "incorrect destination caller: %s, sender: %s", message.DestinationCaller, msg.From)
+	if !bytes.Equal(message.DestinationCaller, zeroByteArray) {
+		bech32Prefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
+		destinationCaller, err := bech32.ConvertAndEncode(bech32Prefix, message.DestinationCaller[12:])
+		if err != nil {
+			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to encode destination caller: %s", msg.From)
+		}
+
+		if destinationCaller != msg.From {
+			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "incorrect destination caller: %s, sender: %s", destinationCaller, msg.From)
+		}
 	}
 
 	// validate version
@@ -71,32 +90,40 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 	k.SetUsedNonce(ctx, usedNonce)
 
 	// verify and parse BurnMessage
-	burnMessageIsValid := len(message.MessageBody) == types.BurnMessageLen
-	burnMessage := DecodeBurnMessage(message.MessageBody)
+	if bytes.Equal(message.Recipient, tokenMessengerRecipient) { // then mint
+		burnMessage, err := new(types.BurnMessage).Parse(message.MessageBody)
+		if err != nil {
+			return nil, err
+		}
 
-	if burnMessage.Version != types.MessageBodyVersion {
-		return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "invalid message body version")
-	}
+		if burnMessage.Version != types.MessageBodyVersion {
+			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "invalid message body version")
+		}
 
-	if burnMessageIsValid { // then mint
 		// look up Noble mint token from corresponding source domain/token
-		tokenPair, found := k.GetTokenPair(ctx, message.SourceDomain, strings.ToLower(string(burnMessage.BurnToken)))
+		tokenPair, found := k.GetTokenPair(ctx, message.SourceDomain, burnMessage.BurnToken)
 		if !found {
-			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "corresponding noble mint token not found")
+			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "corresponding noble mint token not found")
+		}
+
+		// get mint recipient as noble address
+		bech32Prefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
+		mintRecipient, err := sdk.Bech32ifyAddressBytes(bech32Prefix, burnMessage.MintRecipient[12:])
+		if err != nil {
+			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "error bech32 encoding mint recipient address")
 		}
 
 		msgMint := fiattokenfactorytypes.MsgMint{
-			From:    msg.From,
-			Address: string(burnMessage.MintRecipient),
+			From:    authtypes.NewModuleAddress(types.ModuleName).String(),
+			Address: mintRecipient,
 			Amount: sdk.Coin{
 				Denom:  strings.ToLower(tokenPair.LocalToken),
 				Amount: sdk.NewIntFromBigInt(burnMessage.Amount.BigInt()),
 			},
 		}
-
-		_, err = k.fiattokenfactory.Mint(goCtx, &msgMint)
+		_, err = k.fiattokenfactory.Mint(ctx, &msgMint)
 		if err != nil {
-			return nil, sdkerrors.Wrapf(err, "Error during minting")
+			return nil, sdkerrors.Wrap(err, "Error during minting")
 		}
 
 		mintEvent := types.MintAndWithdraw{
@@ -106,13 +133,13 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 		err = ctx.EventManager().EmitTypedEvent(&mintEvent)
 		if err != nil {
-			return nil, sdkerrors.Wrapf(err, "Error emitting mint event")
+			return nil, sdkerrors.Wrap(err, "Error emitting mint event")
 		}
 	}
 
 	// on failure to decode, nil err from handleMessage
 	if err := k.router.HandleMessage(ctx, msg.Message); err != nil {
-		return nil, sdkerrors.Wrapf(types.ErrHandleMessage, "Error in handleMessage")
+		return nil, sdkerrors.Wrap(types.ErrHandleMessage, "Error in handleMessage")
 	}
 
 	event := types.MessageReceived{

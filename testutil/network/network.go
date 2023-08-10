@@ -19,6 +19,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 
 	"github.com/circlefin/noble-cctp/testutil/sample"
+	cctptypes "github.com/circlefin/noble-cctp/x/cctp/types"
 	genutil "github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
@@ -101,6 +102,10 @@ func DefaultConfig() network.Config {
 	upgrade := paramauthorityupgradetypes.DefaultGenesis()
 	upgrade.Params.Authority = sample.AccAddress()
 	cfg.GenesisState[upgradetypes.ModuleName] = encoding.Marshaler.MustMarshalJSON(upgrade)
+
+	cctp := cctptypes.DefaultGenesis()
+	cctp.Authority = &cctptypes.Authority{Address: sample.AccAddress()}
+	cfg.GenesisState[cctptypes.ModuleName] = encoding.Marshaler.MustMarshalJSON(cctp)
 
 	return cfg
 }

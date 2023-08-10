@@ -1,14 +1,16 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -40,12 +42,12 @@ func TestReceiveMessageHappyPath(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -54,11 +56,11 @@ func TestReceiveMessageHappyPath(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -96,13 +98,15 @@ func TestReceiveMessageWithDestinationCallerHappyPath(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
+
+	destinationCaller := sample.TestAccount()
 
 	message := types.Message{
 		Version:           0,
@@ -110,11 +114,11 @@ func TestReceiveMessageWithDestinationCallerHappyPath(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
-		DestinationCaller: []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
+		DestinationCaller: append([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, destinationCaller.AddressBz...),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -128,7 +132,7 @@ func TestReceiveMessageWithDestinationCallerHappyPath(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
 
 	msg := types.MsgReceiveMessage{
-		From:        "01234567890123456789012345678912",
+		From:        destinationCaller.Address,
 		Message:     messageBytes,
 		Attestation: attestation,
 	}
@@ -225,8 +229,8 @@ func TestReceiveMessageInvalidMessageLength(t *testing.T) {
 	}
 
 	_, err := server.ReceiveMessage(sdk.WrapSDKContext(ctx), &msg)
-	require.ErrorIs(t, types.ErrReceiveMessage, err)
-	require.Contains(t, err.Error(), "invalid message: too short")
+	require.ErrorIs(t, types.ErrParsingMessage, err)
+	require.Contains(t, err.Error(), "cctp message must be at least 116 bytes, got 9: error while parsing message into bytes")
 }
 
 func TestReceiveMessageIncorrectDestinationDomain(t *testing.T) {
@@ -243,12 +247,12 @@ func TestReceiveMessageIncorrectDestinationDomain(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -257,11 +261,11 @@ func TestReceiveMessageIncorrectDestinationDomain(t *testing.T) {
 		DestinationDomain: 11, // not noble
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -299,12 +303,12 @@ func TestReceiveMessageIncorrectDestinationCaller(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -313,11 +317,11 @@ func TestReceiveMessageIncorrectDestinationCaller(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: []byte("01234567890123456789012345678912"),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -355,12 +359,12 @@ func TestReceiveMessageInvalidMessageVersion(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -369,11 +373,11 @@ func TestReceiveMessageInvalidMessageVersion(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -411,12 +415,12 @@ func TestReceiveMessageNonceAlreadyUsed(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -425,11 +429,11 @@ func TestReceiveMessageNonceAlreadyUsed(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             18,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -473,12 +477,12 @@ func TestReceiveMessageInvalidMessageBodyVersion(t *testing.T) {
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 0,
-		RemoteToken:  string(burnMessage.BurnToken),
+		RemoteToken:  burnMessage.BurnToken,
 		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -487,11 +491,11 @@ func TestReceiveMessageInvalidMessageBodyVersion(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             5,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold
@@ -527,7 +531,7 @@ func TestReceiveMessageTokenPairNotFound(t *testing.T) {
 		MessageSender: []byte("message sender567890123456789012"),
 	}
 
-	burnMessageBytes, err := keeper.EncodeBurnMessage(burnMessage)
+	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
 	message := types.Message{
@@ -536,11 +540,11 @@ func TestReceiveMessageTokenPairNotFound(t *testing.T) {
 		DestinationDomain: 4,
 		Nonce:             0,
 		Sender:            []byte("01234567890123456789012345678912"),
-		Recipient:         []byte("01234567890123456789012345678912"),
+		Recipient:         crypto.Keccak256([]byte("cctp/TokenMessenger")),
 		DestinationCaller: make([]byte, types.DestinationCallerLen),
 		MessageBody:       burnMessageBytes,
 	}
-	messageBytes, err := keeper.EncodeMessage(message)
+	messageBytes, err := message.Bytes()
 	require.Nil(t, err)
 
 	// generate attestation, set attesters, signature threshold

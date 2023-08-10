@@ -28,7 +28,7 @@ func TestTokenPairQuerySingle(t *testing.T) {
 			desc: "First",
 			request: &types.QueryGetTokenPairRequest{
 				RemoteDomain: 0,
-				RemoteToken:  "0",
+				RemoteToken:  "00",
 			},
 			response: &types.QueryGetTokenPairResponse{Pair: msgs[0]},
 		},
@@ -36,7 +36,7 @@ func TestTokenPairQuerySingle(t *testing.T) {
 			desc: "Second",
 			request: &types.QueryGetTokenPairRequest{
 				RemoteDomain: 1,
-				RemoteToken:  "1",
+				RemoteToken:  "01",
 			},
 			response: &types.QueryGetTokenPairResponse{Pair: msgs[1]},
 		},

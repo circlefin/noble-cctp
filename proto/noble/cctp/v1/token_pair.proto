@@ -14,6 +14,6 @@ option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
  */
 message TokenPair {
   uint32 remote_domain = 1;
-  string remote_token = 2;
+  bytes remote_token = 2;
   string local_token = 3;
 }

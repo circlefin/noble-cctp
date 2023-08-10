@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -24,16 +25,15 @@ func (k msgServer) ReplaceMessage(goCtx context.Context, msg *types.MsgReplaceMe
 		return nil, sdkerrors.Wrap(types.ErrReplaceMessage, "signature threshold not found")
 	}
 
-	verified, err := VerifyAttestationSignatures(msg.OriginalMessage, msg.OriginalAttestation, attesters, signatureThreshold.Amount)
-	if !verified {
+	if err := VerifyAttestationSignatures(msg.OriginalMessage, msg.OriginalAttestation, attesters, signatureThreshold.Amount); err != nil {
 		return nil, sdkerrors.Wrapf(types.ErrSignatureVerification, "unable to verify signatures")
 	}
 
 	// validate message format
-	if len(msg.OriginalMessage) < types.MessageBodyIndex {
-		return nil, sdkerrors.Wrap(types.ErrReplaceMessage, "invalid message: too short")
+	originalMessage, err := new(types.Message).Parse(msg.OriginalMessage)
+	if err != nil {
+		return nil, err
 	}
-	originalMessage := DecodeMessage(msg.OriginalMessage)
 
 	// validate that the original message sender is the same as this message sender
 	if msg.From != string(originalMessage.Sender) {
