@@ -17,13 +17,7 @@ func (k msgServer) UpdateOwner(goCtx context.Context, msg *types.MsgUpdateOwner)
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the authority")
 	}
 
-	k.SetOwner(ctx, msg.NewOwner)
+	k.SetPendingOwner(ctx, msg.NewOwner)
 
-	event := types.OwnerUpdated{
-		PreviousOwner: currentOwner,
-		NewOwner:      msg.NewOwner,
-	}
-	err := ctx.EventManager().EmitTypedEvent(&event)
-
-	return &types.MsgUpdateOwnerResponse{}, err
+	return &types.MsgUpdateOwnerResponse{}, nil
 }

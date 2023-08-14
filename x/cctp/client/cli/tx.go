@@ -18,6 +18,7 @@ func GetTxCmd() *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
+	cmd.AddCommand(CmdAcceptOwner())
 	cmd.AddCommand(CmdAddRemoteTokenMessenger())
 	cmd.AddCommand(CmdDepositForBurn())
 	cmd.AddCommand(CmdDepositForBurnWithCaller())

@@ -8,6 +8,7 @@ option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 // Msg defines the Msg service.
 service Msg {
+  rpc AcceptOwner(MsgAcceptOwner) returns (MsgAcceptOwnerResponse);
   rpc AddRemoteTokenMessenger(MsgAddRemoteTokenMessenger) returns (MsgAddRemoteTokenMessengerResponse);
   rpc DepositForBurn(MsgDepositForBurn) returns (MsgDepositForBurnResponse);
   rpc DepositForBurnWithCaller(MsgDepositForBurnWithCaller) returns (MsgDepositForBurnWithCallerResponse);
@@ -38,6 +39,12 @@ message MsgUpdateOwner {
 }
 
 message MsgUpdateOwnerResponse {}
+
+message MsgAcceptOwner {
+  string from = 1;
+}
+
+message MsgAcceptOwnerResponse {}
 
 message MsgEnableAttester {
   string from = 1;

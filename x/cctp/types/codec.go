@@ -13,6 +13,7 @@ func init() {
 }
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
+	cdc.RegisterConcrete(&MsgAcceptOwner{}, "cctp/AcceptOwner", nil)
 	cdc.RegisterConcrete(&MsgAddRemoteTokenMessenger{}, "cctp/AddRemoteTokenMessenger", nil)
 	cdc.RegisterConcrete(&MsgDepositForBurnWithCaller{}, "cctp/DepositForBurnWithCaller", nil)
 	cdc.RegisterConcrete(&MsgDepositForBurn{}, "cctp/DepositForBurn", nil)
@@ -38,6 +39,7 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgAcceptOwner{},
 		&MsgAddRemoteTokenMessenger{},
 		&MsgDepositForBurnWithCaller{},
 		&MsgDepositForBurn{},

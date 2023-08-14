@@ -31,7 +31,8 @@ func TestUpdateAuthorityHappyPath(t *testing.T) {
 	_, err := server.UpdateOwner(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	actual := testkeeper.GetOwner(ctx)
+	actual, found := testkeeper.GetPendingOwner(ctx)
+	require.True(t, found)
 	require.Equal(t, message.NewOwner, actual)
 }
 

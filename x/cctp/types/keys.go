@@ -34,6 +34,7 @@ const (
 
 var (
 	OwnerKey           = []byte("owner")
+	PendingOwnerKey    = []byte("pending-owner")
 	AttesterManagerKey = []byte("attester-manager")
 	PauserKey          = []byte("pauser")
 	TokenControllerKey = []byte("token-controller")
