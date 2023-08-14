@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -11,16 +12,12 @@ import (
 func (k msgServer) DisableAttester(goCtx context.Context, msg *types.MsgDisableAttester) (*types.MsgDisableAttesterResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	owner, found := k.GetAuthority(ctx)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrAuthorityNotSet, "authority is not set")
-	}
-
-	if owner.Address != msg.From {
+	attesterManager := k.GetAttesterManager(ctx)
+	if attesterManager != msg.From {
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot disable attesters")
 	}
 
-	_, found = k.GetAttester(ctx, string(msg.Attester))
+	_, found := k.GetAttester(ctx, string(msg.Attester))
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrDisableAttester, "attester not found")
 	}

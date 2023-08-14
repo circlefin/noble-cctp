@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
@@ -8,7 +10,6 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -21,11 +22,11 @@ func TestUpdatePerMessageBurnLimitHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgUpdatePerMessageBurnLimit{
-		From:   authority.Address,
+		From:   tokenController,
 		Denom:  "uusdc",
 		Amount: math.NewInt(123),
 	}
@@ -58,8 +59,8 @@ func TestUpdatePerMessageBurnLimitInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgUpdatePerMessageBurnLimit{
 		From:   "not authority",

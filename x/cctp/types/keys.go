@@ -19,21 +19,24 @@ const (
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_" + StoreKey
 
-	AttesterManagerKey                   = "AttesterManager/value/"
-	AuthorityKey                         = "Authority/value/"
 	BurningAndMintingPausedKey           = "BurningAndMintingPaused/value/"
 	MaxMessageBodySizeKey                = "MaxMessageBodySize/value/"
 	NextAvailableNonceKey                = "NextAvailableNonce/value/"
-	PauserKey                            = "Pauser/value/"
 	SendingAndReceivingMessagesPausedKey = "SendingAndReceivingMessagesPaused/value/"
 	SignatureThresholdKey                = "SignatureThreshold/value/"
-	TokenControllerKey                   = "TokenController/value/"
 
-	AttesterKeyPrefix            = "Attester/value/"
-	PerMessageBurnLimitKeyPrefix = "PerMessageBurnLimit/value/"
-	TokenMessengerKeyPrefix      = "TokenMessenger/value/"
-	TokenPairKeyPrefix           = "TokenPair/value/"
-	UsedNonceKeyPrefix           = "UsedNonce/value/"
+	AttesterKeyPrefix             = "Attester/value/"
+	PerMessageBurnLimitKeyPrefix  = "PerMessageBurnLimit/value/"
+	RemoteTokenMessengerKeyPrefix = "RemoteTokenMessenger/value/"
+	TokenPairKeyPrefix            = "TokenPair/value/"
+	UsedNonceKeyPrefix            = "UsedNonce/value/"
+)
+
+var (
+	OwnerKey           = []byte("owner")
+	AttesterManagerKey = []byte("attester-manager")
+	PauserKey          = []byte("pauser")
+	TokenControllerKey = []byte("token-controller")
 )
 
 func KeyPrefix(p string) []byte {
@@ -73,8 +76,8 @@ func TokenPairKey(remoteDomain uint32, remoteToken []byte) []byte {
 	return append(hashedKey, []byte("/")...)
 }
 
-// TokenMessengerKey returns the store key to retrieve a TokenMessenger from the index fields
-func TokenMessengerKey(domain uint32) []byte {
+// RemoteTokenMessengerKey returns the store key to retrieve a RemoteTokenMessenger from the index fields
+func RemoteTokenMessengerKey(domain uint32) []byte {
 	domainBytes := make([]byte, DomainBytesLen)
 	binary.BigEndian.PutUint32(domainBytes, domain)
 

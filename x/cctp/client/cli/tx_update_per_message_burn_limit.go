@@ -16,7 +16,6 @@ func CmdUpdatePerMessageBurnLimit() *cobra.Command {
 		Short: "Broadcast message update-per-message-burn-limit",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			amount, ok := math.NewIntFromString(args[1])
 			if !ok {
 				return sdkerrors.Wrapf(types.ErrInvalidAmount, "invalid amount")

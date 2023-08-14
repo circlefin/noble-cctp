@@ -10,7 +10,6 @@ import (
 )
 
 func TestBurningAndMintingPaused(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
 	paused := types.BurningAndMintingPaused{Paused: true}

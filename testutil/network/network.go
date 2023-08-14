@@ -104,7 +104,10 @@ func DefaultConfig() network.Config {
 	cfg.GenesisState[upgradetypes.ModuleName] = encoding.Marshaler.MustMarshalJSON(upgrade)
 
 	cctp := cctptypes.DefaultGenesis()
-	cctp.Authority = &cctptypes.Authority{Address: sample.AccAddress()}
+	cctp.Owner = sample.AccAddress()
+	cctp.AttesterManager = sample.AccAddress()
+	cctp.Pauser = sample.AccAddress()
+	cctp.TokenController = sample.AccAddress()
 	cfg.GenesisState[cctptypes.ModuleName] = encoding.Marshaler.MustMarshalJSON(cctp)
 
 	return cfg

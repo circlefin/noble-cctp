@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
@@ -45,7 +46,6 @@ func (k Keeper) PerMessageBurnLimits(c context.Context, req *types.QueryAllPerMe
 		perMessageBurnLimits = append(perMessageBurnLimits, perMessageBurnLimit)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

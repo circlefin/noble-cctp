@@ -18,6 +18,9 @@ message BurnMessage {
   uint32 version = 1;
   bytes burn_token = 2;
   bytes mint_recipient = 3;
-  string amount = 4 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
   bytes message_sender = 5;
 }

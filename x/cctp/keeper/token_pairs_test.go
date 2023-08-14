@@ -26,7 +26,6 @@ func createNTokenPairs(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.To
 }
 
 func TestTokenPairsGet(t *testing.T) {
-
 	cctpKeeper, ctx := keepertest.CctpKeeper(t)
 	items := createNTokenPairs(cctpKeeper, ctx, 10)
 	for _, item := range items {
@@ -64,9 +63,8 @@ func TestTokenPairsGetAll(t *testing.T) {
 	cctpKeeper, ctx := keepertest.CctpKeeper(t)
 	items := createNTokenPairs(cctpKeeper, ctx, 10)
 	denom := make([]types.TokenPair, len(items))
-	for i, item := range items {
-		denom[i] = item
-	}
+	copy(denom, items)
+
 	require.ElementsMatch(t,
 		nullify.Fill(denom),
 		nullify.Fill(cctpKeeper.GetAllTokenPairs(ctx)),

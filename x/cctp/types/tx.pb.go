@@ -30,23 +30,23 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // TODO add comments
-type MsgUpdateAuthority struct {
-	From         string `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
-	NewAuthority string `protobuf:"bytes,2,opt,name=new_authority,json=newAuthority,proto3" json:"new_authority,omitempty"`
+type MsgUpdateOwner struct {
+	From     string `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
+	NewOwner string `protobuf:"bytes,2,opt,name=new_owner,json=newOwner,proto3" json:"new_owner,omitempty"`
 }
 
-func (m *MsgUpdateAuthority) Reset()         { *m = MsgUpdateAuthority{} }
-func (m *MsgUpdateAuthority) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateAuthority) ProtoMessage()    {}
-func (*MsgUpdateAuthority) Descriptor() ([]byte, []int) {
+func (m *MsgUpdateOwner) Reset()         { *m = MsgUpdateOwner{} }
+func (m *MsgUpdateOwner) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateOwner) ProtoMessage()    {}
+func (*MsgUpdateOwner) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{0}
 }
-func (m *MsgUpdateAuthority) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateOwner) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateAuthority) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateOwner) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateAuthority.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateOwner.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -56,47 +56,47 @@ func (m *MsgUpdateAuthority) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateAuthority) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateAuthority.Merge(m, src)
+func (m *MsgUpdateOwner) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateOwner.Merge(m, src)
 }
-func (m *MsgUpdateAuthority) XXX_Size() int {
+func (m *MsgUpdateOwner) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateAuthority) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateAuthority.DiscardUnknown(m)
+func (m *MsgUpdateOwner) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateOwner.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateAuthority proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateOwner proto.InternalMessageInfo
 
-func (m *MsgUpdateAuthority) GetFrom() string {
+func (m *MsgUpdateOwner) GetFrom() string {
 	if m != nil {
 		return m.From
 	}
 	return ""
 }
 
-func (m *MsgUpdateAuthority) GetNewAuthority() string {
+func (m *MsgUpdateOwner) GetNewOwner() string {
 	if m != nil {
-		return m.NewAuthority
+		return m.NewOwner
 	}
 	return ""
 }
 
-type MsgUpdateAuthorityResponse struct {
+type MsgUpdateOwnerResponse struct {
 }
 
-func (m *MsgUpdateAuthorityResponse) Reset()         { *m = MsgUpdateAuthorityResponse{} }
-func (m *MsgUpdateAuthorityResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateAuthorityResponse) ProtoMessage()    {}
-func (*MsgUpdateAuthorityResponse) Descriptor() ([]byte, []int) {
+func (m *MsgUpdateOwnerResponse) Reset()         { *m = MsgUpdateOwnerResponse{} }
+func (m *MsgUpdateOwnerResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateOwnerResponse) ProtoMessage()    {}
+func (*MsgUpdateOwnerResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{1}
 }
-func (m *MsgUpdateAuthorityResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateOwnerResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateAuthorityResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateOwnerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateAuthorityResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateOwnerResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -106,17 +106,17 @@ func (m *MsgUpdateAuthorityResponse) XXX_Marshal(b []byte, deterministic bool) (
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateAuthorityResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateAuthorityResponse.Merge(m, src)
+func (m *MsgUpdateOwnerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateOwnerResponse.Merge(m, src)
 }
-func (m *MsgUpdateAuthorityResponse) XXX_Size() int {
+func (m *MsgUpdateOwnerResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateAuthorityResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateAuthorityResponse.DiscardUnknown(m)
+func (m *MsgUpdateOwnerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateOwnerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateAuthorityResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateOwnerResponse proto.InternalMessageInfo
 
 type MsgEnableAttester struct {
 	From     string `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
@@ -1889,24 +1889,24 @@ func (m *MsgUnlinkTokenPairResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUnlinkTokenPairResponse proto.InternalMessageInfo
 
-type MsgAddTokenMessenger struct {
+type MsgAddRemoteTokenMessenger struct {
 	From     string `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
 	DomainId uint32 `protobuf:"varint,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
 	Address  string `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 }
 
-func (m *MsgAddTokenMessenger) Reset()         { *m = MsgAddTokenMessenger{} }
-func (m *MsgAddTokenMessenger) String() string { return proto.CompactTextString(m) }
-func (*MsgAddTokenMessenger) ProtoMessage()    {}
-func (*MsgAddTokenMessenger) Descriptor() ([]byte, []int) {
+func (m *MsgAddRemoteTokenMessenger) Reset()         { *m = MsgAddRemoteTokenMessenger{} }
+func (m *MsgAddRemoteTokenMessenger) String() string { return proto.CompactTextString(m) }
+func (*MsgAddRemoteTokenMessenger) ProtoMessage()    {}
+func (*MsgAddRemoteTokenMessenger) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{38}
 }
-func (m *MsgAddTokenMessenger) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddRemoteTokenMessenger) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddRemoteTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddTokenMessenger.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddRemoteTokenMessenger.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1916,54 +1916,54 @@ func (m *MsgAddTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]byte
 		return b[:n], nil
 	}
 }
-func (m *MsgAddTokenMessenger) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddTokenMessenger.Merge(m, src)
+func (m *MsgAddRemoteTokenMessenger) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddRemoteTokenMessenger.Merge(m, src)
 }
-func (m *MsgAddTokenMessenger) XXX_Size() int {
+func (m *MsgAddRemoteTokenMessenger) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddTokenMessenger) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddTokenMessenger.DiscardUnknown(m)
+func (m *MsgAddRemoteTokenMessenger) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddRemoteTokenMessenger.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddTokenMessenger proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddRemoteTokenMessenger proto.InternalMessageInfo
 
-func (m *MsgAddTokenMessenger) GetFrom() string {
+func (m *MsgAddRemoteTokenMessenger) GetFrom() string {
 	if m != nil {
 		return m.From
 	}
 	return ""
 }
 
-func (m *MsgAddTokenMessenger) GetDomainId() uint32 {
+func (m *MsgAddRemoteTokenMessenger) GetDomainId() uint32 {
 	if m != nil {
 		return m.DomainId
 	}
 	return 0
 }
 
-func (m *MsgAddTokenMessenger) GetAddress() string {
+func (m *MsgAddRemoteTokenMessenger) GetAddress() string {
 	if m != nil {
 		return m.Address
 	}
 	return ""
 }
 
-type MsgAddTokenMessengerResponse struct {
+type MsgAddRemoteTokenMessengerResponse struct {
 }
 
-func (m *MsgAddTokenMessengerResponse) Reset()         { *m = MsgAddTokenMessengerResponse{} }
-func (m *MsgAddTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAddTokenMessengerResponse) ProtoMessage()    {}
-func (*MsgAddTokenMessengerResponse) Descriptor() ([]byte, []int) {
+func (m *MsgAddRemoteTokenMessengerResponse) Reset()         { *m = MsgAddRemoteTokenMessengerResponse{} }
+func (m *MsgAddRemoteTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddRemoteTokenMessengerResponse) ProtoMessage()    {}
+func (*MsgAddRemoteTokenMessengerResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{39}
 }
-func (m *MsgAddTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddRemoteTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddRemoteTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddTokenMessengerResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddRemoteTokenMessengerResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1973,35 +1973,35 @@ func (m *MsgAddTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool)
 		return b[:n], nil
 	}
 }
-func (m *MsgAddTokenMessengerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddTokenMessengerResponse.Merge(m, src)
+func (m *MsgAddRemoteTokenMessengerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddRemoteTokenMessengerResponse.Merge(m, src)
 }
-func (m *MsgAddTokenMessengerResponse) XXX_Size() int {
+func (m *MsgAddRemoteTokenMessengerResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddTokenMessengerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddTokenMessengerResponse.DiscardUnknown(m)
+func (m *MsgAddRemoteTokenMessengerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddRemoteTokenMessengerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddTokenMessengerResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddRemoteTokenMessengerResponse proto.InternalMessageInfo
 
-type MsgRemoveTokenMessenger struct {
+type MsgRemoveRemoteTokenMessenger struct {
 	From     string `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
 	DomainId uint32 `protobuf:"varint,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
 }
 
-func (m *MsgRemoveTokenMessenger) Reset()         { *m = MsgRemoveTokenMessenger{} }
-func (m *MsgRemoveTokenMessenger) String() string { return proto.CompactTextString(m) }
-func (*MsgRemoveTokenMessenger) ProtoMessage()    {}
-func (*MsgRemoveTokenMessenger) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveRemoteTokenMessenger) Reset()         { *m = MsgRemoveRemoteTokenMessenger{} }
+func (m *MsgRemoveRemoteTokenMessenger) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveRemoteTokenMessenger) ProtoMessage()    {}
+func (*MsgRemoveRemoteTokenMessenger) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{40}
 }
-func (m *MsgRemoveTokenMessenger) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveRemoteTokenMessenger) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveRemoteTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveTokenMessenger.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveRemoteTokenMessenger.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2011,47 +2011,47 @@ func (m *MsgRemoveTokenMessenger) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveTokenMessenger) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveTokenMessenger.Merge(m, src)
+func (m *MsgRemoveRemoteTokenMessenger) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveRemoteTokenMessenger.Merge(m, src)
 }
-func (m *MsgRemoveTokenMessenger) XXX_Size() int {
+func (m *MsgRemoveRemoteTokenMessenger) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveTokenMessenger) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveTokenMessenger.DiscardUnknown(m)
+func (m *MsgRemoveRemoteTokenMessenger) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveRemoteTokenMessenger.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveTokenMessenger proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveRemoteTokenMessenger proto.InternalMessageInfo
 
-func (m *MsgRemoveTokenMessenger) GetFrom() string {
+func (m *MsgRemoveRemoteTokenMessenger) GetFrom() string {
 	if m != nil {
 		return m.From
 	}
 	return ""
 }
 
-func (m *MsgRemoveTokenMessenger) GetDomainId() uint32 {
+func (m *MsgRemoveRemoteTokenMessenger) GetDomainId() uint32 {
 	if m != nil {
 		return m.DomainId
 	}
 	return 0
 }
 
-type MsgRemoveTokenMessengerResponse struct {
+type MsgRemoveRemoteTokenMessengerResponse struct {
 }
 
-func (m *MsgRemoveTokenMessengerResponse) Reset()         { *m = MsgRemoveTokenMessengerResponse{} }
-func (m *MsgRemoveTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgRemoveTokenMessengerResponse) ProtoMessage()    {}
-func (*MsgRemoveTokenMessengerResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) Reset()         { *m = MsgRemoveRemoteTokenMessengerResponse{} }
+func (m *MsgRemoveRemoteTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveRemoteTokenMessengerResponse) ProtoMessage()    {}
+func (*MsgRemoveRemoteTokenMessengerResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_49e431ce1d7c177f, []int{41}
 }
-func (m *MsgRemoveTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveRemoteTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveTokenMessengerResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveRemoteTokenMessengerResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2061,21 +2061,21 @@ func (m *MsgRemoveTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bo
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveTokenMessengerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveTokenMessengerResponse.Merge(m, src)
+func (m *MsgRemoveRemoteTokenMessengerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveRemoteTokenMessengerResponse.Merge(m, src)
 }
-func (m *MsgRemoveTokenMessengerResponse) XXX_Size() int {
+func (m *MsgRemoveRemoteTokenMessengerResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveTokenMessengerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveTokenMessengerResponse.DiscardUnknown(m)
+func (m *MsgRemoveRemoteTokenMessengerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveRemoteTokenMessengerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveTokenMessengerResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveRemoteTokenMessengerResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgUpdateAuthority)(nil), "noble.cctp.v1.MsgUpdateAuthority")
-	proto.RegisterType((*MsgUpdateAuthorityResponse)(nil), "noble.cctp.v1.MsgUpdateAuthorityResponse")
+	proto.RegisterType((*MsgUpdateOwner)(nil), "noble.cctp.v1.MsgUpdateOwner")
+	proto.RegisterType((*MsgUpdateOwnerResponse)(nil), "noble.cctp.v1.MsgUpdateOwnerResponse")
 	proto.RegisterType((*MsgEnableAttester)(nil), "noble.cctp.v1.MsgEnableAttester")
 	proto.RegisterType((*MsgEnableAttesterResponse)(nil), "noble.cctp.v1.MsgEnableAttesterResponse")
 	proto.RegisterType((*MsgDisableAttester)(nil), "noble.cctp.v1.MsgDisableAttester")
@@ -2112,107 +2112,106 @@ func init() {
 	proto.RegisterType((*MsgLinkTokenPairResponse)(nil), "noble.cctp.v1.MsgLinkTokenPairResponse")
 	proto.RegisterType((*MsgUnlinkTokenPair)(nil), "noble.cctp.v1.MsgUnlinkTokenPair")
 	proto.RegisterType((*MsgUnlinkTokenPairResponse)(nil), "noble.cctp.v1.MsgUnlinkTokenPairResponse")
-	proto.RegisterType((*MsgAddTokenMessenger)(nil), "noble.cctp.v1.MsgAddTokenMessenger")
-	proto.RegisterType((*MsgAddTokenMessengerResponse)(nil), "noble.cctp.v1.MsgAddTokenMessengerResponse")
-	proto.RegisterType((*MsgRemoveTokenMessenger)(nil), "noble.cctp.v1.MsgRemoveTokenMessenger")
-	proto.RegisterType((*MsgRemoveTokenMessengerResponse)(nil), "noble.cctp.v1.MsgRemoveTokenMessengerResponse")
+	proto.RegisterType((*MsgAddRemoteTokenMessenger)(nil), "noble.cctp.v1.MsgAddRemoteTokenMessenger")
+	proto.RegisterType((*MsgAddRemoteTokenMessengerResponse)(nil), "noble.cctp.v1.MsgAddRemoteTokenMessengerResponse")
+	proto.RegisterType((*MsgRemoveRemoteTokenMessenger)(nil), "noble.cctp.v1.MsgRemoveRemoteTokenMessenger")
+	proto.RegisterType((*MsgRemoveRemoteTokenMessengerResponse)(nil), "noble.cctp.v1.MsgRemoveRemoteTokenMessengerResponse")
 }
 
 func init() { proto.RegisterFile("noble/cctp/v1/tx.proto", fileDescriptor_49e431ce1d7c177f) }
 
 var fileDescriptor_49e431ce1d7c177f = []byte{
-	// 1443 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0x5b, 0x6f, 0xdc, 0x44,
-	0x14, 0x8e, 0xd3, 0xa4, 0x6d, 0x4e, 0x2e, 0x4d, 0x4d, 0x1a, 0xb6, 0x6e, 0xbb, 0x49, 0x1c, 0xd2,
-	0x2b, 0xbb, 0x4b, 0x7a, 0x91, 0x80, 0xf2, 0x92, 0x34, 0x54, 0x2a, 0xea, 0x4a, 0x95, 0x53, 0x84,
-	0x40, 0x48, 0x8b, 0x63, 0x0f, 0xce, 0xa8, 0xeb, 0x99, 0xc5, 0x33, 0xbb, 0x69, 0x2a, 0x21, 0xfe,
-	0x00, 0x12, 0x17, 0xf1, 0xc0, 0x33, 0xbf, 0xa6, 0x2f, 0x48, 0x95, 0x78, 0x41, 0x3c, 0x54, 0xa8,
-	0x15, 0xef, 0xfc, 0x04, 0xe4, 0xb1, 0x3d, 0x6b, 0xaf, 0x67, 0x76, 0x37, 0x54, 0x20, 0x78, 0xb3,
-	0x67, 0xbe, 0x73, 0xfb, 0xe6, 0x9c, 0xe3, 0xe3, 0x81, 0x65, 0x42, 0xf7, 0xda, 0xa8, 0xe1, 0x79,
-	0xbc, 0xd3, 0xe8, 0x6d, 0x36, 0xf8, 0xe3, 0x7a, 0x27, 0xa2, 0x9c, 0x9a, 0xf3, 0x62, 0xbd, 0x1e,
-	0xaf, 0xd7, 0x7b, 0x9b, 0xd6, 0x52, 0x40, 0x03, 0x2a, 0x76, 0x1a, 0xf1, 0x53, 0x02, 0xb2, 0x9b,
-	0x60, 0x36, 0x59, 0xf0, 0x61, 0xc7, 0x77, 0x39, 0xda, 0xea, 0xf2, 0x7d, 0x1a, 0x61, 0x7e, 0x68,
-	0x9a, 0x30, 0xf5, 0x79, 0x44, 0xc3, 0x8a, 0xb1, 0x6a, 0x5c, 0x9e, 0x71, 0xc4, 0xb3, 0xb9, 0x0e,
-	0xf3, 0x04, 0x1d, 0xb4, 0xdc, 0x0c, 0x54, 0x99, 0x14, 0x9b, 0x73, 0x04, 0x1d, 0x48, 0x41, 0xfb,
-	0x3c, 0x58, 0x65, 0x75, 0x0e, 0x62, 0x1d, 0x4a, 0x18, 0xb2, 0xef, 0xc0, 0xe9, 0x26, 0x0b, 0xde,
-	0x27, 0xee, 0x5e, 0x1b, 0x6d, 0x71, 0x8e, 0x18, 0x47, 0x91, 0xd2, 0x96, 0x05, 0x27, 0xdd, 0x74,
-	0x5f, 0x98, 0x99, 0x73, 0xe4, 0xbb, 0x7d, 0x0e, 0xce, 0x96, 0x94, 0x48, 0x0b, 0x3b, 0x22, 0x9c,
-	0x1d, 0xcc, 0x5e, 0xc9, 0x44, 0x12, 0xc5, 0x80, 0x16, 0x69, 0xa3, 0x21, 0x1c, 0x78, 0xe0, 0x76,
-	0x19, 0xda, 0xee, 0x46, 0x04, 0x93, 0x60, 0x8b, 0xf8, 0x4d, 0x4c, 0x38, 0x26, 0x81, 0xca, 0x94,
-	0xbd, 0x0e, 0x6b, 0x5a, 0x01, 0xa9, 0x75, 0x13, 0xce, 0xc5, 0xcc, 0x91, 0xce, 0xf8, 0x7a, 0x37,
-	0x60, 0x7d, 0x88, 0x88, 0xd4, 0xfc, 0x8e, 0x80, 0x09, 0xf3, 0xbb, 0x88, 0xf8, 0x09, 0xc8, 0x41,
-	0x1e, 0xc2, 0x3d, 0x4c, 0x82, 0x26, 0x62, 0xcc, 0x0d, 0x10, 0x53, 0x5a, 0xa8, 0xc1, 0xb5, 0x31,
-	0x44, 0xa5, 0xa5, 0xdb, 0xb0, 0xd1, 0x77, 0xe8, 0xa8, 0xb6, 0x1a, 0x50, 0x1b, 0x4b, 0x58, 0x5a,
-	0x7b, 0x98, 0x30, 0x26, 0x72, 0xad, 0xe9, 0x3e, 0x4e, 0xf7, 0xb7, 0xa9, 0x7f, 0xb8, 0x8b, 0x9f,
-	0x20, 0xe5, 0xa1, 0xaf, 0xc1, 0x5c, 0x98, 0xc0, 0x5a, 0x0c, 0x3f, 0x41, 0xe2, 0xe0, 0xa7, 0x9c,
-	0xd9, 0x74, 0x2d, 0x16, 0xcb, 0x48, 0xd5, 0x68, 0x95, 0xc6, 0xbf, 0x82, 0xf3, 0x12, 0xf6, 0x00,
-	0x45, 0x19, 0xac, 0x1b, 0x91, 0xfb, 0x38, 0xc4, 0x5c, 0x69, 0x7d, 0x09, 0xa6, 0x7d, 0x44, 0x68,
-	0x98, 0x56, 0x4e, 0xf2, 0x62, 0xde, 0x82, 0xe3, 0x6e, 0x48, 0xbb, 0x84, 0x57, 0x8e, 0xc5, 0xcb,
-	0xdb, 0x17, 0x9e, 0x3e, 0x5f, 0x99, 0xf8, 0xed, 0xf9, 0xca, 0x19, 0x8f, 0xb2, 0x90, 0x32, 0xe6,
-	0x3f, 0xaa, 0x63, 0xda, 0x08, 0x5d, 0xbe, 0x5f, 0xbf, 0x47, 0xb8, 0x93, 0x82, 0xed, 0x8b, 0xf0,
-	0xc6, 0x30, 0x07, 0xa4, 0xa3, 0xbf, 0x18, 0xa2, 0xe8, 0x76, 0x50, 0x87, 0x32, 0xcc, 0xef, 0xd2,
-	0x28, 0x86, 0x28, 0xdd, 0xeb, 0x3b, 0x32, 0x79, 0x04, 0x47, 0xcc, 0x1a, 0x98, 0x3e, 0x62, 0x1c,
-	0x13, 0x97, 0x63, 0x4a, 0x5a, 0x3e, 0x0d, 0x5d, 0x4c, 0x44, 0x2c, 0xf3, 0xce, 0xe9, 0xdc, 0xce,
-	0x8e, 0xd8, 0x30, 0x37, 0x60, 0x21, 0xc4, 0x84, 0xb7, 0x22, 0xe4, 0xe1, 0x0e, 0x46, 0x84, 0x57,
-	0xa6, 0x44, 0xf5, 0xcd, 0xc7, 0xab, 0x4e, 0xb6, 0x68, 0x5e, 0x00, 0xd8, 0xeb, 0x46, 0xa4, 0xc5,
-	0xe9, 0x23, 0x44, 0x2a, 0xd3, 0xc2, 0xcd, 0x99, 0x78, 0xe5, 0x61, 0xbc, 0x60, 0x6f, 0x8a, 0x1a,
-	0x2c, 0x06, 0x95, 0x85, 0x1c, 0xf3, 0x4c, 0x28, 0xf1, 0x90, 0x88, 0x6e, 0xca, 0x49, 0x5e, 0xec,
-	0xaf, 0x27, 0x45, 0xbe, 0x14, 0x65, 0x3e, 0xc2, 0x7c, 0xff, 0x8e, 0xdb, 0x6e, 0x6b, 0x9a, 0xc4,
-	0xff, 0x88, 0x92, 0x41, 0xa3, 0x9e, 0x88, 0xaa, 0x72, 0x5c, 0x68, 0xca, 0x1b, 0x4d, 0xc2, 0xb5,
-	0x6f, 0x8b, 0x3c, 0xd7, 0xb1, 0x31, 0x82, 0xcb, 0x3f, 0x0d, 0xa8, 0x34, 0x59, 0xe0, 0xa0, 0x4e,
-	0xdb, 0xf5, 0xd0, 0x18, 0xb9, 0x75, 0x05, 0x16, 0x69, 0x84, 0x03, 0x4c, 0xdc, 0x76, 0x2b, 0xad,
-	0xb6, 0xb4, 0xeb, 0x9e, 0xca, 0xd6, 0xd3, 0x0c, 0x36, 0x37, 0x61, 0x49, 0x42, 0x93, 0x8e, 0x2c,
-	0xdc, 0x16, 0xf4, 0xcd, 0x39, 0xaf, 0x65, 0x7b, 0x5b, 0xfd, 0x2d, 0xf3, 0x26, 0x2c, 0xc7, 0x9f,
-	0x26, 0x45, 0xf8, 0x09, 0x91, 0x4b, 0x04, 0x1d, 0xec, 0x0c, 0x32, 0x60, 0xbe, 0x09, 0x66, 0x2c,
-	0x35, 0x40, 0xfd, 0xb4, 0x90, 0x58, 0x24, 0xe8, 0xa0, 0x99, 0x67, 0xdf, 0xb6, 0x61, 0x55, 0x17,
-	0xb1, 0xac, 0x35, 0x4f, 0x94, 0x5a, 0xd2, 0xb1, 0x50, 0x16, 0x8f, 0x8a, 0x8e, 0x0a, 0x9c, 0x28,
-	0xb2, 0x90, 0xbd, 0x9a, 0xab, 0x30, 0x5b, 0x0e, 0x3a, 0xbf, 0x64, 0xdf, 0x12, 0xa9, 0x5f, 0x34,
-	0x22, 0x8f, 0xab, 0x02, 0x27, 0x58, 0xd7, 0xf3, 0x10, 0x63, 0xc2, 0xde, 0x49, 0x27, 0x7b, 0xb5,
-	0x7f, 0x30, 0x60, 0xa1, 0xc9, 0x82, 0xb8, 0xb1, 0x0e, 0xf3, 0x4c, 0x9d, 0xba, 0x93, 0xba, 0xd4,
-	0x3d, 0x0f, 0x33, 0x7d, 0xea, 0x12, 0x67, 0xfb, 0x0b, 0xf9, 0x76, 0xbb, 0x47, 0xfd, 0xc3, 0xf4,
-	0x34, 0xb2, 0x76, 0x1b, 0xf7, 0x54, 0xbb, 0x0e, 0xcb, 0x45, 0xaf, 0x46, 0x64, 0xde, 0xcf, 0x49,
-	0xe6, 0xe5, 0x04, 0x46, 0x94, 0xf0, 0xbf, 0x1c, 0x90, 0xa6, 0x0c, 0xa7, 0x75, 0x65, 0xf8, 0xb6,
-	0x48, 0x2b, 0x65, 0x38, 0x23, 0x98, 0xf8, 0xc3, 0x48, 0xb3, 0x4d, 0x64, 0xe4, 0xb0, 0x33, 0xfd,
-	0x67, 0x8b, 0xef, 0x32, 0x2c, 0x8a, 0x32, 0x2a, 0xf3, 0xb2, 0x10, 0x17, 0x51, 0x8e, 0x1a, 0x7d,
-	0x99, 0x4e, 0xeb, 0xcb, 0x34, 0x9d, 0xf7, 0x8a, 0x61, 0xca, 0x8a, 0xbb, 0x97, 0x9b, 0x01, 0x76,
-	0x71, 0x40, 0x5c, 0xde, 0x8d, 0xd0, 0xc3, 0xfd, 0x08, 0xb1, 0x7d, 0xda, 0xf6, 0x95, 0x6c, 0x2c,
-	0x17, 0x7a, 0xfa, 0xbc, 0xfc, 0xa0, 0xe6, 0x3f, 0xfc, 0x65, 0x55, 0xd2, 0xe2, 0x37, 0x06, 0x2c,
-	0x36, 0x59, 0x70, 0x1f, 0x93, 0x47, 0xa2, 0xef, 0x3e, 0x70, 0x71, 0xa4, 0x9b, 0x97, 0x23, 0x14,
-	0x52, 0x8e, 0x8a, 0x39, 0x37, 0x97, 0x2c, 0xa6, 0xe9, 0xb6, 0x06, 0xe9, 0x7b, 0xda, 0xd5, 0xc5,
-	0x08, 0xe0, 0xcc, 0x26, 0x6b, 0x49, 0x5f, 0x5f, 0x81, 0xd9, 0x36, 0xf5, 0xdc, 0x76, 0x8a, 0x98,
-	0x12, 0x08, 0x10, 0x4b, 0xc9, 0xb7, 0xd0, 0x12, 0x15, 0x51, 0x70, 0x48, 0x7a, 0xfb, 0x9d, 0x91,
-	0xcc, 0xf7, 0xa4, 0xfd, 0xdf, 0xf1, 0x37, 0xfd, 0x47, 0x28, 0xba, 0x24, 0x3d, 0x76, 0x61, 0xa9,
-	0xc9, 0x82, 0x2d, 0xdf, 0x17, 0x5b, 0xf1, 0x79, 0x23, 0x12, 0x68, 0x6a, 0xfb, 0x1c, 0xcc, 0x24,
-	0xbe, 0xb6, 0xb0, 0x9f, 0xba, 0x7b, 0x32, 0x59, 0xb8, 0xe7, 0xc7, 0xad, 0xd0, 0xf5, 0xfd, 0x28,
-	0x6e, 0x85, 0x89, 0x97, 0xd9, 0xab, 0x5d, 0x15, 0xb3, 0x5b, 0xc9, 0x84, 0x74, 0xe1, 0x03, 0x78,
-	0x5d, 0x64, 0x5c, 0x48, 0x7b, 0xe8, 0x15, 0xbd, 0xb0, 0xd7, 0x60, 0x45, 0xa3, 0x2b, 0x33, 0x77,
-	0xfd, 0x27, 0x13, 0x8e, 0x35, 0x59, 0x60, 0x22, 0x38, 0x5d, 0x0e, 0x7b, 0xbd, 0x5e, 0xf8, 0x8b,
-	0xab, 0xab, 0x1c, 0xb7, 0xae, 0x8d, 0x01, 0x92, 0xdd, 0xe4, 0x53, 0x58, 0x18, 0xf8, 0x60, 0xaf,
-	0x96, 0xc5, 0x8b, 0x08, 0xeb, 0xf2, 0x28, 0x84, 0xd4, 0xfe, 0x04, 0x2a, 0xda, 0x09, 0xeb, 0xea,
-	0x28, 0x2d, 0x7d, 0xac, 0x75, 0x7d, 0x7c, 0xac, 0xb4, 0xdd, 0x82, 0x53, 0x83, 0x7f, 0x7e, 0x6b,
-	0x0a, 0x35, 0x45, 0x88, 0x75, 0x65, 0x24, 0x24, 0x4f, 0xdd, 0xc0, 0xcf, 0xab, 0x82, 0xba, 0x22,
-	0x42, 0x45, 0x9d, 0xfa, 0xdf, 0xd5, 0xfc, 0x18, 0xe6, 0x8b, 0x5d, 0x65, 0xa5, 0x2c, 0x5a, 0x00,
-	0x58, 0x97, 0x46, 0x00, 0xa4, 0x6a, 0x0e, 0xcb, 0x9a, 0xff, 0x55, 0x85, 0x7b, 0x6a, 0xa4, 0xf5,
-	0xd6, 0xb8, 0x48, 0x69, 0xf5, 0x7b, 0x03, 0x56, 0x47, 0xfe, 0x76, 0x5e, 0xd7, 0xa8, 0x1d, 0x22,
-	0x63, 0xbd, 0x7b, 0x74, 0x99, 0xfc, 0x19, 0x0e, 0x0c, 0x68, 0x8a, 0x33, 0x2c, 0x22, 0x54, 0x67,
-	0xa8, 0x99, 0xbf, 0x08, 0x2c, 0x29, 0xfb, 0xc6, 0x45, 0x95, 0x86, 0x32, 0xce, 0xaa, 0x8f, 0x87,
-	0x93, 0xf6, 0xbe, 0x80, 0x33, 0xea, 0x21, 0xfc, 0x92, 0x4a, 0x91, 0x02, 0x68, 0x35, 0xc6, 0x04,
-	0x16, 0x09, 0x2c, 0xcc, 0x1c, 0xab, 0x5a, 0x15, 0x43, 0x09, 0x54, 0x7d, 0xd0, 0xcd, 0x5d, 0x98,
-	0xcd, 0x8f, 0xa8, 0x17, 0xca, 0x82, 0xb9, 0x6d, 0x6b, 0x63, 0xe8, 0x76, 0x9e, 0x25, 0xf5, 0xc0,
-	0x78, 0x69, 0xa8, 0x7c, 0xae, 0x1d, 0x35, 0xc6, 0x04, 0xe6, 0x7b, 0xd1, 0xe0, 0x47, 0x57, 0xd1,
-	0x8b, 0x06, 0x20, 0xaa, 0x5e, 0xa4, 0xf9, 0x4e, 0xc6, 0x8d, 0x56, 0x7b, 0x59, 0x74, 0x55, 0xa5,
-	0x46, 0x8d, 0x55, 0x35, 0xda, 0x51, 0x37, 0x4a, 0xe6, 0x8f, 0x06, 0xd8, 0x63, 0xdc, 0xf2, 0xdc,
-	0xd4, 0xaa, 0x1e, 0x56, 0xdc, 0xef, 0xfd, 0x1d, 0xa9, 0x02, 0xef, 0x03, 0x97, 0x99, 0x2a, 0xde,
-	0x8b, 0x10, 0x25, 0xef, 0xea, 0x3b, 0x4c, 0xc1, 0xbb, 0xee, 0xca, 0xe9, 0xaa, 0x4e, 0x4d, 0x19,
-	0xab, 0xe4, 0x7d, 0xc4, 0xa5, 0x93, 0xf9, 0x25, 0x9c, 0xd5, 0xdf, 0x38, 0x5d, 0xd3, 0x29, 0x54,
-	0x80, 0xad, 0x1b, 0x47, 0x00, 0x97, 0x43, 0x57, 0x4c, 0xda, 0xda, 0xd0, 0xcb, 0x58, 0x7d, 0xe8,
-	0xfa, 0xb1, 0x7b, 0xfb, 0xb3, 0xa7, 0x2f, 0xaa, 0xc6, 0xb3, 0x17, 0x55, 0xe3, 0xf7, 0x17, 0x55,
-	0xe3, 0xdb, 0x97, 0xd5, 0x89, 0x67, 0x2f, 0xab, 0x13, 0xbf, 0xbe, 0xac, 0x4e, 0x7c, 0x72, 0x37,
-	0xc0, 0x7c, 0xbf, 0xbb, 0x57, 0xf7, 0x68, 0xd8, 0x60, 0x3c, 0x72, 0x49, 0x80, 0xda, 0xb4, 0x87,
-	0x6a, 0x3d, 0x44, 0x62, 0x55, 0xac, 0x21, 0x8c, 0xd5, 0x62, 0x63, 0xb5, 0x88, 0x76, 0x39, 0x8a,
-	0x6a, 0x9d, 0x08, 0xf7, 0x5c, 0x8e, 0x1a, 0x8f, 0x93, 0x4b, 0x73, 0x7e, 0xd8, 0x41, 0x6c, 0xef,
-	0xb8, 0xb8, 0x10, 0xbf, 0xf1, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x04, 0xb4, 0xc2, 0xb3, 0x4f,
-	0x17, 0x00, 0x00,
+	// 1426 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0x5b, 0x6f, 0xdc, 0xc4,
+	0x17, 0x8f, 0xd3, 0xa4, 0x4d, 0x4e, 0x2e, 0x4d, 0xfd, 0x4f, 0xf3, 0xdf, 0xba, 0xcd, 0xcd, 0x6d,
+	0x48, 0x6f, 0xd9, 0x65, 0x7b, 0x91, 0x80, 0xf2, 0x92, 0x34, 0x54, 0xaa, 0xd4, 0x15, 0x91, 0xd3,
+	0x0a, 0x81, 0x90, 0x56, 0x5e, 0x7b, 0xea, 0x8c, 0xba, 0x9e, 0x59, 0x3c, 0xb3, 0xd9, 0xb6, 0x12,
+	0x82, 0x0f, 0x80, 0xc4, 0x45, 0x3c, 0xf0, 0x5d, 0xf8, 0x02, 0x7d, 0x41, 0xaa, 0xc4, 0x0b, 0xe2,
+	0xa1, 0x42, 0x8d, 0x78, 0xe7, 0x23, 0x20, 0x8f, 0xed, 0x59, 0x7b, 0x77, 0x66, 0x77, 0xc3, 0x4d,
+	0xf0, 0x66, 0x9f, 0xf9, 0x9d, 0xeb, 0x9c, 0x73, 0xe6, 0xcc, 0xc0, 0x12, 0xa1, 0x8d, 0x26, 0xaa,
+	0x78, 0x1e, 0x6f, 0x55, 0x0e, 0xab, 0x15, 0xfe, 0xb4, 0xdc, 0x8a, 0x28, 0xa7, 0xe6, 0x9c, 0xa0,
+	0x97, 0x63, 0x7a, 0xf9, 0xb0, 0x6a, 0x2d, 0x06, 0x34, 0xa0, 0x62, 0xa5, 0x12, 0x7f, 0x25, 0x20,
+	0x7b, 0x1b, 0xe6, 0x6b, 0x2c, 0x78, 0xd4, 0xf2, 0x5d, 0x8e, 0xde, 0xef, 0x10, 0x14, 0x99, 0x26,
+	0x4c, 0x3c, 0x8e, 0x68, 0x58, 0x32, 0xd6, 0x8c, 0xcb, 0xd3, 0x8e, 0xf8, 0x36, 0xcf, 0xc3, 0x34,
+	0x41, 0x9d, 0x3a, 0x8d, 0x01, 0xa5, 0x71, 0xb1, 0x30, 0x45, 0x50, 0x47, 0x30, 0xd8, 0x25, 0x58,
+	0x2a, 0x8a, 0x70, 0x10, 0x6b, 0x51, 0xc2, 0x90, 0x7d, 0x17, 0xce, 0xd4, 0x58, 0xf0, 0x1e, 0x71,
+	0x1b, 0x4d, 0xb4, 0xcd, 0x39, 0x62, 0x5c, 0x23, 0xdf, 0x82, 0x29, 0x37, 0x5d, 0x17, 0xe2, 0x67,
+	0x1d, 0xf9, 0x6f, 0x9f, 0x87, 0x73, 0x7d, 0x42, 0xa4, 0x86, 0x5d, 0x30, 0x6b, 0x2c, 0xd8, 0xc5,
+	0xec, 0x4f, 0xa9, 0xb8, 0x00, 0x56, 0xbf, 0x14, 0xa9, 0xa3, 0x22, 0x0c, 0xd8, 0x73, 0xdb, 0x0c,
+	0xed, 0xb4, 0x23, 0x82, 0x49, 0xb0, 0x4d, 0xfc, 0x1a, 0x26, 0x1c, 0x93, 0x40, 0xa5, 0xca, 0xbe,
+	0x08, 0xeb, 0x5a, 0x06, 0x29, 0xb5, 0x0a, 0xe7, 0xe3, 0xa8, 0x91, 0xd6, 0xe8, 0x72, 0x37, 0xe0,
+	0xe2, 0x00, 0x16, 0x29, 0xf9, 0x6d, 0x01, 0x13, 0xea, 0xf7, 0x11, 0xf1, 0x13, 0x90, 0x83, 0x3c,
+	0x84, 0x0f, 0x31, 0x09, 0x6a, 0x88, 0x31, 0x37, 0x40, 0x4c, 0xa9, 0x61, 0x0b, 0xae, 0x8d, 0xc0,
+	0x2a, 0x35, 0xdd, 0x81, 0x8d, 0xae, 0x41, 0xc7, 0xd5, 0x55, 0x81, 0xad, 0x91, 0x98, 0xa5, 0xb6,
+	0x87, 0x49, 0xc4, 0x44, 0x9e, 0xd5, 0xdc, 0xa7, 0xe9, 0xfa, 0x0e, 0xf5, 0x9f, 0xed, 0xe3, 0xe7,
+	0x48, 0xb9, 0xe9, 0xeb, 0x30, 0x1b, 0x26, 0xb0, 0x3a, 0xc3, 0xcf, 0x91, 0xd8, 0xf8, 0x09, 0x67,
+	0x26, 0xa5, 0xc5, 0x6c, 0x59, 0x50, 0x35, 0x52, 0xa5, 0xf2, 0xcf, 0xe0, 0x82, 0x84, 0xed, 0xa1,
+	0x28, 0x83, 0xb5, 0x23, 0xf2, 0x00, 0x87, 0x98, 0x2b, 0xb5, 0x2f, 0xc2, 0xa4, 0x8f, 0x08, 0x0d,
+	0xd3, 0x8a, 0x49, 0x7e, 0xcc, 0xdb, 0x70, 0xd2, 0x0d, 0x69, 0x9b, 0xf0, 0xd2, 0x89, 0x98, 0xbc,
+	0xb3, 0xfc, 0xe2, 0xd5, 0xea, 0xd8, 0xcf, 0xaf, 0x56, 0xcf, 0x7a, 0x94, 0x85, 0x94, 0x31, 0xff,
+	0x49, 0x19, 0xd3, 0x4a, 0xe8, 0xf2, 0x83, 0xf2, 0x7d, 0xc2, 0x9d, 0x14, 0x6c, 0xbf, 0x01, 0x97,
+	0x06, 0x19, 0x20, 0x0d, 0xfd, 0xd1, 0x10, 0x45, 0xb7, 0x8b, 0x5a, 0x94, 0x61, 0x7e, 0x8f, 0x46,
+	0x31, 0x44, 0x69, 0x5e, 0xd7, 0x90, 0xf1, 0x63, 0x18, 0x62, 0x6e, 0x81, 0xe9, 0x23, 0xc6, 0x31,
+	0x71, 0x39, 0xa6, 0xa4, 0xee, 0xd3, 0xd0, 0xc5, 0x44, 0xf8, 0x32, 0xe7, 0x9c, 0xc9, 0xad, 0xec,
+	0x8a, 0x05, 0x73, 0x03, 0xe6, 0x43, 0x4c, 0x78, 0x3d, 0x42, 0x1e, 0x6e, 0x61, 0x44, 0x78, 0x69,
+	0x42, 0x54, 0xdf, 0x5c, 0x4c, 0x75, 0x32, 0xa2, 0xb9, 0x0c, 0xd0, 0x68, 0x47, 0xa4, 0xce, 0xe9,
+	0x13, 0x44, 0x4a, 0x93, 0xc2, 0xcc, 0xe9, 0x98, 0xf2, 0x30, 0x26, 0xd8, 0x55, 0x51, 0x83, 0x45,
+	0xa7, 0x32, 0x97, 0xe3, 0x38, 0x13, 0x4a, 0x3c, 0x24, 0xbc, 0x9b, 0x70, 0x92, 0x1f, 0xfb, 0x8b,
+	0x71, 0x91, 0x2f, 0x45, 0x9e, 0x0f, 0x30, 0x3f, 0xb8, 0xeb, 0x36, 0x9b, 0x9a, 0x26, 0xf1, 0x1f,
+	0x0a, 0x49, 0xaf, 0x52, 0x4f, 0x78, 0x55, 0x3a, 0x29, 0x24, 0xe5, 0x95, 0x26, 0xee, 0xda, 0x77,
+	0x44, 0x9e, 0xeb, 0xa2, 0x31, 0x24, 0x96, 0xbf, 0x19, 0x50, 0xaa, 0xb1, 0xc0, 0x41, 0xad, 0xa6,
+	0xeb, 0xa1, 0x11, 0x72, 0xeb, 0x0a, 0x2c, 0xd0, 0x08, 0x07, 0x98, 0xb8, 0xcd, 0x7a, 0x5a, 0x6d,
+	0x69, 0xd7, 0x3d, 0x9d, 0xd1, 0xd3, 0x0c, 0x36, 0xab, 0xb0, 0x28, 0xa1, 0x49, 0x47, 0x16, 0x66,
+	0x8b, 0xf0, 0xcd, 0x3a, 0xff, 0xcb, 0xd6, 0xb6, 0xbb, 0x4b, 0xe6, 0x2d, 0x58, 0x8a, 0x8f, 0x23,
+	0x85, 0xfb, 0x49, 0x20, 0x17, 0x09, 0xea, 0xec, 0xf6, 0x46, 0xc0, 0xbc, 0x0e, 0x66, 0xcc, 0xd5,
+	0x13, 0xfa, 0x49, 0xc1, 0xb1, 0x40, 0x50, 0xa7, 0x96, 0x8f, 0xbe, 0x6d, 0xc3, 0x9a, 0xce, 0x63,
+	0x59, 0x6b, 0x9e, 0x28, 0xb5, 0xa4, 0x63, 0xa1, 0xcc, 0x1f, 0x55, 0x38, 0x4a, 0x70, 0xaa, 0x18,
+	0x85, 0xec, 0xd7, 0x5c, 0x83, 0x99, 0x7e, 0xa7, 0xf3, 0x24, 0xfb, 0xb6, 0x48, 0xfd, 0xa2, 0x12,
+	0xb9, 0x5d, 0x25, 0x38, 0xc5, 0xda, 0x9e, 0x87, 0x18, 0x13, 0xfa, 0xa6, 0x9c, 0xec, 0xd7, 0xfe,
+	0xd6, 0x10, 0x27, 0x7b, 0xdc, 0x58, 0x07, 0x59, 0xa6, 0x4e, 0xdd, 0x71, 0x5d, 0xea, 0x5e, 0x80,
+	0xe9, 0x6e, 0xe8, 0x12, 0x63, 0xbb, 0x84, 0x7c, 0xbb, 0x6d, 0x50, 0xff, 0x59, 0xba, 0x1b, 0x59,
+	0xbb, 0x8d, 0x7b, 0xaa, 0x5d, 0x16, 0xc3, 0x42, 0xce, 0xaa, 0x21, 0x99, 0xf7, 0x43, 0x92, 0x79,
+	0x39, 0x86, 0x21, 0x25, 0xfc, 0x0f, 0x3b, 0xa4, 0x29, 0xc3, 0x49, 0x5d, 0x19, 0xbe, 0x25, 0xd2,
+	0x4a, 0xe9, 0xce, 0x90, 0x48, 0xfc, 0x6a, 0xa4, 0xd9, 0x26, 0x32, 0x72, 0xd0, 0x9e, 0xfe, 0xbd,
+	0xc5, 0x77, 0x19, 0x16, 0x44, 0x19, 0xf5, 0xc7, 0x65, 0x3e, 0x2e, 0xa2, 0x5c, 0x68, 0xf4, 0x65,
+	0x3a, 0xa9, 0x2f, 0xd3, 0x74, 0xde, 0x2b, 0xba, 0x29, 0x2b, 0xee, 0x7e, 0x6e, 0x06, 0xd8, 0xc7,
+	0x01, 0x71, 0x79, 0x3b, 0x42, 0x0f, 0x0f, 0x22, 0xc4, 0x0e, 0x68, 0xd3, 0x57, 0x46, 0x63, 0xa9,
+	0xd0, 0xd3, 0xe7, 0xe4, 0x81, 0x9a, 0x3f, 0xf8, 0xfb, 0x45, 0x49, 0x8d, 0x5f, 0x1a, 0xb0, 0x50,
+	0x63, 0xc1, 0x03, 0x4c, 0x9e, 0x88, 0xbe, 0xbb, 0xe7, 0x62, 0x75, 0xe2, 0x5d, 0x84, 0xb9, 0x08,
+	0x85, 0x94, 0xa3, 0x62, 0xce, 0xcd, 0x26, 0xc4, 0x34, 0xdd, 0xd6, 0x21, 0xfd, 0x4f, 0xbb, 0xba,
+	0x18, 0x01, 0x9c, 0x99, 0x84, 0x96, 0xf4, 0xf5, 0x55, 0x98, 0x69, 0x52, 0xcf, 0x6d, 0xa6, 0x88,
+	0x09, 0x81, 0x00, 0x41, 0x4a, 0xce, 0x42, 0x4b, 0x54, 0x44, 0xc1, 0x20, 0x69, 0xed, 0xd7, 0x86,
+	0x18, 0x88, 0x1f, 0x91, 0xe6, 0xbf, 0xc7, 0xde, 0x64, 0xba, 0xee, 0x31, 0x49, 0x5a, 0x1c, 0x88,
+	0xd5, 0x6d, 0xdf, 0x77, 0xba, 0x32, 0xe3, 0x5d, 0x47, 0x24, 0xd0, 0x5f, 0x46, 0x12, 0x8b, 0xeb,
+	0xd8, 0x4f, 0x8d, 0x9e, 0x4a, 0x08, 0xf7, 0xfd, 0xb8, 0x21, 0xba, 0xbe, 0x1f, 0xc5, 0x0d, 0x31,
+	0xb1, 0x35, 0xfb, 0xb5, 0x2f, 0x81, 0xad, 0x57, 0x24, 0xcd, 0xd9, 0x83, 0x65, 0x91, 0x7d, 0x21,
+	0x3d, 0x44, 0x7f, 0x89, 0x45, 0xf6, 0xa6, 0x18, 0x92, 0xf5, 0x12, 0x33, 0xd5, 0x37, 0xbe, 0x37,
+	0xe1, 0x44, 0x8d, 0x05, 0x66, 0x07, 0xfe, 0xaf, 0x0b, 0xc7, 0x95, 0x72, 0xe1, 0x4e, 0x57, 0xd6,
+	0x3b, 0x64, 0x55, 0x47, 0x86, 0xca, 0xbe, 0xf3, 0x31, 0xcc, 0xf7, 0x1c, 0xed, 0x6b, 0xfd, 0x42,
+	0x8a, 0x08, 0xeb, 0xf2, 0x30, 0x84, 0x94, 0xfe, 0x1c, 0x4a, 0xda, 0x59, 0xec, 0xea, 0x30, 0x29,
+	0x5d, 0xac, 0x75, 0x63, 0x74, 0xac, 0xd4, 0x5d, 0x87, 0xd3, 0xbd, 0x77, 0xc4, 0x75, 0x85, 0x98,
+	0x22, 0xc4, 0xba, 0x32, 0x14, 0x92, 0x0f, 0x5d, 0xcf, 0x35, 0x57, 0x11, 0xba, 0x22, 0x42, 0x15,
+	0x3a, 0xf5, 0x2d, 0xd7, 0xfc, 0x10, 0xe6, 0x8a, 0xfd, 0x67, 0xb5, 0x9f, 0xb5, 0x00, 0xb0, 0x36,
+	0x87, 0x00, 0xa4, 0x68, 0x0e, 0x4b, 0x9a, 0x9b, 0xad, 0xc2, 0x3c, 0x35, 0xd2, 0x7a, 0x73, 0x54,
+	0xa4, 0xd4, 0xfa, 0x8d, 0x01, 0x6b, 0x43, 0x2f, 0xa8, 0x37, 0x34, 0x62, 0x07, 0xf0, 0x58, 0xef,
+	0x1c, 0x9f, 0x27, 0xbf, 0x87, 0x3d, 0xa3, 0x9c, 0x62, 0x0f, 0x8b, 0x08, 0xd5, 0x1e, 0x6a, 0x26,
+	0xb5, 0xcf, 0x0d, 0xb0, 0x06, 0xb4, 0x95, 0xeb, 0x2a, 0x41, 0x3a, 0xb4, 0x75, 0xeb, 0x38, 0x68,
+	0x69, 0xc2, 0x27, 0x70, 0x56, 0x3d, 0xc1, 0x6f, 0xaa, 0xc4, 0x29, 0x80, 0x56, 0x65, 0x44, 0x60,
+	0x31, 0xa6, 0x85, 0x81, 0x65, 0x4d, 0x2b, 0x62, 0x60, 0x4c, 0x55, 0xd3, 0x80, 0xb9, 0x0f, 0x33,
+	0xf9, 0xf9, 0x76, 0xb9, 0x9f, 0x31, 0xb7, 0x6c, 0x6d, 0x0c, 0x5c, 0xce, 0x47, 0x49, 0x3d, 0x6d,
+	0x6e, 0x0e, 0xe4, 0xcf, 0x75, 0xa8, 0xca, 0x88, 0xc0, 0x7c, 0x7b, 0xea, 0x3d, 0xb1, 0x15, 0xed,
+	0xa9, 0x07, 0xa2, 0x6a, 0x4f, 0x9a, 0x43, 0x36, 0xee, 0xbd, 0xda, 0x97, 0xa6, 0xab, 0x2a, 0x31,
+	0x6a, 0xac, 0xaa, 0xf7, 0x0e, 0x7b, 0x8e, 0x32, 0xbf, 0x33, 0xc0, 0x1e, 0xe1, 0x89, 0xe8, 0x96,
+	0x56, 0xf4, 0xa0, 0x7a, 0x7f, 0xf7, 0x8f, 0x70, 0xe5, 0xf3, 0x27, 0xff, 0xf2, 0xa9, 0xc8, 0x9f,
+	0xdc, 0xb2, 0x2a, 0x7f, 0x14, 0x8f, 0x9e, 0x22, 0xd6, 0xba, 0x37, 0xaa, 0xab, 0x3a, 0x11, 0xfd,
+	0x58, 0x65, 0xac, 0x87, 0xbc, 0x52, 0x99, 0x9f, 0xc2, 0x39, 0xfd, 0x13, 0xd5, 0x35, 0x9d, 0x40,
+	0x05, 0xd8, 0xba, 0x79, 0x0c, 0x70, 0xbf, 0xeb, 0x8a, 0xd1, 0x5c, 0xeb, 0x7a, 0x3f, 0x56, 0xef,
+	0xba, 0x7e, 0x4e, 0xdf, 0xb9, 0xf7, 0xe2, 0xf5, 0x8a, 0xf1, 0xf2, 0xf5, 0x8a, 0xf1, 0xcb, 0xeb,
+	0x15, 0xe3, 0xab, 0xa3, 0x95, 0xb1, 0x97, 0x47, 0x2b, 0x63, 0x3f, 0x1d, 0xad, 0x8c, 0x7d, 0x74,
+	0x3d, 0xc0, 0xfc, 0xa0, 0xdd, 0x28, 0x7b, 0x34, 0xac, 0x78, 0x38, 0xf2, 0x9a, 0xe8, 0x31, 0x26,
+	0x15, 0xa1, 0x61, 0x4b, 0x3c, 0x9a, 0x3f, 0x4d, 0xde, 0xce, 0xf9, 0xb3, 0x16, 0x62, 0x8d, 0x93,
+	0xe2, 0x5d, 0xfc, 0xe6, 0xef, 0x01, 0x00, 0x00, 0xff, 0xff, 0xf3, 0x5d, 0x90, 0xde, 0x56, 0x17,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2227,7 +2226,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	AddTokenMessenger(ctx context.Context, in *MsgAddTokenMessenger, opts ...grpc.CallOption) (*MsgAddTokenMessengerResponse, error)
+	AddRemoteTokenMessenger(ctx context.Context, in *MsgAddRemoteTokenMessenger, opts ...grpc.CallOption) (*MsgAddRemoteTokenMessengerResponse, error)
 	DepositForBurn(ctx context.Context, in *MsgDepositForBurn, opts ...grpc.CallOption) (*MsgDepositForBurnResponse, error)
 	DepositForBurnWithCaller(ctx context.Context, in *MsgDepositForBurnWithCaller, opts ...grpc.CallOption) (*MsgDepositForBurnWithCallerResponse, error)
 	DisableAttester(ctx context.Context, in *MsgDisableAttester, opts ...grpc.CallOption) (*MsgDisableAttesterResponse, error)
@@ -2236,7 +2235,7 @@ type MsgClient interface {
 	PauseBurningAndMinting(ctx context.Context, in *MsgPauseBurningAndMinting, opts ...grpc.CallOption) (*MsgPauseBurningAndMintingResponse, error)
 	PauseSendingAndReceivingMessages(ctx context.Context, in *MsgPauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgPauseSendingAndReceivingMessagesResponse, error)
 	ReceiveMessage(ctx context.Context, in *MsgReceiveMessage, opts ...grpc.CallOption) (*MsgReceiveMessageResponse, error)
-	RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error)
+	RemoveRemoteTokenMessenger(ctx context.Context, in *MsgRemoveRemoteTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveRemoteTokenMessengerResponse, error)
 	ReplaceDepositForBurn(ctx context.Context, in *MsgReplaceDepositForBurn, opts ...grpc.CallOption) (*MsgReplaceDepositForBurnResponse, error)
 	ReplaceMessage(ctx context.Context, in *MsgReplaceMessage, opts ...grpc.CallOption) (*MsgReplaceMessageResponse, error)
 	SendMessage(ctx context.Context, in *MsgSendMessage, opts ...grpc.CallOption) (*MsgSendMessageResponse, error)
@@ -2244,7 +2243,7 @@ type MsgClient interface {
 	UnlinkTokenPair(ctx context.Context, in *MsgUnlinkTokenPair, opts ...grpc.CallOption) (*MsgUnlinkTokenPairResponse, error)
 	UnpauseBurningAndMinting(ctx context.Context, in *MsgUnpauseBurningAndMinting, opts ...grpc.CallOption) (*MsgUnpauseBurningAndMintingResponse, error)
 	UnpauseSendingAndReceivingMessages(ctx context.Context, in *MsgUnpauseSendingAndReceivingMessages, opts ...grpc.CallOption) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
-	UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error)
+	UpdateOwner(ctx context.Context, in *MsgUpdateOwner, opts ...grpc.CallOption) (*MsgUpdateOwnerResponse, error)
 	UpdateMaxMessageBodySize(ctx context.Context, in *MsgUpdateMaxMessageBodySize, opts ...grpc.CallOption) (*MsgUpdateMaxMessageBodySizeResponse, error)
 	UpdatePerMessageBurnLimit(ctx context.Context, in *MsgUpdatePerMessageBurnLimit, opts ...grpc.CallOption) (*MsgUpdatePerMessageBurnLimitResponse, error)
 	UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateSignatureThreshold, opts ...grpc.CallOption) (*MsgUpdateSignatureThresholdResponse, error)
@@ -2258,9 +2257,9 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) AddTokenMessenger(ctx context.Context, in *MsgAddTokenMessenger, opts ...grpc.CallOption) (*MsgAddTokenMessengerResponse, error) {
-	out := new(MsgAddTokenMessengerResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/AddTokenMessenger", in, out, opts...)
+func (c *msgClient) AddRemoteTokenMessenger(ctx context.Context, in *MsgAddRemoteTokenMessenger, opts ...grpc.CallOption) (*MsgAddRemoteTokenMessengerResponse, error) {
+	out := new(MsgAddRemoteTokenMessengerResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/AddRemoteTokenMessenger", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2339,9 +2338,9 @@ func (c *msgClient) ReceiveMessage(ctx context.Context, in *MsgReceiveMessage, o
 	return out, nil
 }
 
-func (c *msgClient) RemoveTokenMessenger(ctx context.Context, in *MsgRemoveTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveTokenMessengerResponse, error) {
-	out := new(MsgRemoveTokenMessengerResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/RemoveTokenMessenger", in, out, opts...)
+func (c *msgClient) RemoveRemoteTokenMessenger(ctx context.Context, in *MsgRemoveRemoteTokenMessenger, opts ...grpc.CallOption) (*MsgRemoveRemoteTokenMessengerResponse, error) {
+	out := new(MsgRemoveRemoteTokenMessengerResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/RemoveRemoteTokenMessenger", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2411,9 +2410,9 @@ func (c *msgClient) UnpauseSendingAndReceivingMessages(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *msgClient) UpdateAuthority(ctx context.Context, in *MsgUpdateAuthority, opts ...grpc.CallOption) (*MsgUpdateAuthorityResponse, error) {
-	out := new(MsgUpdateAuthorityResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateAuthority", in, out, opts...)
+func (c *msgClient) UpdateOwner(ctx context.Context, in *MsgUpdateOwner, opts ...grpc.CallOption) (*MsgUpdateOwnerResponse, error) {
+	out := new(MsgUpdateOwnerResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Msg/UpdateOwner", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2449,7 +2448,7 @@ func (c *msgClient) UpdateSignatureThreshold(ctx context.Context, in *MsgUpdateS
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	AddTokenMessenger(context.Context, *MsgAddTokenMessenger) (*MsgAddTokenMessengerResponse, error)
+	AddRemoteTokenMessenger(context.Context, *MsgAddRemoteTokenMessenger) (*MsgAddRemoteTokenMessengerResponse, error)
 	DepositForBurn(context.Context, *MsgDepositForBurn) (*MsgDepositForBurnResponse, error)
 	DepositForBurnWithCaller(context.Context, *MsgDepositForBurnWithCaller) (*MsgDepositForBurnWithCallerResponse, error)
 	DisableAttester(context.Context, *MsgDisableAttester) (*MsgDisableAttesterResponse, error)
@@ -2458,7 +2457,7 @@ type MsgServer interface {
 	PauseBurningAndMinting(context.Context, *MsgPauseBurningAndMinting) (*MsgPauseBurningAndMintingResponse, error)
 	PauseSendingAndReceivingMessages(context.Context, *MsgPauseSendingAndReceivingMessages) (*MsgPauseSendingAndReceivingMessagesResponse, error)
 	ReceiveMessage(context.Context, *MsgReceiveMessage) (*MsgReceiveMessageResponse, error)
-	RemoveTokenMessenger(context.Context, *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error)
+	RemoveRemoteTokenMessenger(context.Context, *MsgRemoveRemoteTokenMessenger) (*MsgRemoveRemoteTokenMessengerResponse, error)
 	ReplaceDepositForBurn(context.Context, *MsgReplaceDepositForBurn) (*MsgReplaceDepositForBurnResponse, error)
 	ReplaceMessage(context.Context, *MsgReplaceMessage) (*MsgReplaceMessageResponse, error)
 	SendMessage(context.Context, *MsgSendMessage) (*MsgSendMessageResponse, error)
@@ -2466,7 +2465,7 @@ type MsgServer interface {
 	UnlinkTokenPair(context.Context, *MsgUnlinkTokenPair) (*MsgUnlinkTokenPairResponse, error)
 	UnpauseBurningAndMinting(context.Context, *MsgUnpauseBurningAndMinting) (*MsgUnpauseBurningAndMintingResponse, error)
 	UnpauseSendingAndReceivingMessages(context.Context, *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error)
-	UpdateAuthority(context.Context, *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error)
+	UpdateOwner(context.Context, *MsgUpdateOwner) (*MsgUpdateOwnerResponse, error)
 	UpdateMaxMessageBodySize(context.Context, *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error)
 	UpdatePerMessageBurnLimit(context.Context, *MsgUpdatePerMessageBurnLimit) (*MsgUpdatePerMessageBurnLimitResponse, error)
 	UpdateSignatureThreshold(context.Context, *MsgUpdateSignatureThreshold) (*MsgUpdateSignatureThresholdResponse, error)
@@ -2476,8 +2475,8 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) AddTokenMessenger(ctx context.Context, req *MsgAddTokenMessenger) (*MsgAddTokenMessengerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddTokenMessenger not implemented")
+func (*UnimplementedMsgServer) AddRemoteTokenMessenger(ctx context.Context, req *MsgAddRemoteTokenMessenger) (*MsgAddRemoteTokenMessengerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddRemoteTokenMessenger not implemented")
 }
 func (*UnimplementedMsgServer) DepositForBurn(ctx context.Context, req *MsgDepositForBurn) (*MsgDepositForBurnResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DepositForBurn not implemented")
@@ -2503,8 +2502,8 @@ func (*UnimplementedMsgServer) PauseSendingAndReceivingMessages(ctx context.Cont
 func (*UnimplementedMsgServer) ReceiveMessage(ctx context.Context, req *MsgReceiveMessage) (*MsgReceiveMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReceiveMessage not implemented")
 }
-func (*UnimplementedMsgServer) RemoveTokenMessenger(ctx context.Context, req *MsgRemoveTokenMessenger) (*MsgRemoveTokenMessengerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveTokenMessenger not implemented")
+func (*UnimplementedMsgServer) RemoveRemoteTokenMessenger(ctx context.Context, req *MsgRemoveRemoteTokenMessenger) (*MsgRemoveRemoteTokenMessengerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveRemoteTokenMessenger not implemented")
 }
 func (*UnimplementedMsgServer) ReplaceDepositForBurn(ctx context.Context, req *MsgReplaceDepositForBurn) (*MsgReplaceDepositForBurnResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReplaceDepositForBurn not implemented")
@@ -2527,8 +2526,8 @@ func (*UnimplementedMsgServer) UnpauseBurningAndMinting(ctx context.Context, req
 func (*UnimplementedMsgServer) UnpauseSendingAndReceivingMessages(ctx context.Context, req *MsgUnpauseSendingAndReceivingMessages) (*MsgUnpauseSendingAndReceivingMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnpauseSendingAndReceivingMessages not implemented")
 }
-func (*UnimplementedMsgServer) UpdateAuthority(ctx context.Context, req *MsgUpdateAuthority) (*MsgUpdateAuthorityResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAuthority not implemented")
+func (*UnimplementedMsgServer) UpdateOwner(ctx context.Context, req *MsgUpdateOwner) (*MsgUpdateOwnerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOwner not implemented")
 }
 func (*UnimplementedMsgServer) UpdateMaxMessageBodySize(ctx context.Context, req *MsgUpdateMaxMessageBodySize) (*MsgUpdateMaxMessageBodySizeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMaxMessageBodySize not implemented")
@@ -2544,20 +2543,20 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_AddTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgAddTokenMessenger)
+func _Msg_AddRemoteTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddRemoteTokenMessenger)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddTokenMessenger(ctx, in)
+		return srv.(MsgServer).AddRemoteTokenMessenger(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/AddTokenMessenger",
+		FullMethod: "/noble.cctp.v1.Msg/AddRemoteTokenMessenger",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddTokenMessenger(ctx, req.(*MsgAddTokenMessenger))
+		return srv.(MsgServer).AddRemoteTokenMessenger(ctx, req.(*MsgAddRemoteTokenMessenger))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2706,20 +2705,20 @@ func _Msg_ReceiveMessage_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_RemoveTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgRemoveTokenMessenger)
+func _Msg_RemoveRemoteTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRemoveRemoteTokenMessenger)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).RemoveTokenMessenger(ctx, in)
+		return srv.(MsgServer).RemoveRemoteTokenMessenger(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/RemoveTokenMessenger",
+		FullMethod: "/noble.cctp.v1.Msg/RemoveRemoteTokenMessenger",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RemoveTokenMessenger(ctx, req.(*MsgRemoveTokenMessenger))
+		return srv.(MsgServer).RemoveRemoteTokenMessenger(ctx, req.(*MsgRemoveRemoteTokenMessenger))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2850,20 +2849,20 @@ func _Msg_UnpauseSendingAndReceivingMessages_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_UpdateAuthority_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateAuthority)
+func _Msg_UpdateOwner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateOwner)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).UpdateAuthority(ctx, in)
+		return srv.(MsgServer).UpdateOwner(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Msg/UpdateAuthority",
+		FullMethod: "/noble.cctp.v1.Msg/UpdateOwner",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateAuthority(ctx, req.(*MsgUpdateAuthority))
+		return srv.(MsgServer).UpdateOwner(ctx, req.(*MsgUpdateOwner))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2927,8 +2926,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "AddTokenMessenger",
-			Handler:    _Msg_AddTokenMessenger_Handler,
+			MethodName: "AddRemoteTokenMessenger",
+			Handler:    _Msg_AddRemoteTokenMessenger_Handler,
 		},
 		{
 			MethodName: "DepositForBurn",
@@ -2963,8 +2962,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_ReceiveMessage_Handler,
 		},
 		{
-			MethodName: "RemoveTokenMessenger",
-			Handler:    _Msg_RemoveTokenMessenger_Handler,
+			MethodName: "RemoveRemoteTokenMessenger",
+			Handler:    _Msg_RemoveRemoteTokenMessenger_Handler,
 		},
 		{
 			MethodName: "ReplaceDepositForBurn",
@@ -2995,8 +2994,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_UnpauseSendingAndReceivingMessages_Handler,
 		},
 		{
-			MethodName: "UpdateAuthority",
-			Handler:    _Msg_UpdateAuthority_Handler,
+			MethodName: "UpdateOwner",
+			Handler:    _Msg_UpdateOwner_Handler,
 		},
 		{
 			MethodName: "UpdateMaxMessageBodySize",
@@ -3015,7 +3014,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	Metadata: "noble/cctp/v1/tx.proto",
 }
 
-func (m *MsgUpdateAuthority) Marshal() (dAtA []byte, err error) {
+func (m *MsgUpdateOwner) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3025,20 +3024,20 @@ func (m *MsgUpdateAuthority) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateAuthority) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgUpdateOwner) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateAuthority) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgUpdateOwner) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.NewAuthority) > 0 {
-		i -= len(m.NewAuthority)
-		copy(dAtA[i:], m.NewAuthority)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.NewAuthority)))
+	if len(m.NewOwner) > 0 {
+		i -= len(m.NewOwner)
+		copy(dAtA[i:], m.NewOwner)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.NewOwner)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -3052,7 +3051,7 @@ func (m *MsgUpdateAuthority) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateAuthorityResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgUpdateOwnerResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3062,12 +3061,12 @@ func (m *MsgUpdateAuthorityResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateAuthorityResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgUpdateOwnerResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateAuthorityResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgUpdateOwnerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -4318,7 +4317,7 @@ func (m *MsgUnlinkTokenPairResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddTokenMessenger) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddRemoteTokenMessenger) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -4328,12 +4327,12 @@ func (m *MsgAddTokenMessenger) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddTokenMessenger) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddRemoteTokenMessenger) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddRemoteTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -4360,7 +4359,7 @@ func (m *MsgAddTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddRemoteTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -4370,12 +4369,12 @@ func (m *MsgAddTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddRemoteTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddRemoteTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -4383,7 +4382,7 @@ func (m *MsgAddTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, e
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveTokenMessenger) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveRemoteTokenMessenger) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -4393,12 +4392,12 @@ func (m *MsgRemoveTokenMessenger) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveTokenMessenger) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveRemoteTokenMessenger) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveRemoteTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -4418,7 +4417,7 @@ func (m *MsgRemoveTokenMessenger) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -4428,12 +4427,12 @@ func (m *MsgRemoveTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -4452,7 +4451,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgUpdateAuthority) Size() (n int) {
+func (m *MsgUpdateOwner) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -4462,14 +4461,14 @@ func (m *MsgUpdateAuthority) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.NewAuthority)
+	l = len(m.NewOwner)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
 
-func (m *MsgUpdateAuthorityResponse) Size() (n int) {
+func (m *MsgUpdateOwnerResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -5027,7 +5026,7 @@ func (m *MsgUnlinkTokenPairResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddTokenMessenger) Size() (n int) {
+func (m *MsgAddRemoteTokenMessenger) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -5047,7 +5046,7 @@ func (m *MsgAddTokenMessenger) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddTokenMessengerResponse) Size() (n int) {
+func (m *MsgAddRemoteTokenMessengerResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -5056,7 +5055,7 @@ func (m *MsgAddTokenMessengerResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveTokenMessenger) Size() (n int) {
+func (m *MsgRemoveRemoteTokenMessenger) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -5072,7 +5071,7 @@ func (m *MsgRemoveTokenMessenger) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveTokenMessengerResponse) Size() (n int) {
+func (m *MsgRemoveRemoteTokenMessengerResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -5087,7 +5086,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgUpdateAuthority) Unmarshal(dAtA []byte) error {
+func (m *MsgUpdateOwner) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -5110,10 +5109,10 @@ func (m *MsgUpdateAuthority) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateAuthority: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgUpdateOwner: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateAuthority: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgUpdateOwner: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -5150,7 +5149,7 @@ func (m *MsgUpdateAuthority) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NewAuthority", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field NewOwner", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -5178,7 +5177,7 @@ func (m *MsgUpdateAuthority) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.NewAuthority = string(dAtA[iNdEx:postIndex])
+			m.NewOwner = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -5201,7 +5200,7 @@ func (m *MsgUpdateAuthority) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateAuthorityResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgUpdateOwnerResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -5224,10 +5223,10 @@ func (m *MsgUpdateAuthorityResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateAuthorityResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgUpdateOwnerResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateAuthorityResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgUpdateOwnerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -8881,7 +8880,7 @@ func (m *MsgUnlinkTokenPairResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddTokenMessenger) Unmarshal(dAtA []byte) error {
+func (m *MsgAddRemoteTokenMessenger) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -8904,10 +8903,10 @@ func (m *MsgAddTokenMessenger) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddTokenMessenger: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddRemoteTokenMessenger: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddTokenMessenger: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddRemoteTokenMessenger: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -9014,7 +9013,7 @@ func (m *MsgAddTokenMessenger) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddTokenMessengerResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgAddRemoteTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -9037,10 +9036,10 @@ func (m *MsgAddTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddTokenMessengerResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddRemoteTokenMessengerResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddRemoteTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -9064,7 +9063,7 @@ func (m *MsgAddTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveTokenMessenger) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveRemoteTokenMessenger) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -9087,10 +9086,10 @@ func (m *MsgRemoveTokenMessenger) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveTokenMessenger: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveRemoteTokenMessenger: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveTokenMessenger: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveRemoteTokenMessenger: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -9165,7 +9164,7 @@ func (m *MsgRemoveTokenMessenger) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveTokenMessengerResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveRemoteTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -9188,10 +9187,10 @@ func (m *MsgRemoveTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveTokenMessengerResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveRemoteTokenMessengerResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveRemoteTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

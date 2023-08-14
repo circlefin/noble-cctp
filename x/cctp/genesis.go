@@ -10,11 +10,10 @@ import (
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k *keeper.Keeper, genState types.GenesisState) {
-	if genState.Authority != nil {
-		k.SetAuthority(ctx, *genState.Authority)
-	} else {
-		panic("Authority must be set")
-	}
+	k.SetOwner(ctx, genState.Owner)
+	k.SetAttesterManager(ctx, genState.AttesterManager)
+	k.SetPauser(ctx, genState.Pauser)
+	k.SetTokenController(ctx, genState.TokenController)
 
 	for _, elem := range genState.AttesterList {
 		k.SetAttester(ctx, elem)
@@ -66,21 +65,18 @@ func InitGenesis(ctx sdk.Context, k *keeper.Keeper, genState types.GenesisState)
 	}
 
 	for _, elem := range genState.TokenMessengerList {
-		k.SetTokenMessenger(ctx, elem)
+		k.SetRemoteTokenMessenger(ctx, elem)
 	}
-
-	k.SetParams(ctx, genState.Params)
 }
 
 // ExportGenesis returns the module's exported GenesisState
 func ExportGenesis(ctx sdk.Context, k *keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
-	genesis.Params = k.GetParams(ctx)
 
-	authority, found := k.GetAuthority(ctx)
-	if found {
-		genesis.Authority = &authority
-	}
+	genesis.Owner = k.GetOwner(ctx)
+	genesis.AttesterManager = k.GetAttesterManager(ctx)
+	genesis.Pauser = k.GetPauser(ctx)
+	genesis.TokenController = k.GetTokenController(ctx)
 
 	genesis.AttesterList = k.GetAllAttesters(ctx)
 	genesis.PerMessageBurnLimitList = k.GetAllPerMessageBurnLimits(ctx)
@@ -112,9 +108,7 @@ func ExportGenesis(ctx sdk.Context, k *keeper.Keeper) *types.GenesisState {
 
 	genesis.TokenPairList = k.GetAllTokenPairs(ctx)
 	genesis.UsedNoncesList = k.GetAllUsedNonces(ctx)
-	genesis.TokenMessengerList = k.GetAllTokenMessengers(ctx)
-
-	genesis.Params = k.GetParams(ctx)
+	genesis.TokenMessengerList = k.GetRemoteTokenMessengers(ctx)
 
 	return genesis
 }

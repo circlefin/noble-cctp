@@ -11,16 +11,15 @@ import (
 )
 
 func TestNextAvailableNonce(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
-	next, found := keeper.GetNextAvailableNonce(ctx)
+	_, found := keeper.GetNextAvailableNonce(ctx)
 	require.False(t, found)
 
 	savedNonce := types.Nonce{Nonce: 21}
 	keeper.SetNextAvailableNonce(ctx, savedNonce)
 
-	next, found = keeper.GetNextAvailableNonce(ctx)
+	next, found := keeper.GetNextAvailableNonce(ctx)
 	require.True(t, found)
 	require.Equal(t,
 		savedNonce,
@@ -40,7 +39,6 @@ func TestNextAvailableNonce(t *testing.T) {
 }
 
 func TestNextAvailableNonceReserveAndIncrement(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
 	savedNonce := types.Nonce{Nonce: 21}

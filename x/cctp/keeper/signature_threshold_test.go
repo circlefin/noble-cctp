@@ -11,15 +11,14 @@ import (
 )
 
 func TestSignatureThreshold(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
-	threshold, found := keeper.GetSignatureThreshold(ctx)
+	_, found := keeper.GetSignatureThreshold(ctx)
 	require.False(t, found)
 
 	SignatureThreshold := types.SignatureThreshold{Amount: 2}
 	keeper.SetSignatureThreshold(ctx, SignatureThreshold)
 
-	threshold, found = keeper.GetSignatureThreshold(ctx)
+	threshold, found := keeper.GetSignatureThreshold(ctx)
 	require.True(t, found)
 	require.Equal(t,
 		SignatureThreshold,

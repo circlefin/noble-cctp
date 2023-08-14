@@ -34,8 +34,8 @@ func (k msgServer) sendMessage(
 	destinationCaller []byte,
 	messageSender []byte,
 	nonce uint64,
-	messageBody []byte) error {
-
+	messageBody []byte,
+) error {
 	paused, found := k.GetSendingAndReceivingMessagesPaused(ctx)
 	if found && paused.Paused {
 		return sdkerrors.Wrap(types.ErrSendMessage, "sending and receiving messages is paused")

@@ -16,7 +16,6 @@ func CmdSendMessage() *cobra.Command {
 		Short: "Broadcast message send-message",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			destinationDomain, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)
 			if err != nil {
 				return err

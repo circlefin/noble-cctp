@@ -21,21 +21,23 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdListAttesters())
 	cmd.AddCommand(CmdListPerMessageBurnLimits())
-	cmd.AddCommand(CmdListTokenMessengers())
+	cmd.AddCommand(CmdRemoteTokenMessengers())
 	cmd.AddCommand(CmdListTokenPairs())
 	cmd.AddCommand(CmdListUsedNonces())
-	cmd.AddCommand(CmdQueryParams())
 	cmd.AddCommand(CmdShowAttester())
-	cmd.AddCommand(CmdShowAuthority())
+	cmd.AddCommand(CmdRoles())
 	cmd.AddCommand(CmdShowBurningAndMintingPaused())
 	cmd.AddCommand(CmdShowMaxMessageBodySize())
 	cmd.AddCommand(CmdShowNextAvailableNonce())
 	cmd.AddCommand(CmdShowPerMessageBurnLimit())
 	cmd.AddCommand(CmdShowSendingAndReceivingMessagesPaused())
 	cmd.AddCommand(CmdShowSignatureThreshold())
-	cmd.AddCommand(CmdShowTokenMessenger())
+	cmd.AddCommand(CmdRemoteTokenMessenger())
 	cmd.AddCommand(CmdShowTokenPair())
 	cmd.AddCommand(CmdShowUsedNonce())
+	cmd.AddCommand(CmdBurnMessageVersion())
+	cmd.AddCommand(CmdLocalMessageVersion())
+	cmd.AddCommand(CmdLocalDomain())
 
 	return cmd
 }

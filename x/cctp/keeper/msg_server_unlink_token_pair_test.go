@@ -21,8 +21,8 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	tokenPair := types.TokenPair{
 		RemoteDomain: 1,
@@ -32,7 +32,7 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
 	message := types.MsgUnlinkTokenPair{
-		From:         authority.Address,
+		From:         tokenController,
 		RemoteDomain: 1,
 		RemoteToken:  "0xABCD",
 		LocalToken:   "uusdc",
@@ -65,8 +65,8 @@ func TestUnlinkTokenPairInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgUnlinkTokenPair{
 		From:         "not the authority",
@@ -84,11 +84,11 @@ func TestUnlinkTokenPairTokenPairNotFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgUnlinkTokenPair{
-		From:         authority.Address,
+		From:         tokenController,
 		RemoteDomain: 1,
 		RemoteToken:  "0xABCD",
 		LocalToken:   "uusdc",

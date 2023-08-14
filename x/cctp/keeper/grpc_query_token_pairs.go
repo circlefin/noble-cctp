@@ -46,7 +46,6 @@ func (k Keeper) TokenPairs(c context.Context, req *types.QueryAllTokenPairsReque
 		tokenPairs = append(tokenPairs, tokenPair)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

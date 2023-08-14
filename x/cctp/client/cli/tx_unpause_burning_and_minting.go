@@ -14,7 +14,6 @@ func CmdUnpauseBurningAndMinting() *cobra.Command {
 		Short: "Broadcast message unpause-burning-and-minting",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err

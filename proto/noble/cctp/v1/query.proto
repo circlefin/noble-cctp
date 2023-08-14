@@ -2,33 +2,33 @@ syntax = "proto3";
 
 package noble.cctp.v1;
 
-import "noble/cctp/v1/authority.proto";
-import "noble/cctp/v1/burning_and_minting_paused.proto";
-import "noble/cctp/v1/max_message_body_size.proto";
-import "noble/cctp/v1/params.proto";
-import "noble/cctp/v1/per_message_burn_limit.proto";
-import "noble/cctp/v1/attester.proto";
-import "noble/cctp/v1/sending_and_receiving_messages_paused.proto";
-import "noble/cctp/v1/signature_threshold.proto";
-import "noble/cctp/v1/token_pair.proto";
-import "noble/cctp/v1/token_messenger.proto";
-import "noble/cctp/v1/nonce.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
+import "noble/cctp/v1/attester.proto";
+import "noble/cctp/v1/burning_and_minting_paused.proto";
+import "noble/cctp/v1/max_message_body_size.proto";
+import "noble/cctp/v1/nonce.proto";
+import "noble/cctp/v1/params.proto";
+import "noble/cctp/v1/per_message_burn_limit.proto";
+import "noble/cctp/v1/remote_token_messenger.proto";
+import "noble/cctp/v1/sending_and_receiving_messages_paused.proto";
+import "noble/cctp/v1/signature_threshold.proto";
+import "noble/cctp/v1/token_pair.proto";
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/params";
+  //  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  //    option (google.api.http).get = "/noble/cctp/v1/params";
+  //  }
+
+  rpc Roles(QueryRolesRequest) returns (QueryRolesResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/roles";
   }
-  // Queries the Authority
-  rpc Authority(QueryGetAuthorityRequest) returns (QueryGetAuthorityResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/authority";
-  }
+
   // Queries an Attester by index
   rpc Attester(QueryGetAttesterRequest) returns (QueryGetAttesterResponse) {
     option (google.api.http).get = "/noble/cctp/v1/attesters/{attester}";
@@ -81,27 +81,26 @@ service Query {
   rpc UsedNonces(QueryAllUsedNoncesRequest) returns (QueryAllUsedNoncesResponse) {
     option (google.api.http).get = "/noble/cctp/v1/used_nonces";
   }
-  // Queries a TokenMessenger by index
-  rpc TokenMessenger(QueryGetTokenMessengerRequest) returns (QueryGetTokenMessengerResponse) {
-      option (google.api.http).get = "/noble/cctp/v1/token_messengers/{domain_id}";
+  // Query the RemoteTokenMessenger of a specific domain.
+  rpc RemoteTokenMessenger(QueryRemoteTokenMessengerRequest) returns (QueryRemoteTokenMessengerResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/remote_token_messengers/{domain_id}";
   }
-  // Queries a list of TokenMessenger
-  rpc TokenMessengers(QueryAllTokenMessengersRequest) returns (QueryAllTokenMessengersResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/token_messengers";
+  // Query all RemoteTokenMessenger's.
+  rpc RemoteTokenMessengers(QueryRemoteTokenMessengersRequest) returns (QueryRemoteTokenMessengersResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/remote_token_messengers";
   }
-  // TODO add queries for message_body_version, noble_message_version, local_domain
-//  rpc MessageBodyVersion(QueryGetMessageBodyVersionRequest) returns (QueryGetMessageBodyVersionResponse) {
-//    option (google.api.http).get = "/noble/cctp/v1/message_body_version";
-//  }
-//
-//  rpc NobleMessageVersion(QueryGetNobleMessageVersionRequest) returns (QueryGetNobleMessageVersionResponse) {
-//    option (google.api.http).get = "/noble/cctp/v1/noble_message_version";
-//  }
-//
-//  rpc LocalDomain(QueryGetLocalDomainRequest) returns (QueryGetLocalDomainResponse) {
-//    option (google.api.http).get = "/noble/cctp/v1/local_domain";
-//  }
 
+  rpc BurnMessageVersion(QueryBurnMessageVersionRequest) returns (QueryBurnMessageVersionResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/burn_message_version";
+  }
+
+  rpc LocalMessageVersion(QueryLocalMessageVersionRequest) returns (QueryLocalMessageVersionResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/local_message_version";
+  }
+
+  rpc LocalDomain(QueryLocalDomainRequest) returns (QueryLocalDomainResponse) {
+    option (google.api.http).get = "/noble/cctp/v1/local_domain";
+  }
 }
 
 // QueryParamsRequest is the request type for the Query/Params RPC method.
@@ -113,12 +112,15 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-// QueryAuthorityRequest is the request type for the Query/Authority RPC method.
-message QueryGetAuthorityRequest {}
+// QueryRolesRequest is the request type for the Query/Roles RPC method.
+message QueryRolesRequest {}
 
-// QueryAuthorityResponse is the response type for the Query/Authority RPC method.
-message QueryGetAuthorityResponse {
-  Authority authority = 1 [(gogoproto.nullable) = false];
+// QueryRolesResponse is the response type for the Query/Roles RPC method.
+message QueryRolesResponse {
+  string owner = 1;
+  string attester_manager = 2;
+  string pauser = 3;
+  string token_controller = 4;
 }
 
 // QueryAttestersRequest is the request type for the Query/Attester RPC method.
@@ -247,23 +249,50 @@ message QueryAllUsedNoncesResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-// QueryGetTokenMessengerRequest is the request type for the Query/TokenMessenger RPC method.
-message QueryGetTokenMessengerRequest {
+// QueryRemoteTokenMessengerRequest is the request type for the Query/RemoteTokenMessenger RPC method.
+message QueryRemoteTokenMessengerRequest {
   uint32 domain_id = 1;
 }
 
-// QueryGetTokenMessengerResponse is the response type for the Query/TokenMessenger RPC method.
-message QueryGetTokenMessengerResponse {
-  TokenMessenger token_messenger = 1 [(gogoproto.nullable) = false];
+// QueryRemoteTokenMessengerResponse is the response type for the Query/RemoteTokenMessenger RPC method.
+message QueryRemoteTokenMessengerResponse {
+  RemoteTokenMessenger remote_token_messenger = 1 [(gogoproto.nullable) = false];
 }
 
-// QueryAllTokenMessengersRequest is the request type for the Query/TokenMessengers RPC method.
-message QueryAllTokenMessengersRequest {
+// QueryRemoteTokenMessengersRequest is the request type for the Query/RemoteTokenMessengers RPC method.
+message QueryRemoteTokenMessengersRequest {
   cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
-// QueryAllTokenMessengersResponse is the response type for the Query/TokenMessengers RPC method.
-message QueryAllTokenMessengersResponse {
-  repeated TokenMessenger token_messengers = 1 [(gogoproto.nullable) = false];
+// QueryRemoteTokenMessengersResponse is the response type for the Query/RemoteTokenMessengers RPC method.
+message QueryRemoteTokenMessengersResponse {
+  repeated RemoteTokenMessenger remote_token_messengers = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryBurnMessageVersionRequest is the request type for the Query/BurnMessageVersion RPC method.
+message QueryBurnMessageVersionRequest {}
+
+// QueryBurnMessageVersionResponse is the response type for the Query/BurnMessageVersion RPC method.
+message QueryBurnMessageVersionResponse {
+  // version is the burn message version of the local domain.
+  uint32 version = 1;
+}
+
+// QueryLocalMessageVersionRequest is the request type for the Query/LocalMessageVersion RPC method.
+message QueryLocalMessageVersionRequest {}
+
+// QueryLocalMessageVersionResponse is the response type for the Query/LocalMessageVersion RPC method.
+message QueryLocalMessageVersionResponse {
+  // version is the message version of the local domain.
+  uint32 version = 1;
+}
+
+// QueryLocalDomainRequest is the request type for the Query/LocalDomain RPC method.
+message QueryLocalDomainRequest {}
+
+// QueryLocalDomainResponse is the response type for the Query/LocalDomain RPC method.
+message QueryLocalDomainResponse {
+  // domain_id is the id of the local domain.
+  uint32 domain_id = 1;
 }

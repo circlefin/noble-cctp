@@ -1,9 +1,10 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"github.com/circlefin/noble-cctp/testutil/nullify"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
-	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 
@@ -41,16 +42,14 @@ func TestUsedNonceGetNotFound(t *testing.T) {
 			Nonce:        0,
 		})
 	require.False(t, found)
-
 }
 
 func TestUsedNoncesGetAll(t *testing.T) {
 	cctpKeeper, ctx := keepertest.CctpKeeper(t)
 	items := createNUsedNonces(cctpKeeper, ctx, 10)
 	nonce := make([]types.Nonce, len(items))
-	for i, item := range items {
-		nonce[i] = item
-	}
+	copy(nonce, items)
+
 	require.ElementsMatch(t,
 		nullify.Fill(nonce),
 		nullify.Fill(cctpKeeper.GetAllUsedNonces(ctx)),

@@ -45,9 +45,6 @@ func CctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
 
-	// Initialize params
-	k.SetParams(ctx, types.DefaultParams())
-
 	return k, ctx
 }
 
@@ -57,12 +54,8 @@ func (k MockCctpKeeper) GetTokenPair(ctx sdk.Context, remoteDomain uint32, remot
 	return types.TokenPair{}, true
 }
 
-func (MockCctpKeeper) GetAuthority(ctx sdk.Context) (val types.Authority, found bool) {
-	return types.Authority{}, true
-}
-
-func (MockCctpKeeper) GetAttester(ctx sdk.Context) (val types.Authority, found bool) {
-	return types.Authority{}, true
+func (MockCctpKeeper) GetAuthority(ctx sdk.Context) (val string, found bool) {
+	return "", true
 }
 
 // ErrCctpKeeper is used for wrapping a MockErrFiatTokenfactoryKeeper, which fails on mint/burn
@@ -93,9 +86,6 @@ func ErrCctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
-
-	// Initialize params
-	k.SetParams(ctx, types.DefaultParams())
 
 	return k, ctx
 }

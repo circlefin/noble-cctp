@@ -1,13 +1,14 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -19,11 +20,11 @@ func TestUnpauseSendingAndReceivingMessagesHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	pauser := sample.AccAddress()
+	testkeeper.SetPauser(ctx, pauser)
 
 	message := types.MsgUnpauseSendingAndReceivingMessages{
-		From: authority.Address,
+		From: pauser,
 	}
 	_, err := server.UnpauseSendingAndReceivingMessages(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
@@ -49,8 +50,8 @@ func TestUnpauseSendingAndReceivingMessagesInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	pauser := sample.AccAddress()
+	testkeeper.SetPauser(ctx, pauser)
 
 	message := types.MsgUnpauseSendingAndReceivingMessages{
 		From: "not the authority",

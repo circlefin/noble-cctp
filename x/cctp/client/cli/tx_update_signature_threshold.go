@@ -16,7 +16,6 @@ func CmdUpdateSignatureThreshold() *cobra.Command {
 		Short: "Broadcast message set-signature-threshold",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			amount, err := strconv.ParseUint(args[0], types.BaseTen, types.SignatureThresholdBitLength)
 			if err != nil {
 				return err

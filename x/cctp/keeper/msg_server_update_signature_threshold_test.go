@@ -1,14 +1,15 @@
 package keeper_test
 
 import (
+	"strconv"
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"strconv"
-	"testing"
 )
 
 /*
@@ -23,13 +24,13 @@ func TestUpdateSignatureThresholdHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	addNAttesters(ctx, 4, testkeeper)
 
 	message := types.MsgUpdateSignatureThreshold{
-		From:   authority.Address,
+		From:   attesterManager,
 		Amount: 3,
 	}
 
@@ -59,8 +60,8 @@ func TestUpdateSignatureThresholdInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	message := types.MsgUpdateSignatureThreshold{
 		From:   "not the authority",
@@ -76,13 +77,13 @@ func TestUpdateSignatureThresholdAmountIs0(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	addNAttesters(ctx, 4, testkeeper)
 
 	message := types.MsgUpdateSignatureThreshold{
-		From:   authority.Address,
+		From:   attesterManager,
 		Amount: 0,
 	}
 
@@ -95,14 +96,14 @@ func TestUpdateSignatureThresholdSignatureThresholdAlreadySetToThisValue(t *test
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	threshold := types.SignatureThreshold{Amount: 3}
 	testkeeper.SetSignatureThreshold(ctx, threshold)
 
 	message := types.MsgUpdateSignatureThreshold{
-		From:   "authority",
+		From:   attesterManager,
 		Amount: 3,
 	}
 
@@ -115,13 +116,13 @@ func TestUpdateSignatureThresholdSignatureThresholdIsTooHigh(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	addNAttesters(ctx, 3, testkeeper)
 
 	message := types.MsgUpdateSignatureThreshold{
-		From:   "authority",
+		From:   attesterManager,
 		Amount: 4,
 	}
 

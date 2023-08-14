@@ -1,8 +1,9 @@
 package types
 
 import (
-	"github.com/strangelove-ventures/noble/testutil/sample"
 	"testing"
+
+	"github.com/strangelove-ventures/noble/testutil/sample"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"

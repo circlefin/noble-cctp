@@ -5,7 +5,6 @@ import (
 
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
-	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -25,9 +24,6 @@ import (
 func TestReplaceMessageHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
-
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
 
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
@@ -53,7 +49,7 @@ func TestReplaceMessageHappyPath(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -93,9 +89,6 @@ func TestReplaceMessageSignatureThresholdNotFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
-
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
@@ -120,7 +113,7 @@ func TestReplaceMessageSignatureThresholdNotFound(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -148,9 +141,6 @@ func TestReplaceMessageSignatureVerificationFailed(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
-
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
@@ -175,7 +165,7 @@ func TestReplaceMessageSignatureVerificationFailed(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -207,9 +197,6 @@ func TestReplaceMessageMessageBodyTooShort(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
-
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
@@ -234,7 +221,7 @@ func TestReplaceMessageMessageBodyTooShort(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 	// make it too small
 	originalMessageBytes = originalMessageBytes[0:115]
 
@@ -265,9 +252,6 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
-
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
@@ -292,7 +276,7 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)
@@ -321,9 +305,6 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
-
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
@@ -348,7 +329,7 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
 	}
-	originalMessageBytes, err := originalMessage.Bytes()
+	originalMessageBytes, _ := originalMessage.Bytes()
 
 	// generate attestation, set attesters, signature threshold
 	signatureThreshold := uint32(2)

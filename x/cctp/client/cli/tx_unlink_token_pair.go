@@ -16,7 +16,6 @@ func CmdUnlinkTokenPair() *cobra.Command {
 		Short: "Broadcast message unlink-token-pair",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			remoteDomain, err := strconv.ParseUint(args[2], types.BaseTen, types.DomainBitLen)
 			if err != nil {
 				return err

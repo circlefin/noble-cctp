@@ -1,13 +1,14 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -23,8 +24,8 @@ func TestDisableAttesterHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existing := types.Attester{
 		Attester: "attester",
@@ -43,7 +44,7 @@ func TestDisableAttesterHappyPath(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, sig)
 
 	message := types.MsgDisableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 
@@ -77,8 +78,8 @@ func TestDisableAttesterInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existing := types.Attester{
 		Attester: "attester",
@@ -99,11 +100,11 @@ func TestDisableAttesterAttesterNotFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	message := types.MsgDisableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 
@@ -116,8 +117,8 @@ func TestDisableAttesterFailsWhenOnly1AttesterIsLeft(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existing := types.Attester{
 		Attester: "attester",
@@ -125,7 +126,7 @@ func TestDisableAttesterFailsWhenOnly1AttesterIsLeft(t *testing.T) {
 	testkeeper.SetAttester(ctx, existing)
 
 	message := types.MsgDisableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 
@@ -141,8 +142,8 @@ func TestDisableAttesterFailsWhenSignatureThresholdNotFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existing := types.Attester{
 		Attester: "attester",
@@ -154,7 +155,7 @@ func TestDisableAttesterFailsWhenSignatureThresholdNotFound(t *testing.T) {
 	testkeeper.SetAttester(ctx, existing2)
 
 	message := types.MsgDisableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 
@@ -167,8 +168,8 @@ func TestDisableAttesterFailsWhenSignatureThresholdIsTooLow(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existing1 := types.Attester{
 		Attester: "attester1",
@@ -183,7 +184,7 @@ func TestDisableAttesterFailsWhenSignatureThresholdIsTooLow(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, sig)
 
 	message := types.MsgDisableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester1"),
 	}
 

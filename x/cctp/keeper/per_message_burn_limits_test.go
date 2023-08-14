@@ -1,12 +1,13 @@
 package keeper_test
 
 import (
+	"strconv"
+	"testing"
+
 	"cosmossdk.io/math"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"strconv"
-	"testing"
 
 	"github.com/stretchr/testify/require"
 
@@ -26,10 +27,9 @@ func createNPerMessageBurnLimits(keeper *keeper.Keeper, ctx sdk.Context, n int) 
 }
 
 func TestPerMessageBurnLimit(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
-	limit, found := keeper.GetPerMessageBurnLimit(ctx, "usdc")
+	_, found := keeper.GetPerMessageBurnLimit(ctx, "usdc")
 	require.False(t, found)
 
 	perMessageBurnLimit := types.PerMessageBurnLimit{
@@ -38,7 +38,7 @@ func TestPerMessageBurnLimit(t *testing.T) {
 	}
 	keeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
 
-	limit, found = keeper.GetPerMessageBurnLimit(ctx, perMessageBurnLimit.Denom)
+	limit, found := keeper.GetPerMessageBurnLimit(ctx, perMessageBurnLimit.Denom)
 	require.True(t, found)
 	require.Equal(t,
 		perMessageBurnLimit,
@@ -77,9 +77,8 @@ func TestPerMessageBurnLimitsGetAll(t *testing.T) {
 	cctpKeeper, ctx := keepertest.CctpKeeper(t)
 	items := createNPerMessageBurnLimits(cctpKeeper, ctx, 10)
 	denom := make([]types.PerMessageBurnLimit, len(items))
-	for i, item := range items {
-		denom[i] = item
-	}
+	copy(denom, items)
+
 	require.ElementsMatch(t,
 		nullify.Fill(denom),
 		nullify.Fill(cctpKeeper.GetAllPerMessageBurnLimits(ctx)),

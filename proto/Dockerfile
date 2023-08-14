@@ -1,4 +1,4 @@
-FROM bufbuild/buf:1.23.1 as BUILDER
+FROM bufbuild/buf:1.25.0 as BUILDER
 FROM golang:1.20-alpine
 
 RUN apk add --no-cache \

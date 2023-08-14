@@ -18,7 +18,7 @@ import (
 * Negative amount
 * Nil mint recipient
 * Empty mint recipient
-* Token Messenger not found
+* Remote Token Messenger not found
 * Minting Denom not found
 * Burning and Minting is paused
 * Amount is greater than per message burn limit
@@ -33,11 +33,11 @@ func TestDepositForBurnHappyPath(t *testing.T) {
 	startingNonce := types.Nonce{Nonce: 1}
 	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
 
-	tokenMessenger := types.TokenMessenger{
+	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
 		Address:  "12345678901234567890123456789012",
 	}
-	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
 	fiatfkeeper.SetMintingDenom(fiatfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
 
@@ -152,11 +152,11 @@ func TestDepositForBurnMintingDenomNotFound(t *testing.T) {
 	startingNonce := types.Nonce{Nonce: 1}
 	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
 
-	tokenMessenger := types.TokenMessenger{
+	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-token-messenger",
+		Address:  "destination-remote-token-messenger",
 	}
-	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
 	msg := types.MsgDepositForBurn{
 		From:              "sender-address567890123456789012",
@@ -178,11 +178,11 @@ func TestDepositForBurnBurningAndMintingIsPaused(t *testing.T) {
 	startingNonce := types.Nonce{Nonce: 1}
 	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
 
-	tokenMessenger := types.TokenMessenger{
+	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-token-messenger",
+		Address:  "destination-remote-token-messenger",
 	}
-	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
 	testkeeper.SetBurningAndMintingPaused(ctx, types.BurningAndMintingPaused{Paused: true})
 
@@ -206,11 +206,11 @@ func TestDepositForBurnAmountIsGreaterThanPerMessageBurnLimit(t *testing.T) {
 	startingNonce := types.Nonce{Nonce: 1}
 	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
 
-	tokenMessenger := types.TokenMessenger{
+	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-token-messenger",
+		Address:  "destination-remote-token-messenger",
 	}
-	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
 	perMessageBurnLimit := types.PerMessageBurnLimit{
 		Denom:  "uusdc",
@@ -240,11 +240,11 @@ func TestDepositForBurnBurnFails(t *testing.T) {
 	startingNonce := types.Nonce{Nonce: 1}
 	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
 
-	tokenMessenger := types.TokenMessenger{
+	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-token-messenger",
+		Address:  "destination-remote-token-messenger",
 	}
-	testkeeper.SetTokenMessenger(ctx, tokenMessenger)
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 	fiattfkeeper.SetMintingDenom(fiattfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
 
 	perMessageBurnLimit := types.PerMessageBurnLimit{

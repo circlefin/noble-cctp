@@ -2,9 +2,10 @@ package cli_test
 
 import (
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client/flags"
 	"strconv"
 	"testing"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
 
 	"google.golang.org/grpc/codes"
 

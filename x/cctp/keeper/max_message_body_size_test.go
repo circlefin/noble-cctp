@@ -11,16 +11,15 @@ import (
 )
 
 func TestMaxMessageBodySize(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
-	maxMessageBodySize, found := keeper.GetMaxMessageBodySize(ctx)
+	_, found := keeper.GetMaxMessageBodySize(ctx)
 	require.False(t, found)
 
 	MaxMessageBodySize := types.MaxMessageBodySize{Amount: 21}
 	keeper.SetMaxMessageBodySize(ctx, MaxMessageBodySize)
 
-	maxMessageBodySize, found = keeper.GetMaxMessageBodySize(ctx)
+	maxMessageBodySize, found := keeper.GetMaxMessageBodySize(ctx)
 	require.True(t, found)
 	require.Equal(t,
 		MaxMessageBodySize,

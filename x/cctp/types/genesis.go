@@ -10,8 +10,10 @@ import (
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		Params:                            DefaultParams(),
-		Authority:                         nil,
+		Owner:                             "",
+		AttesterManager:                   "",
+		Pauser:                            "",
+		TokenController:                   "",
 		AttesterList:                      []Attester{},
 		PerMessageBurnLimitList:           []PerMessageBurnLimit{},
 		BurningAndMintingPaused:           &BurningAndMintingPaused{Paused: false},
@@ -21,18 +23,34 @@ func DefaultGenesis() *GenesisState {
 		SignatureThreshold:                nil,
 		TokenPairList:                     []TokenPair{},
 		UsedNoncesList:                    []Nonce{},
-		TokenMessengerList:                []TokenMessenger{},
+		TokenMessengerList:                []RemoteTokenMessenger{},
 	}
 }
 
 // Validate performs basic genesis state validation returning an error upon any
 // failure.  Stateful checks are performed in InitGenesis
 func (gs GenesisState) Validate() error {
+	if gs.Owner != "" {
+		if _, err := sdk.AccAddressFromBech32(gs.Owner); err != nil {
+			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid owner address (%s)", err)
+		}
+	}
 
-	if gs.Authority != nil {
-		_, err := sdk.AccAddressFromBech32(gs.Authority.Address)
-		if err != nil {
-			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid authority address (%s)", err)
+	if gs.AttesterManager != "" {
+		if _, err := sdk.AccAddressFromBech32(gs.AttesterManager); err != nil {
+			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid attester manager address (%s)", err)
+		}
+	}
+
+	if gs.Pauser != "" {
+		if _, err := sdk.AccAddressFromBech32(gs.Pauser); err != nil {
+			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid pauser address (%s)", err)
+		}
+	}
+
+	if gs.TokenController != "" {
+		if _, err := sdk.AccAddressFromBech32(gs.TokenController); err != nil {
+			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid token controller address (%s)", err)
 		}
 	}
 
@@ -84,15 +102,15 @@ func (gs GenesisState) Validate() error {
 		usedNonceIndexMap[index] = struct{}{}
 	}
 
-	// Check for duplicated index in token messengers
+	// Check for duplicated index in remote token messengers
 	tokenMessengerIndexMap := make(map[string]struct{})
 	for _, elem := range gs.TokenMessengerList {
-		index := string(TokenMessengerKey(elem.DomainId))
+		index := string(RemoteTokenMessengerKey(elem.DomainId))
 		if _, ok := tokenMessengerIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for token messengers")
+			return fmt.Errorf("duplicated index for remote token messengers")
 		}
 		tokenMessengerIndexMap[index] = struct{}{}
 	}
 
-	return gs.Params.Validate()
+	return nil
 }

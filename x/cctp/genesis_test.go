@@ -14,10 +14,10 @@ import (
 
 func TestGenesisHappyPath(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
+		Owner:           "123",
+		AttesterManager: "345",
+		Pauser:          "567",
+		TokenController: "789",
 		AttesterList: []types.Attester{
 			{
 				Attester: "0",
@@ -73,7 +73,7 @@ func TestGenesisHappyPath(t *testing.T) {
 				Nonce:        uint64(5678),
 			},
 		},
-		TokenMessengerList: []types.TokenMessenger{
+		TokenMessengerList: []types.RemoteTokenMessenger{
 			{
 				DomainId: uint32(1),
 				Address:  "1234",
@@ -93,7 +93,10 @@ func TestGenesisHappyPath(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.Equal(t, genesisState.Authority, got.Authority)
+	require.Equal(t, genesisState.Owner, got.Owner)
+	require.Equal(t, genesisState.AttesterManager, got.AttesterManager)
+	require.Equal(t, genesisState.Pauser, got.Pauser)
+	require.Equal(t, genesisState.TokenController, got.TokenController)
 	require.ElementsMatch(t, genesisState.AttesterList, got.AttesterList)
 	require.ElementsMatch(t, genesisState.PerMessageBurnLimitList, got.PerMessageBurnLimitList)
 	require.Equal(t, genesisState.BurningAndMintingPaused, got.BurningAndMintingPaused)
@@ -106,23 +109,8 @@ func TestGenesisHappyPath(t *testing.T) {
 	require.ElementsMatch(t, genesisState.TokenMessengerList, got.TokenMessengerList)
 }
 
-func TestGenesisPanicsWithNoAuthority(t *testing.T) {
-	genesisState := types.GenesisState{}
-
-	k, ctx := keepertest.CctpKeeper(t)
-
-	assert.Panics(t, func() {
-		cctp.InitGenesis(ctx, k, genesisState)
-	})
-}
-
 func TestGenesisBurningAndMintingPausedDefault(t *testing.T) {
-	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
-	}
+	genesisState := types.GenesisState{}
 	k, ctx := keepertest.CctpKeeper(t)
 
 	cctp.InitGenesis(ctx, k, genesisState)
@@ -133,10 +121,6 @@ func TestGenesisBurningAndMintingPausedDefault(t *testing.T) {
 
 func TestGenesisSendingAndReceivingMessagesPausedDefault(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
 		BurningAndMintingPaused: &types.BurningAndMintingPaused{Paused: true},
 	}
 	k, ctx := keepertest.CctpKeeper(t)
@@ -149,10 +133,6 @@ func TestGenesisSendingAndReceivingMessagesPausedDefault(t *testing.T) {
 
 func TestGenesisMaxMessageBodySizeIsDefault(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}
@@ -166,10 +146,6 @@ func TestGenesisMaxMessageBodySizeIsDefault(t *testing.T) {
 
 func TestGenesisNextAvailableNonceDefault(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}
@@ -183,10 +159,6 @@ func TestGenesisNextAvailableNonceDefault(t *testing.T) {
 
 func TestGenesisSignatureThresholdPanicsWhenZero(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 		SignatureThreshold:                &types.SignatureThreshold{Amount: uint32(0)},
@@ -200,10 +172,6 @@ func TestGenesisSignatureThresholdPanicsWhenZero(t *testing.T) {
 
 func TestGenesisSignatureThresholdDefault(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-		Authority: &types.Authority{
-			Address: "123",
-		},
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}

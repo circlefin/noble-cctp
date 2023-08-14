@@ -1,9 +1,10 @@
 package types
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	"github.com/strangelove-ventures/noble/testutil/sample"
-	"testing"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"

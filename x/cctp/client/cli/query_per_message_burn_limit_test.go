@@ -1,12 +1,14 @@
 package cli_test
 
 import (
-	"cosmossdk.io/math"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	"google.golang.org/grpc/codes"
 	"strconv"
 	"testing"
+
+	"cosmossdk.io/math"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"google.golang.org/grpc/codes"
 
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"

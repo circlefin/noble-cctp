@@ -22,7 +22,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-//
 // Authority address allowed to perform administrative functions
 // @param address the bech32 authority address
 type Authority struct {

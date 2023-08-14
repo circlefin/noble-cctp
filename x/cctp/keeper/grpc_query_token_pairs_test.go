@@ -44,7 +44,8 @@ func TestTokenPairQuerySingle(t *testing.T) {
 			desc: "KeyNotFound",
 			request: &types.QueryGetTokenPairRequest{
 				RemoteDomain: 123,
-				RemoteToken:  "123"},
+				RemoteToken:  "123",
+			},
 			err: status.Error(codes.NotFound, "not found"),
 		},
 		{
@@ -72,9 +73,7 @@ func TestTokenPairQueryPaginated(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNTokenPairs(keeper, ctx, 5)
 	TokenPair := make([]types.TokenPair, len(msgs))
-	for i, msg := range msgs {
-		TokenPair[i] = msg
-	}
+	copy(TokenPair, msgs)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllTokenPairsRequest {
 		return &types.QueryAllTokenPairsRequest{

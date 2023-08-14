@@ -1,12 +1,13 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"testing"
 
 	"github.com/stretchr/testify/require"
 
@@ -16,7 +17,6 @@ import (
 )
 
 func TestPerMessageBurnLimitQuery(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
 	perMessageBurnLimit := types.PerMessageBurnLimit{
@@ -52,9 +52,7 @@ func TestPerMessageBurnLimitQueryPaginated(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNPerMessageBurnLimits(keeper, ctx, 5)
 	perMessageBurnLimits := make([]types.PerMessageBurnLimit, len(msgs))
-	for i, msg := range msgs {
-		perMessageBurnLimits[i] = msg
-	}
+	copy(perMessageBurnLimits, msgs)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllPerMessageBurnLimitsRequest {
 		return &types.QueryAllPerMessageBurnLimitsRequest{

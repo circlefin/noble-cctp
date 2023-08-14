@@ -9,16 +9,15 @@ import (
 )
 
 func TestSendingAndReceivingMessagesPaused(t *testing.T) {
-
 	keeper, ctx := keepertest.CctpKeeper(t)
 
-	isPaused, found := keeper.GetSendingAndReceivingMessagesPaused(ctx)
+	_, found := keeper.GetSendingAndReceivingMessagesPaused(ctx)
 	require.False(t, found)
 
 	paused := types.SendingAndReceivingMessagesPaused{Paused: true}
 	keeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
-	isPaused, found = keeper.GetSendingAndReceivingMessagesPaused(ctx)
+	isPaused, found := keeper.GetSendingAndReceivingMessagesPaused(ctx)
 	require.True(t, found)
 	require.True(t, isPaused.Paused)
 

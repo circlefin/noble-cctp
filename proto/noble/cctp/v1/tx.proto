@@ -8,7 +8,7 @@ option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc AddTokenMessenger(MsgAddTokenMessenger) returns (MsgAddTokenMessengerResponse);
+  rpc AddRemoteTokenMessenger(MsgAddRemoteTokenMessenger) returns (MsgAddRemoteTokenMessengerResponse);
   rpc DepositForBurn(MsgDepositForBurn) returns (MsgDepositForBurnResponse);
   rpc DepositForBurnWithCaller(MsgDepositForBurnWithCaller) returns (MsgDepositForBurnWithCallerResponse);
   rpc DisableAttester(MsgDisableAttester) returns (MsgDisableAttesterResponse);
@@ -17,7 +17,7 @@ service Msg {
   rpc PauseBurningAndMinting(MsgPauseBurningAndMinting) returns (MsgPauseBurningAndMintingResponse);
   rpc PauseSendingAndReceivingMessages(MsgPauseSendingAndReceivingMessages) returns (MsgPauseSendingAndReceivingMessagesResponse);
   rpc ReceiveMessage(MsgReceiveMessage) returns (MsgReceiveMessageResponse);
-  rpc RemoveTokenMessenger(MsgRemoveTokenMessenger) returns (MsgRemoveTokenMessengerResponse);
+  rpc RemoveRemoteTokenMessenger(MsgRemoveRemoteTokenMessenger) returns (MsgRemoveRemoteTokenMessengerResponse);
   rpc ReplaceDepositForBurn(MsgReplaceDepositForBurn) returns (MsgReplaceDepositForBurnResponse);
   rpc ReplaceMessage(MsgReplaceMessage) returns (MsgReplaceMessageResponse);
   rpc SendMessage(MsgSendMessage) returns (MsgSendMessageResponse);
@@ -25,18 +25,19 @@ service Msg {
   rpc UnlinkTokenPair(MsgUnlinkTokenPair) returns (MsgUnlinkTokenPairResponse);
   rpc UnpauseBurningAndMinting(MsgUnpauseBurningAndMinting) returns (MsgUnpauseBurningAndMintingResponse);
   rpc UnpauseSendingAndReceivingMessages(MsgUnpauseSendingAndReceivingMessages) returns (MsgUnpauseSendingAndReceivingMessagesResponse);
-  rpc UpdateAuthority(MsgUpdateAuthority) returns (MsgUpdateAuthorityResponse);
+  rpc UpdateOwner(MsgUpdateOwner) returns (MsgUpdateOwnerResponse);
   rpc UpdateMaxMessageBodySize(MsgUpdateMaxMessageBodySize) returns (MsgUpdateMaxMessageBodySizeResponse);
   rpc UpdatePerMessageBurnLimit(MsgUpdatePerMessageBurnLimit) returns (MsgUpdatePerMessageBurnLimitResponse);
   rpc UpdateSignatureThreshold(MsgUpdateSignatureThreshold) returns (MsgUpdateSignatureThresholdResponse);
 }
+
 // TODO add comments
-message MsgUpdateAuthority {
+message MsgUpdateOwner {
   string from = 1;
-  string new_authority = 2;
+  string new_owner = 2;
 }
 
-message MsgUpdateAuthorityResponse {}
+message MsgUpdateOwnerResponse {}
 
 message MsgEnableAttester {
   string from = 1;
@@ -86,14 +87,20 @@ message MsgUpdateMaxMessageBodySizeResponse {}
 message MsgUpdatePerMessageBurnLimit {
   string from = 1;
   string denom = 2;
-  string amount = 3 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
 }
 
 message MsgUpdatePerMessageBurnLimitResponse {}
 
 message MsgDepositForBurn {
   string from = 1;
-  string amount = 2 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
   uint32 destination_domain = 3;
   bytes mint_recipient = 4;
   string burn_token = 5;
@@ -105,7 +112,10 @@ message MsgDepositForBurnResponse {
 
 message MsgDepositForBurnWithCaller {
   string from = 1;
-  string amount = 2 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
   uint32 destination_domain = 3;
   bytes mint_recipient = 4;
   string burn_token = 5;
@@ -194,17 +204,17 @@ message MsgUnlinkTokenPair {
 
 message MsgUnlinkTokenPairResponse {}
 
-message MsgAddTokenMessenger {
+message MsgAddRemoteTokenMessenger {
   string from = 1;
   uint32 domain_id = 2;
   string address = 3;
 }
 
-message MsgAddTokenMessengerResponse {}
+message MsgAddRemoteTokenMessengerResponse {}
 
-message MsgRemoveTokenMessenger{
+message MsgRemoveRemoteTokenMessenger {
   string from = 1;
   uint32 domain_id = 2;
 }
 
-message MsgRemoveTokenMessengerResponse{}
+message MsgRemoveRemoteTokenMessengerResponse {}

@@ -1,9 +1,10 @@
 package cli
 
 import (
+	"strconv"
+
 	"cosmossdk.io/math"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"strconv"
 
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -18,7 +19,6 @@ func CmdDepositForBurn() *cobra.Command {
 		Short: "Broadcast message deposit-for-burn",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			amount, ok := math.NewIntFromString(args[0])
 			if !ok {
 				return sdkerrors.Wrapf(types.ErrInvalidAmount, "invalid amount")

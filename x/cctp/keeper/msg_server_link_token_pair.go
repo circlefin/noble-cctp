@@ -13,17 +13,13 @@ import (
 func (k msgServer) LinkTokenPair(goCtx context.Context, msg *types.MsgLinkTokenPair) (*types.MsgLinkTokenPairResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	owner, found := k.GetAuthority(ctx)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrAuthorityNotSet, "authority is not set")
-	}
-
-	if owner.Address != msg.From {
+	tokenController := k.GetTokenController(ctx)
+	if tokenController != msg.From {
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot link token pairs")
 	}
 
 	// check whether there already exists a mapping for this remote domain/token
-	_, found = k.GetTokenPairHex(ctx, msg.RemoteDomain, msg.RemoteToken)
+	_, found := k.GetTokenPairHex(ctx, msg.RemoteDomain, msg.RemoteToken)
 	if found {
 		return nil, sdkerrors.Wrapf(
 			types.ErrTokenPairAlreadyFound,

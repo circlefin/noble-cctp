@@ -12,12 +12,8 @@ import (
 func (k msgServer) UpdateSignatureThreshold(goCtx context.Context, msg *types.MsgUpdateSignatureThreshold) (*types.MsgUpdateSignatureThresholdResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	authority, found := k.GetAuthority(ctx)
-	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrAuthorityNotSet, "authority is not set")
-	}
-
-	if authority.Address != msg.From {
+	attesterManager := k.GetAttesterManager(ctx)
+	if attesterManager != msg.From {
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the authority")
 	}
 

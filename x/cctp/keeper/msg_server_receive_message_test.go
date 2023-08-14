@@ -141,6 +141,7 @@ func TestReceiveMessageWithDestinationCallerHappyPath(t *testing.T) {
 	require.Nil(t, err)
 	require.True(t, resp.Success)
 }
+
 func TestReceiveMessageSendingAndReceivingMessagesPaused(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)

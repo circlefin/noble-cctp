@@ -70,9 +70,7 @@ func TestAttesterQueryPaginated(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNAttesters(keeper, ctx, 5)
 	Attester := make([]types.Attester, len(msgs))
-	for i, msg := range msgs {
-		Attester[i] = msg
-	}
+	copy(Attester, msgs)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllAttestersRequest {
 		return &types.QueryAllAttestersRequest{

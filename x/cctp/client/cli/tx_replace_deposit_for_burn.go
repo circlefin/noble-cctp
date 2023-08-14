@@ -14,7 +14,6 @@ func CmdReplaceDepositForBurn() *cobra.Command {
 		Short: "Broadcast message replace-deposit-for-burn",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err

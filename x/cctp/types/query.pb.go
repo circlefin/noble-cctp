@@ -113,22 +113,22 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-// QueryAuthorityRequest is the request type for the Query/Authority RPC method.
-type QueryGetAuthorityRequest struct {
+// QueryRolesRequest is the request type for the Query/Roles RPC method.
+type QueryRolesRequest struct {
 }
 
-func (m *QueryGetAuthorityRequest) Reset()         { *m = QueryGetAuthorityRequest{} }
-func (m *QueryGetAuthorityRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryGetAuthorityRequest) ProtoMessage()    {}
-func (*QueryGetAuthorityRequest) Descriptor() ([]byte, []int) {
+func (m *QueryRolesRequest) Reset()         { *m = QueryRolesRequest{} }
+func (m *QueryRolesRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryRolesRequest) ProtoMessage()    {}
+func (*QueryRolesRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{2}
 }
-func (m *QueryGetAuthorityRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryRolesRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetAuthorityRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRolesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetAuthorityRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRolesRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -138,35 +138,38 @@ func (m *QueryGetAuthorityRequest) XXX_Marshal(b []byte, deterministic bool) ([]
 		return b[:n], nil
 	}
 }
-func (m *QueryGetAuthorityRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetAuthorityRequest.Merge(m, src)
+func (m *QueryRolesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRolesRequest.Merge(m, src)
 }
-func (m *QueryGetAuthorityRequest) XXX_Size() int {
+func (m *QueryRolesRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetAuthorityRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetAuthorityRequest.DiscardUnknown(m)
+func (m *QueryRolesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRolesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetAuthorityRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryRolesRequest proto.InternalMessageInfo
 
-// QueryAuthorityResponse is the response type for the Query/Authority RPC method.
-type QueryGetAuthorityResponse struct {
-	Authority Authority `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority"`
+// QueryRolesResponse is the response type for the Query/Roles RPC method.
+type QueryRolesResponse struct {
+	Owner           string `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
+	AttesterManager string `protobuf:"bytes,2,opt,name=attester_manager,json=attesterManager,proto3" json:"attester_manager,omitempty"`
+	Pauser          string `protobuf:"bytes,3,opt,name=pauser,proto3" json:"pauser,omitempty"`
+	TokenController string `protobuf:"bytes,4,opt,name=token_controller,json=tokenController,proto3" json:"token_controller,omitempty"`
 }
 
-func (m *QueryGetAuthorityResponse) Reset()         { *m = QueryGetAuthorityResponse{} }
-func (m *QueryGetAuthorityResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryGetAuthorityResponse) ProtoMessage()    {}
-func (*QueryGetAuthorityResponse) Descriptor() ([]byte, []int) {
+func (m *QueryRolesResponse) Reset()         { *m = QueryRolesResponse{} }
+func (m *QueryRolesResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryRolesResponse) ProtoMessage()    {}
+func (*QueryRolesResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{3}
 }
-func (m *QueryGetAuthorityResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryRolesResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetAuthorityResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRolesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetAuthorityResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRolesResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -176,23 +179,44 @@ func (m *QueryGetAuthorityResponse) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *QueryGetAuthorityResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetAuthorityResponse.Merge(m, src)
+func (m *QueryRolesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRolesResponse.Merge(m, src)
 }
-func (m *QueryGetAuthorityResponse) XXX_Size() int {
+func (m *QueryRolesResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetAuthorityResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetAuthorityResponse.DiscardUnknown(m)
+func (m *QueryRolesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRolesResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetAuthorityResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryRolesResponse proto.InternalMessageInfo
 
-func (m *QueryGetAuthorityResponse) GetAuthority() Authority {
+func (m *QueryRolesResponse) GetOwner() string {
 	if m != nil {
-		return m.Authority
+		return m.Owner
 	}
-	return Authority{}
+	return ""
+}
+
+func (m *QueryRolesResponse) GetAttesterManager() string {
+	if m != nil {
+		return m.AttesterManager
+	}
+	return ""
+}
+
+func (m *QueryRolesResponse) GetPauser() string {
+	if m != nil {
+		return m.Pauser
+	}
+	return ""
+}
+
+func (m *QueryRolesResponse) GetTokenController() string {
+	if m != nil {
+		return m.TokenController
+	}
+	return ""
 }
 
 // QueryAttestersRequest is the request type for the Query/Attester RPC method.
@@ -1385,23 +1409,23 @@ func (m *QueryAllUsedNoncesResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
-// QueryGetTokenMessengerRequest is the request type for the Query/TokenMessenger RPC method.
-type QueryGetTokenMessengerRequest struct {
+// QueryRemoteTokenMessengerRequest is the request type for the Query/RemoteTokenMessenger RPC method.
+type QueryRemoteTokenMessengerRequest struct {
 	DomainId uint32 `protobuf:"varint,1,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
 }
 
-func (m *QueryGetTokenMessengerRequest) Reset()         { *m = QueryGetTokenMessengerRequest{} }
-func (m *QueryGetTokenMessengerRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryGetTokenMessengerRequest) ProtoMessage()    {}
-func (*QueryGetTokenMessengerRequest) Descriptor() ([]byte, []int) {
+func (m *QueryRemoteTokenMessengerRequest) Reset()         { *m = QueryRemoteTokenMessengerRequest{} }
+func (m *QueryRemoteTokenMessengerRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryRemoteTokenMessengerRequest) ProtoMessage()    {}
+func (*QueryRemoteTokenMessengerRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{30}
 }
-func (m *QueryGetTokenMessengerRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryRemoteTokenMessengerRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetTokenMessengerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRemoteTokenMessengerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetTokenMessengerRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRemoteTokenMessengerRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1411,42 +1435,42 @@ func (m *QueryGetTokenMessengerRequest) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *QueryGetTokenMessengerRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetTokenMessengerRequest.Merge(m, src)
+func (m *QueryRemoteTokenMessengerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRemoteTokenMessengerRequest.Merge(m, src)
 }
-func (m *QueryGetTokenMessengerRequest) XXX_Size() int {
+func (m *QueryRemoteTokenMessengerRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetTokenMessengerRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetTokenMessengerRequest.DiscardUnknown(m)
+func (m *QueryRemoteTokenMessengerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRemoteTokenMessengerRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetTokenMessengerRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryRemoteTokenMessengerRequest proto.InternalMessageInfo
 
-func (m *QueryGetTokenMessengerRequest) GetDomainId() uint32 {
+func (m *QueryRemoteTokenMessengerRequest) GetDomainId() uint32 {
 	if m != nil {
 		return m.DomainId
 	}
 	return 0
 }
 
-// QueryGetTokenMessengerResponse is the response type for the Query/TokenMessenger RPC method.
-type QueryGetTokenMessengerResponse struct {
-	TokenMessenger TokenMessenger `protobuf:"bytes,1,opt,name=token_messenger,json=tokenMessenger,proto3" json:"token_messenger"`
+// QueryRemoteTokenMessengerResponse is the response type for the Query/RemoteTokenMessenger RPC method.
+type QueryRemoteTokenMessengerResponse struct {
+	RemoteTokenMessenger RemoteTokenMessenger `protobuf:"bytes,1,opt,name=remote_token_messenger,json=remoteTokenMessenger,proto3" json:"remote_token_messenger"`
 }
 
-func (m *QueryGetTokenMessengerResponse) Reset()         { *m = QueryGetTokenMessengerResponse{} }
-func (m *QueryGetTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryGetTokenMessengerResponse) ProtoMessage()    {}
-func (*QueryGetTokenMessengerResponse) Descriptor() ([]byte, []int) {
+func (m *QueryRemoteTokenMessengerResponse) Reset()         { *m = QueryRemoteTokenMessengerResponse{} }
+func (m *QueryRemoteTokenMessengerResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryRemoteTokenMessengerResponse) ProtoMessage()    {}
+func (*QueryRemoteTokenMessengerResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{31}
 }
-func (m *QueryGetTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryRemoteTokenMessengerResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRemoteTokenMessengerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetTokenMessengerResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRemoteTokenMessengerResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1456,42 +1480,42 @@ func (m *QueryGetTokenMessengerResponse) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *QueryGetTokenMessengerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetTokenMessengerResponse.Merge(m, src)
+func (m *QueryRemoteTokenMessengerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRemoteTokenMessengerResponse.Merge(m, src)
 }
-func (m *QueryGetTokenMessengerResponse) XXX_Size() int {
+func (m *QueryRemoteTokenMessengerResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetTokenMessengerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetTokenMessengerResponse.DiscardUnknown(m)
+func (m *QueryRemoteTokenMessengerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRemoteTokenMessengerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetTokenMessengerResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryRemoteTokenMessengerResponse proto.InternalMessageInfo
 
-func (m *QueryGetTokenMessengerResponse) GetTokenMessenger() TokenMessenger {
+func (m *QueryRemoteTokenMessengerResponse) GetRemoteTokenMessenger() RemoteTokenMessenger {
 	if m != nil {
-		return m.TokenMessenger
+		return m.RemoteTokenMessenger
 	}
-	return TokenMessenger{}
+	return RemoteTokenMessenger{}
 }
 
-// QueryAllTokenMessengersRequest is the request type for the Query/TokenMessengers RPC method.
-type QueryAllTokenMessengersRequest struct {
+// QueryRemoteTokenMessengersRequest is the request type for the Query/RemoteTokenMessengers RPC method.
+type QueryRemoteTokenMessengersRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllTokenMessengersRequest) Reset()         { *m = QueryAllTokenMessengersRequest{} }
-func (m *QueryAllTokenMessengersRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryAllTokenMessengersRequest) ProtoMessage()    {}
-func (*QueryAllTokenMessengersRequest) Descriptor() ([]byte, []int) {
+func (m *QueryRemoteTokenMessengersRequest) Reset()         { *m = QueryRemoteTokenMessengersRequest{} }
+func (m *QueryRemoteTokenMessengersRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryRemoteTokenMessengersRequest) ProtoMessage()    {}
+func (*QueryRemoteTokenMessengersRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{32}
 }
-func (m *QueryAllTokenMessengersRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryRemoteTokenMessengersRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllTokenMessengersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRemoteTokenMessengersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllTokenMessengersRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRemoteTokenMessengersRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1501,43 +1525,43 @@ func (m *QueryAllTokenMessengersRequest) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *QueryAllTokenMessengersRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllTokenMessengersRequest.Merge(m, src)
+func (m *QueryRemoteTokenMessengersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRemoteTokenMessengersRequest.Merge(m, src)
 }
-func (m *QueryAllTokenMessengersRequest) XXX_Size() int {
+func (m *QueryRemoteTokenMessengersRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllTokenMessengersRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllTokenMessengersRequest.DiscardUnknown(m)
+func (m *QueryRemoteTokenMessengersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRemoteTokenMessengersRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllTokenMessengersRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryRemoteTokenMessengersRequest proto.InternalMessageInfo
 
-func (m *QueryAllTokenMessengersRequest) GetPagination() *query.PageRequest {
+func (m *QueryRemoteTokenMessengersRequest) GetPagination() *query.PageRequest {
 	if m != nil {
 		return m.Pagination
 	}
 	return nil
 }
 
-// QueryAllTokenMessengersResponse is the response type for the Query/TokenMessengers RPC method.
-type QueryAllTokenMessengersResponse struct {
-	TokenMessengers []TokenMessenger    `protobuf:"bytes,1,rep,name=token_messengers,json=tokenMessengers,proto3" json:"token_messengers"`
-	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+// QueryRemoteTokenMessengersResponse is the response type for the Query/RemoteTokenMessengers RPC method.
+type QueryRemoteTokenMessengersResponse struct {
+	RemoteTokenMessengers []RemoteTokenMessenger `protobuf:"bytes,1,rep,name=remote_token_messengers,json=remoteTokenMessengers,proto3" json:"remote_token_messengers"`
+	Pagination            *query.PageResponse    `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllTokenMessengersResponse) Reset()         { *m = QueryAllTokenMessengersResponse{} }
-func (m *QueryAllTokenMessengersResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryAllTokenMessengersResponse) ProtoMessage()    {}
-func (*QueryAllTokenMessengersResponse) Descriptor() ([]byte, []int) {
+func (m *QueryRemoteTokenMessengersResponse) Reset()         { *m = QueryRemoteTokenMessengersResponse{} }
+func (m *QueryRemoteTokenMessengersResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryRemoteTokenMessengersResponse) ProtoMessage()    {}
+func (*QueryRemoteTokenMessengersResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e23fe4c0d9b245ab, []int{33}
 }
-func (m *QueryAllTokenMessengersResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryRemoteTokenMessengersResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllTokenMessengersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryRemoteTokenMessengersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllTokenMessengersResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryRemoteTokenMessengersResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1547,37 +1571,286 @@ func (m *QueryAllTokenMessengersResponse) XXX_Marshal(b []byte, deterministic bo
 		return b[:n], nil
 	}
 }
-func (m *QueryAllTokenMessengersResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllTokenMessengersResponse.Merge(m, src)
+func (m *QueryRemoteTokenMessengersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRemoteTokenMessengersResponse.Merge(m, src)
 }
-func (m *QueryAllTokenMessengersResponse) XXX_Size() int {
+func (m *QueryRemoteTokenMessengersResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllTokenMessengersResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllTokenMessengersResponse.DiscardUnknown(m)
+func (m *QueryRemoteTokenMessengersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRemoteTokenMessengersResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllTokenMessengersResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryRemoteTokenMessengersResponse proto.InternalMessageInfo
 
-func (m *QueryAllTokenMessengersResponse) GetTokenMessengers() []TokenMessenger {
+func (m *QueryRemoteTokenMessengersResponse) GetRemoteTokenMessengers() []RemoteTokenMessenger {
 	if m != nil {
-		return m.TokenMessengers
+		return m.RemoteTokenMessengers
 	}
 	return nil
 }
 
-func (m *QueryAllTokenMessengersResponse) GetPagination() *query.PageResponse {
+func (m *QueryRemoteTokenMessengersResponse) GetPagination() *query.PageResponse {
 	if m != nil {
 		return m.Pagination
 	}
 	return nil
+}
+
+// QueryBurnMessageVersionRequest is the request type for the Query/BurnMessageVersion RPC method.
+type QueryBurnMessageVersionRequest struct {
+}
+
+func (m *QueryBurnMessageVersionRequest) Reset()         { *m = QueryBurnMessageVersionRequest{} }
+func (m *QueryBurnMessageVersionRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryBurnMessageVersionRequest) ProtoMessage()    {}
+func (*QueryBurnMessageVersionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{34}
+}
+func (m *QueryBurnMessageVersionRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryBurnMessageVersionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryBurnMessageVersionRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryBurnMessageVersionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryBurnMessageVersionRequest.Merge(m, src)
+}
+func (m *QueryBurnMessageVersionRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryBurnMessageVersionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryBurnMessageVersionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryBurnMessageVersionRequest proto.InternalMessageInfo
+
+// QueryBurnMessageVersionResponse is the response type for the Query/BurnMessageVersion RPC method.
+type QueryBurnMessageVersionResponse struct {
+	// version is the burn message version of the local domain.
+	Version uint32 `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"`
+}
+
+func (m *QueryBurnMessageVersionResponse) Reset()         { *m = QueryBurnMessageVersionResponse{} }
+func (m *QueryBurnMessageVersionResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryBurnMessageVersionResponse) ProtoMessage()    {}
+func (*QueryBurnMessageVersionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{35}
+}
+func (m *QueryBurnMessageVersionResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryBurnMessageVersionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryBurnMessageVersionResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryBurnMessageVersionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryBurnMessageVersionResponse.Merge(m, src)
+}
+func (m *QueryBurnMessageVersionResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryBurnMessageVersionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryBurnMessageVersionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryBurnMessageVersionResponse proto.InternalMessageInfo
+
+func (m *QueryBurnMessageVersionResponse) GetVersion() uint32 {
+	if m != nil {
+		return m.Version
+	}
+	return 0
+}
+
+// QueryLocalMessageVersionRequest is the request type for the Query/LocalMessageVersion RPC method.
+type QueryLocalMessageVersionRequest struct {
+}
+
+func (m *QueryLocalMessageVersionRequest) Reset()         { *m = QueryLocalMessageVersionRequest{} }
+func (m *QueryLocalMessageVersionRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryLocalMessageVersionRequest) ProtoMessage()    {}
+func (*QueryLocalMessageVersionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{36}
+}
+func (m *QueryLocalMessageVersionRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLocalMessageVersionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLocalMessageVersionRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLocalMessageVersionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLocalMessageVersionRequest.Merge(m, src)
+}
+func (m *QueryLocalMessageVersionRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLocalMessageVersionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLocalMessageVersionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLocalMessageVersionRequest proto.InternalMessageInfo
+
+// QueryLocalMessageVersionResponse is the response type for the Query/LocalMessageVersion RPC method.
+type QueryLocalMessageVersionResponse struct {
+	// version is the message version of the local domain.
+	Version uint32 `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"`
+}
+
+func (m *QueryLocalMessageVersionResponse) Reset()         { *m = QueryLocalMessageVersionResponse{} }
+func (m *QueryLocalMessageVersionResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryLocalMessageVersionResponse) ProtoMessage()    {}
+func (*QueryLocalMessageVersionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{37}
+}
+func (m *QueryLocalMessageVersionResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLocalMessageVersionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLocalMessageVersionResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLocalMessageVersionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLocalMessageVersionResponse.Merge(m, src)
+}
+func (m *QueryLocalMessageVersionResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLocalMessageVersionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLocalMessageVersionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLocalMessageVersionResponse proto.InternalMessageInfo
+
+func (m *QueryLocalMessageVersionResponse) GetVersion() uint32 {
+	if m != nil {
+		return m.Version
+	}
+	return 0
+}
+
+// QueryLocalDomainRequest is the request type for the Query/LocalDomain RPC method.
+type QueryLocalDomainRequest struct {
+}
+
+func (m *QueryLocalDomainRequest) Reset()         { *m = QueryLocalDomainRequest{} }
+func (m *QueryLocalDomainRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryLocalDomainRequest) ProtoMessage()    {}
+func (*QueryLocalDomainRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{38}
+}
+func (m *QueryLocalDomainRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLocalDomainRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLocalDomainRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLocalDomainRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLocalDomainRequest.Merge(m, src)
+}
+func (m *QueryLocalDomainRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLocalDomainRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLocalDomainRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLocalDomainRequest proto.InternalMessageInfo
+
+// QueryLocalDomainResponse is the response type for the Query/LocalDomain RPC method.
+type QueryLocalDomainResponse struct {
+	// domain_id is the id of the local domain.
+	DomainId uint32 `protobuf:"varint,1,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
+}
+
+func (m *QueryLocalDomainResponse) Reset()         { *m = QueryLocalDomainResponse{} }
+func (m *QueryLocalDomainResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryLocalDomainResponse) ProtoMessage()    {}
+func (*QueryLocalDomainResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e23fe4c0d9b245ab, []int{39}
+}
+func (m *QueryLocalDomainResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryLocalDomainResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryLocalDomainResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryLocalDomainResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryLocalDomainResponse.Merge(m, src)
+}
+func (m *QueryLocalDomainResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryLocalDomainResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryLocalDomainResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryLocalDomainResponse proto.InternalMessageInfo
+
+func (m *QueryLocalDomainResponse) GetDomainId() uint32 {
+	if m != nil {
+		return m.DomainId
+	}
+	return 0
 }
 
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "noble.cctp.v1.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "noble.cctp.v1.QueryParamsResponse")
-	proto.RegisterType((*QueryGetAuthorityRequest)(nil), "noble.cctp.v1.QueryGetAuthorityRequest")
-	proto.RegisterType((*QueryGetAuthorityResponse)(nil), "noble.cctp.v1.QueryGetAuthorityResponse")
+	proto.RegisterType((*QueryRolesRequest)(nil), "noble.cctp.v1.QueryRolesRequest")
+	proto.RegisterType((*QueryRolesResponse)(nil), "noble.cctp.v1.QueryRolesResponse")
 	proto.RegisterType((*QueryGetAttesterRequest)(nil), "noble.cctp.v1.QueryGetAttesterRequest")
 	proto.RegisterType((*QueryGetAttesterResponse)(nil), "noble.cctp.v1.QueryGetAttesterResponse")
 	proto.RegisterType((*QueryAllAttestersRequest)(nil), "noble.cctp.v1.QueryAllAttestersRequest")
@@ -1604,118 +1877,134 @@ func init() {
 	proto.RegisterType((*QueryGetUsedNonceResponse)(nil), "noble.cctp.v1.QueryGetUsedNonceResponse")
 	proto.RegisterType((*QueryAllUsedNoncesRequest)(nil), "noble.cctp.v1.QueryAllUsedNoncesRequest")
 	proto.RegisterType((*QueryAllUsedNoncesResponse)(nil), "noble.cctp.v1.QueryAllUsedNoncesResponse")
-	proto.RegisterType((*QueryGetTokenMessengerRequest)(nil), "noble.cctp.v1.QueryGetTokenMessengerRequest")
-	proto.RegisterType((*QueryGetTokenMessengerResponse)(nil), "noble.cctp.v1.QueryGetTokenMessengerResponse")
-	proto.RegisterType((*QueryAllTokenMessengersRequest)(nil), "noble.cctp.v1.QueryAllTokenMessengersRequest")
-	proto.RegisterType((*QueryAllTokenMessengersResponse)(nil), "noble.cctp.v1.QueryAllTokenMessengersResponse")
+	proto.RegisterType((*QueryRemoteTokenMessengerRequest)(nil), "noble.cctp.v1.QueryRemoteTokenMessengerRequest")
+	proto.RegisterType((*QueryRemoteTokenMessengerResponse)(nil), "noble.cctp.v1.QueryRemoteTokenMessengerResponse")
+	proto.RegisterType((*QueryRemoteTokenMessengersRequest)(nil), "noble.cctp.v1.QueryRemoteTokenMessengersRequest")
+	proto.RegisterType((*QueryRemoteTokenMessengersResponse)(nil), "noble.cctp.v1.QueryRemoteTokenMessengersResponse")
+	proto.RegisterType((*QueryBurnMessageVersionRequest)(nil), "noble.cctp.v1.QueryBurnMessageVersionRequest")
+	proto.RegisterType((*QueryBurnMessageVersionResponse)(nil), "noble.cctp.v1.QueryBurnMessageVersionResponse")
+	proto.RegisterType((*QueryLocalMessageVersionRequest)(nil), "noble.cctp.v1.QueryLocalMessageVersionRequest")
+	proto.RegisterType((*QueryLocalMessageVersionResponse)(nil), "noble.cctp.v1.QueryLocalMessageVersionResponse")
+	proto.RegisterType((*QueryLocalDomainRequest)(nil), "noble.cctp.v1.QueryLocalDomainRequest")
+	proto.RegisterType((*QueryLocalDomainResponse)(nil), "noble.cctp.v1.QueryLocalDomainResponse")
 }
 
 func init() { proto.RegisterFile("noble/cctp/v1/query.proto", fileDescriptor_e23fe4c0d9b245ab) }
 
 var fileDescriptor_e23fe4c0d9b245ab = []byte{
-	// 1629 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x58, 0xcf, 0x6f, 0x13, 0xc7,
-	0x17, 0xcf, 0xf2, 0x85, 0x08, 0xbf, 0x7c, 0x81, 0xaf, 0x86, 0xa0, 0x84, 0xfd, 0x12, 0x43, 0x36,
-	0x34, 0x09, 0x3f, 0xbc, 0x1b, 0x3b, 0x05, 0x89, 0x82, 0x44, 0x1d, 0x21, 0x10, 0x15, 0xa1, 0xa9,
-	0x81, 0x4a, 0xed, 0xc5, 0x5d, 0xdb, 0x23, 0x67, 0x55, 0x7b, 0xd6, 0xec, 0x8e, 0xad, 0x84, 0x28,
-	0x52, 0xd5, 0xaa, 0x52, 0xd5, 0x53, 0x25, 0x4e, 0x3d, 0x82, 0x54, 0x7a, 0xec, 0xa5, 0xa7, 0xf6,
-	0x1f, 0xe0, 0x88, 0xd4, 0x4b, 0x4f, 0x55, 0x05, 0xfc, 0x21, 0xd5, 0xce, 0xbe, 0xd9, 0xf5, 0xae,
-	0x77, 0x6c, 0x07, 0xb9, 0x27, 0x7b, 0x77, 0xde, 0x8f, 0xcf, 0x7b, 0x6f, 0x66, 0xde, 0xe7, 0x2d,
-	0x9c, 0x66, 0x6e, 0xad, 0x45, 0xad, 0x7a, 0x9d, 0x77, 0xac, 0x5e, 0xd1, 0x7a, 0xdc, 0xa5, 0xde,
-	0xae, 0xd9, 0xf1, 0x5c, 0xee, 0x92, 0x63, 0x62, 0xc9, 0x0c, 0x96, 0xcc, 0x5e, 0x51, 0x5f, 0x48,
-	0x4a, 0xda, 0x5d, 0xbe, 0xed, 0x7a, 0x0e, 0x47, 0x69, 0xdd, 0x4c, 0x2e, 0xd7, 0xba, 0x1e, 0x73,
-	0x58, 0xb3, 0x6a, 0xb3, 0x46, 0xb5, 0xed, 0x30, 0x1e, 0xfc, 0xef, 0xd8, 0x5d, 0x9f, 0x36, 0x50,
-	0xfe, 0x42, 0x52, 0xbe, 0x6d, 0xef, 0x54, 0xdb, 0xd4, 0xf7, 0xed, 0x26, 0xad, 0xd6, 0xdc, 0xc6,
-	0x6e, 0xd5, 0x77, 0x9e, 0x50, 0x14, 0xd5, 0x93, 0xa2, 0x1d, 0xdb, 0xb3, 0xdb, 0x3e, 0xae, 0x5d,
-	0x4c, 0xad, 0x51, 0x2f, 0x36, 0xd3, 0xf5, 0x58, 0xb5, 0xe5, 0xb4, 0x1d, 0x8e, 0xb2, 0x67, 0x52,
-	0x11, 0x70, 0x4e, 0x7d, 0x4e, 0x3d, 0x5c, 0xbd, 0x96, 0x5c, 0xf5, 0x29, 0x6b, 0xc8, 0x00, 0x3c,
-	0x5a, 0xa7, 0x4e, 0x2f, 0x78, 0x42, 0xdb, 0x7e, 0x32, 0x96, 0x95, 0x94, 0xaa, 0xd3, 0x64, 0x36,
-	0xef, 0x7a, 0xb4, 0xca, 0xb7, 0x3d, 0xea, 0x6f, 0xbb, 0x2d, 0x29, 0x98, 0x4f, 0x0a, 0x72, 0xf7,
-	0x4b, 0xca, 0xaa, 0x1d, 0xdb, 0x91, 0x18, 0x96, 0xb2, 0xd6, 0x03, 0x9f, 0x94, 0x35, 0x23, 0xa0,
-	0xa9, 0x92, 0x31, 0x97, 0xd5, 0x65, 0xa6, 0x2e, 0xd6, 0x5d, 0xbf, 0xed, 0xfa, 0x56, 0xcd, 0xf6,
-	0x69, 0x58, 0x4b, 0xab, 0x57, 0xac, 0x51, 0x6e, 0x07, 0x59, 0x6b, 0x3a, 0xcc, 0xe6, 0x8e, 0xcb,
-	0x50, 0x76, 0xb6, 0xe9, 0x36, 0x5d, 0xf1, 0xd7, 0x0a, 0xfe, 0xc9, 0x1c, 0x35, 0x5d, 0xb7, 0xd9,
-	0xa2, 0x96, 0xdd, 0x71, 0x2c, 0x9b, 0x31, 0x97, 0x0b, 0x15, 0xcc, 0xb6, 0x31, 0x0b, 0xe4, 0x93,
-	0xc0, 0xea, 0x96, 0x28, 0x41, 0x85, 0x3e, 0xee, 0x52, 0x9f, 0x1b, 0x1f, 0xc1, 0xc9, 0xc4, 0x5b,
-	0xbf, 0xe3, 0x32, 0x9f, 0x92, 0x75, 0x98, 0x0e, 0x4b, 0x35, 0xaf, 0x9d, 0xd3, 0x56, 0x67, 0x4a,
-	0xa7, 0xcc, 0xc4, 0x86, 0x32, 0x43, 0xf1, 0x8d, 0xc3, 0x2f, 0xff, 0x3a, 0x3b, 0x55, 0x41, 0x51,
-	0x43, 0x87, 0x79, 0x61, 0xeb, 0x0e, 0xe5, 0x65, 0xb9, 0xc3, 0xa4, 0x9f, 0xcf, 0xe0, 0x74, 0xc6,
-	0x1a, 0x7a, 0xbb, 0x01, 0xb9, 0x68, 0x4b, 0xa2, 0xc3, 0xf9, 0x94, 0xc3, 0x48, 0x09, 0x7d, 0xc6,
-	0x0a, 0xc6, 0x15, 0x98, 0x8b, 0x4c, 0xe3, 0xb6, 0x40, 0xaf, 0x44, 0x87, 0xa3, 0x72, 0xa7, 0x08,
-	0xbb, 0xb9, 0x4a, 0xf4, 0x6c, 0x3c, 0xea, 0x43, 0x1b, 0xa9, 0x21, 0xa0, 0x6b, 0x29, 0xbd, 0x99,
-	0xd2, 0x5c, 0x1a, 0x0f, 0x2e, 0x23, 0x9c, 0xd8, 0x6c, 0x0d, 0xcd, 0x96, 0x5b, 0x2d, 0x29, 0x23,
-	0x93, 0x4d, 0x6e, 0x03, 0xc4, 0xa5, 0x44, 0xc3, 0xcb, 0x66, 0x58, 0x77, 0x33, 0xa8, 0xbb, 0x19,
-	0x9e, 0x61, 0xac, 0xbb, 0xb9, 0x65, 0x37, 0x29, 0xea, 0x56, 0xfa, 0x34, 0x8d, 0x67, 0x1a, 0x66,
-	0x33, 0xe9, 0x04, 0xc1, 0x5f, 0x87, 0x9c, 0x44, 0x13, 0x94, 0xef, 0x3f, 0xa3, 0xd1, 0xc7, 0xf2,
-	0xe4, 0x4e, 0x02, 0xe2, 0x21, 0x01, 0x71, 0x65, 0x24, 0xc4, 0xd0, 0x73, 0x02, 0xe3, 0x07, 0x60,
-	0xc8, 0xf4, 0x6e, 0x51, 0x6f, 0x33, 0x3c, 0x7b, 0x1b, 0x5d, 0x8f, 0xdd, 0x0b, 0x4e, 0xb5, 0xcc,
-	0xc8, 0x2c, 0x1c, 0x69, 0x50, 0xe6, 0xb6, 0xb1, 0x3a, 0xe1, 0x83, 0xc1, 0x60, 0x69, 0xa8, 0x2e,
-	0x06, 0x7a, 0x07, 0x20, 0xbe, 0x27, 0x30, 0x9d, 0x46, 0x7a, 0xa3, 0x0e, 0xea, 0xcb, 0xa0, 0x6b,
-	0xf2, 0x85, 0xd1, 0x46, 0x7f, 0xe5, 0x56, 0x2b, 0x43, 0x7e, 0xe2, 0xe5, 0xfb, 0x4d, 0x83, 0xf3,
-	0xc3, 0xfd, 0x61, 0x80, 0x77, 0x61, 0x26, 0x0e, 0x50, 0xd6, 0x72, 0xfc, 0x08, 0x21, 0x8a, 0x70,
-	0x82, 0x75, 0x5d, 0x85, 0x65, 0x59, 0x9b, 0x8d, 0xb0, 0x4f, 0x94, 0x59, 0x63, 0x33, 0xec, 0x12,
-	0x5b, 0xe2, 0x62, 0x95, 0x47, 0xde, 0x85, 0x95, 0x91, 0x92, 0x18, 0xe8, 0xad, 0xe0, 0xba, 0x09,
-	0xde, 0x44, 0x59, 0x4d, 0xc6, 0xa8, 0xd0, 0x8f, 0xef, 0x9f, 0xe0, 0xc9, 0x28, 0xc1, 0x9a, 0x74,
-	0xf8, 0x20, 0xec, 0x00, 0x65, 0xd6, 0xa8, 0xc8, 0xfb, 0x1f, 0x93, 0xe4, 0x27, 0x41, 0x7e, 0xa3,
-	0x41, 0xf1, 0x00, 0x4a, 0x88, 0xf7, 0x7e, 0x0a, 0xef, 0x5a, 0x0a, 0xef, 0x48, 0x4b, 0x29, 0xe4,
-	0x4b, 0xb0, 0x28, 0x41, 0x6c, 0xda, 0x3b, 0xb2, 0x9c, 0x6e, 0x63, 0xf7, 0x81, 0xf3, 0x44, 0x6e,
-	0x21, 0x83, 0xc6, 0x27, 0x2a, 0x4b, 0x08, 0xa1, 0xdd, 0x84, 0x69, 0xbb, 0xed, 0x76, 0x99, 0x3c,
-	0x10, 0x8b, 0x29, 0x68, 0x83, 0xaa, 0x12, 0x4b, 0xa8, 0xd6, 0x8f, 0xe5, 0x3e, 0xdd, 0xe1, 0xe5,
-	0x9e, 0xed, 0xb4, 0xec, 0x5a, 0x8b, 0xde, 0x0f, 0x7a, 0x95, 0xc4, 0xf2, 0x69, 0x8c, 0x25, 0x4b,
-	0x08, 0xb1, 0xac, 0xc1, 0x11, 0xd1, 0xe1, 0x10, 0xca, 0x6c, 0x0a, 0x8a, 0x10, 0x46, 0xef, 0xa1,
-	0x60, 0xbf, 0xf3, 0x07, 0xb2, 0x13, 0x3f, 0x94, 0x8d, 0x38, 0x23, 0x11, 0x59, 0x42, 0x63, 0x26,
-	0x62, 0x50, 0x35, 0x95, 0x88, 0x5a, 0xdc, 0x20, 0x1e, 0x06, 0xcd, 0x7c, 0xcb, 0x76, 0xa2, 0xc6,
-	0xb2, 0x04, 0xc7, 0x3c, 0xda, 0x76, 0x39, 0xad, 0x36, 0xdc, 0xb6, 0xed, 0x84, 0xb7, 0xc1, 0xb1,
-	0xca, 0x7f, 0xc3, 0x97, 0xb7, 0xc4, 0x3b, 0xb2, 0x08, 0xf8, 0x5c, 0x15, 0x64, 0x40, 0x9c, 0xba,
-	0x5c, 0x65, 0x26, 0x7c, 0x27, 0x4c, 0x1a, 0x1f, 0xc7, 0x6d, 0xb1, 0xcf, 0x07, 0x46, 0x50, 0x82,
-	0xc3, 0x01, 0xbf, 0x50, 0x74, 0xc4, 0x48, 0x1e, 0x61, 0x0b, 0x59, 0xa3, 0x1e, 0x77, 0x86, 0x48,
-	0x60, 0xe2, 0x17, 0xd8, 0x0b, 0x0d, 0xf4, 0x2c, 0x2f, 0x51, 0xe6, 0x67, 0x62, 0x76, 0x24, 0xaf,
-	0xad, 0x51, 0xf0, 0x81, 0x47, 0x86, 0x26, 0x77, 0x59, 0xf5, 0xf5, 0xf8, 0x47, 0x3e, 0x6d, 0xf4,
-	0x6f, 0xe1, 0xa0, 0x84, 0xbe, 0xdb, 0xf5, 0xea, 0xe9, 0x12, 0x86, 0x2f, 0xb1, 0x84, 0xb3, 0x72,
-	0x07, 0x07, 0x20, 0x0e, 0xcb, 0x5d, 0xba, 0x19, 0x57, 0xad, 0xcf, 0xec, 0x3b, 0x6f, 0xfa, 0xbe,
-	0x9a, 0x45, 0xe6, 0x26, 0x5e, 0xb3, 0xe7, 0x7d, 0x35, 0xeb, 0xf7, 0x12, 0x91, 0x86, 0x99, 0xe0,
-	0x26, 0xaa, 0x0a, 0x44, 0xb2, 0x66, 0xc3, 0xb0, 0x43, 0x37, 0x32, 0x32, 0xb9, 0x7a, 0xdd, 0x80,
-	0x85, 0xc4, 0x71, 0xd8, 0x94, 0xf4, 0x59, 0x66, 0xe3, 0xff, 0x90, 0x0b, 0xab, 0x55, 0x75, 0x1a,
-	0x58, 0xb0, 0xa3, 0xe1, 0x8b, 0xbb, 0x0d, 0x83, 0x41, 0x5e, 0xa5, 0x8d, 0x51, 0xde, 0x83, 0x13,
-	0x29, 0x5e, 0x8e, 0x19, 0x5d, 0xc8, 0xda, 0x9d, 0x91, 0x3e, 0x86, 0x7c, 0x9c, 0x27, 0xde, 0x1a,
-	0xdb, 0xe8, 0x4f, 0x9e, 0x82, 0x68, 0xe5, 0xdf, 0x60, 0x0c, 0x67, 0x95, 0xae, 0xa2, 0x9e, 0xf4,
-	0xbf, 0x54, 0x6c, 0xb2, 0x8c, 0x63, 0x05, 0x77, 0x22, 0x19, 0xdc, 0xe4, 0x8a, 0x5a, 0x7a, 0x7a,
-	0x0a, 0x8e, 0x08, 0xf0, 0x84, 0xc1, 0x74, 0x38, 0x38, 0x90, 0xf4, 0x65, 0x3c, 0x38, 0x99, 0xe8,
-	0xc6, 0x30, 0x91, 0xd0, 0x8d, 0xb1, 0xf0, 0xf5, 0x1f, 0x6f, 0x9f, 0x1e, 0x9a, 0x23, 0xa7, 0xac,
-	0xac, 0x31, 0x93, 0x7c, 0xa5, 0x41, 0x2e, 0x1a, 0x1c, 0xc8, 0x4a, 0x96, 0xc1, 0x8c, 0x59, 0x45,
-	0x5f, 0x1d, 0x2d, 0x88, 0xfe, 0xcf, 0x09, 0xff, 0x3a, 0x99, 0xb7, 0x14, 0x03, 0x36, 0xf9, 0x4e,
-	0x83, 0xa3, 0x92, 0x6d, 0x93, 0x65, 0x95, 0xe1, 0xe4, 0xd8, 0xa2, 0xaf, 0x8c, 0x94, 0x43, 0xff,
-	0x97, 0x84, 0xff, 0xf7, 0xc8, 0x92, 0x95, 0x3d, 0x1e, 0xfb, 0xd6, 0x9e, 0xfc, 0xbb, 0x1f, 0x66,
-	0x23, 0x22, 0xfa, 0x99, 0x3e, 0x32, 0x86, 0x96, 0xec, 0x6c, 0x64, 0x0d, 0x1e, 0xea, 0x6c, 0x44,
-	0x4e, 0x7f, 0xd5, 0xe0, 0x64, 0x06, 0x5f, 0x25, 0x45, 0x45, 0xc0, 0xea, 0xc9, 0x41, 0x2f, 0x1d,
-	0x44, 0x05, 0x01, 0x5e, 0x15, 0x00, 0xd7, 0x88, 0x69, 0x8d, 0xf3, 0xe5, 0xc1, 0xb7, 0xf6, 0xc4,
-	0x38, 0xb2, 0x4f, 0x7e, 0xd1, 0x60, 0x36, 0x8b, 0xa8, 0x93, 0x92, 0x22, 0x37, 0x43, 0xa6, 0x08,
-	0x7d, 0xfd, 0x40, 0x3a, 0x88, 0xdc, 0x14, 0xc8, 0x57, 0xc9, 0xf2, 0x78, 0xc8, 0xc9, 0xef, 0x1a,
-	0xcc, 0x29, 0x48, 0x33, 0xb9, 0xa2, 0xc8, 0xdc, 0x70, 0x3a, 0xaf, 0x5f, 0x3d, 0xa8, 0x1a, 0x42,
-	0x2f, 0x0a, 0xe8, 0x97, 0xc8, 0x05, 0x6b, 0xdc, 0xaf, 0x4c, 0xe4, 0xad, 0x06, 0x8b, 0x23, 0x29,
-	0x34, 0xb9, 0xa9, 0x00, 0x34, 0x2e, 0xf7, 0xd7, 0x3f, 0x7c, 0x77, 0x03, 0x18, 0xdb, 0x0d, 0x11,
-	0xdb, 0x55, 0xf2, 0xbe, 0xf5, 0x0e, 0x1f, 0xa0, 0xc8, 0xcf, 0x1a, 0x90, 0x41, 0x3a, 0x4e, 0xd6,
-	0x14, 0xb0, 0x94, 0x93, 0x81, 0x5e, 0x3c, 0x80, 0x06, 0x22, 0xbf, 0x2c, 0x90, 0x2f, 0x93, 0xf3,
-	0xd6, 0x18, 0xdf, 0xf2, 0xc8, 0x0b, 0x0d, 0xc8, 0x20, 0xcf, 0x57, 0x22, 0x55, 0xce, 0x0d, 0x4a,
-	0xa4, 0xea, 0x21, 0x42, 0x79, 0xc7, 0x31, 0xba, 0xc3, 0xab, 0xb6, 0xd4, 0x09, 0x89, 0x0b, 0xf9,
-	0x49, 0x03, 0x32, 0x48, 0xec, 0x95, 0x40, 0x95, 0x33, 0x86, 0x12, 0xa8, 0x7a, 0xe0, 0x30, 0x2e,
-	0x0a, 0xa0, 0xe7, 0x89, 0x61, 0x8d, 0xfc, 0xa4, 0x48, 0x9e, 0x69, 0x90, 0x8b, 0x18, 0xb0, 0xb2,
-	0x33, 0xa5, 0xc7, 0x0e, 0x65, 0x67, 0x1a, 0x98, 0x1d, 0x8c, 0xb2, 0x00, 0x73, 0x9d, 0x5c, 0xb3,
-	0x54, 0x9f, 0x2d, 0x7d, 0x6b, 0x2f, 0x31, 0xc2, 0xec, 0x47, 0xcf, 0x42, 0x66, 0x9f, 0x7c, 0xab,
-	0x01, 0xc4, 0xec, 0x9e, 0xa8, 0xfa, 0xc0, 0xc0, 0x98, 0xa1, 0x5f, 0x18, 0x43, 0x12, 0x61, 0x1a,
-	0x02, 0xe6, 0x19, 0xa2, 0xab, 0x61, 0x92, 0xef, 0x35, 0xc8, 0x45, 0x8c, 0x55, 0x99, 0xab, 0x34,
-	0xbf, 0x57, 0xe6, 0x6a, 0x80, 0xb1, 0x2b, 0x0b, 0xd7, 0x47, 0x88, 0xad, 0x3d, 0xf1, 0x1b, 0x26,
-	0x25, 0xa6, 0xcf, 0xca, 0xa4, 0x0c, 0xf0, 0x78, 0x65, 0x52, 0x06, 0xb9, 0xb8, 0x32, 0x29, 0x7d,
-	0x78, 0xc8, 0x73, 0x0d, 0x8e, 0x27, 0x79, 0x1c, 0xb9, 0x3c, 0x6c, 0x73, 0xa4, 0x99, 0xb4, 0x5e,
-	0x18, 0x53, 0x1a, 0x31, 0xad, 0x0b, 0x4c, 0x05, 0x72, 0xc9, 0x1a, 0xfa, 0x99, 0x3b, 0xe8, 0x99,
-	0x92, 0x9f, 0xef, 0x93, 0x1f, 0x35, 0x38, 0x91, 0xa2, 0xab, 0xa4, 0x30, 0x6c, 0x73, 0x0c, 0x30,
-	0x68, 0xdd, 0x1c, 0x57, 0x1c, 0x71, 0xae, 0x08, 0x9c, 0x8b, 0xe4, 0xec, 0x08, 0x9c, 0x1b, 0x5f,
-	0xbc, 0x7c, 0x9d, 0xd7, 0x5e, 0xbd, 0xce, 0x6b, 0x7f, 0xbf, 0xce, 0x6b, 0x3f, 0xbc, 0xc9, 0x4f,
-	0xbd, 0x7a, 0x93, 0x9f, 0xfa, 0xf3, 0x4d, 0x7e, 0xea, 0xf3, 0xdb, 0x4d, 0x87, 0x6f, 0x77, 0x6b,
-	0x66, 0xdd, 0x6d, 0x5b, 0x3e, 0xf7, 0x6c, 0xd6, 0xa4, 0x2d, 0xb7, 0x47, 0x0b, 0x3d, 0xca, 0x82,
-	0x53, 0xec, 0x87, 0x96, 0x0b, 0x81, 0xe5, 0x82, 0xe7, 0x76, 0x39, 0xf5, 0x0a, 0x1d, 0xcf, 0xe9,
-	0xd9, 0x9c, 0x5a, 0x3b, 0xa1, 0x3f, 0xbe, 0xdb, 0xa1, 0x7e, 0x6d, 0x5a, 0x7c, 0x77, 0x5f, 0xff,
-	0x27, 0x00, 0x00, 0xff, 0xff, 0xb8, 0x80, 0x0f, 0x03, 0xa7, 0x19, 0x00, 0x00,
+	// 1778 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x59, 0xcb, 0x6f, 0xdb, 0xc8,
+	0x19, 0x37, 0x13, 0x3b, 0x8d, 0x3f, 0x27, 0x68, 0x3b, 0x56, 0x62, 0x85, 0x49, 0x15, 0x9b, 0x4e,
+	0xfd, 0xc8, 0x43, 0xb4, 0x94, 0x47, 0x91, 0x07, 0x90, 0xda, 0x0d, 0x12, 0xa4, 0x88, 0x53, 0xd7,
+	0x79, 0x1c, 0x7a, 0x11, 0x28, 0x69, 0xaa, 0xb0, 0xa1, 0x48, 0x85, 0xa4, 0x5c, 0x3b, 0x86, 0x81,
+	0x22, 0x69, 0x81, 0xa2, 0xa7, 0x02, 0xbd, 0xf4, 0xb8, 0x59, 0xec, 0x66, 0x2f, 0x0b, 0xec, 0x65,
+	0xf7, 0xb2, 0xfb, 0x0f, 0xe4, 0x18, 0x60, 0x2f, 0x7b, 0x5a, 0x2c, 0x92, 0xfc, 0x21, 0x0b, 0xce,
+	0x7c, 0x43, 0x8a, 0xe4, 0x8c, 0x24, 0x07, 0x3a, 0x59, 0x9c, 0xf9, 0x1e, 0xbf, 0xef, 0xfb, 0x66,
+	0xbe, 0xc7, 0x18, 0x4e, 0xb8, 0x5e, 0xdd, 0xa1, 0x66, 0xa3, 0x11, 0x76, 0xcc, 0xad, 0x8a, 0xf9,
+	0xac, 0x4b, 0xfd, 0x9d, 0x72, 0xc7, 0xf7, 0x42, 0x8f, 0x1c, 0x65, 0x5b, 0xe5, 0x68, 0xab, 0xbc,
+	0x55, 0xd1, 0xcf, 0x36, 0xbc, 0xa0, 0xed, 0x05, 0x66, 0xdd, 0x0a, 0x28, 0xa7, 0x33, 0xb7, 0x2a,
+	0x75, 0x1a, 0x5a, 0x15, 0xb3, 0x63, 0xb5, 0x6c, 0xd7, 0x0a, 0x6d, 0xcf, 0xe5, 0xac, 0x7a, 0xa1,
+	0xe5, 0xb5, 0x3c, 0xf6, 0xd3, 0x8c, 0x7e, 0xe1, 0xea, 0xa9, 0x96, 0xe7, 0xb5, 0x1c, 0x6a, 0x5a,
+	0x1d, 0xdb, 0xb4, 0x5c, 0xd7, 0x0b, 0x19, 0x4b, 0x20, 0x76, 0xd3, 0x48, 0xac, 0x30, 0xa4, 0x41,
+	0x48, 0x7d, 0xdc, 0x2d, 0xa7, 0x77, 0xeb, 0x5d, 0xdf, 0xb5, 0xdd, 0x56, 0xcd, 0x72, 0x9b, 0xb5,
+	0xb6, 0xed, 0x86, 0xd1, 0xef, 0x8e, 0xd5, 0x0d, 0x68, 0x13, 0xe9, 0x97, 0xd3, 0xf4, 0x6d, 0x6b,
+	0xbb, 0xd6, 0xa6, 0x41, 0x60, 0xb5, 0x68, 0xad, 0xee, 0x35, 0x77, 0x6a, 0x81, 0xfd, 0x9c, 0x22,
+	0x69, 0xc6, 0x05, 0xae, 0xe7, 0x36, 0xc4, 0x96, 0x9e, 0xde, 0xea, 0x58, 0xbe, 0xd5, 0x16, 0x78,
+	0xcf, 0x66, 0xf6, 0xa8, 0x9f, 0x68, 0xe8, 0xfa, 0x6e, 0xcd, 0xb1, 0xdb, 0x76, 0x28, 0xa7, 0xf5,
+	0x69, 0xdb, 0x0b, 0x69, 0x2d, 0xf4, 0x9e, 0x52, 0x97, 0x31, 0x51, 0xb7, 0x15, 0x5b, 0x7a, 0x35,
+	0x4d, 0x1b, 0x50, 0xb7, 0x29, 0x2c, 0xf5, 0x69, 0x83, 0xda, 0x5b, 0xd1, 0x17, 0x6a, 0x0a, 0xd2,
+	0x46, 0x2f, 0x66, 0x58, 0xed, 0x96, 0x6b, 0x85, 0x5d, 0x9f, 0xd6, 0xc2, 0x27, 0x3e, 0x0d, 0x9e,
+	0x78, 0x8e, 0x20, 0x2c, 0xa5, 0x09, 0x39, 0x90, 0x8e, 0x65, 0x23, 0x06, 0xa3, 0x00, 0xe4, 0xcf,
+	0x51, 0x84, 0x37, 0x98, 0xc1, 0x9b, 0xf4, 0x59, 0x97, 0x06, 0xa1, 0xf1, 0x47, 0x98, 0x4e, 0xad,
+	0x06, 0x1d, 0xcf, 0x0d, 0x28, 0xb9, 0x08, 0x87, 0xb8, 0x63, 0x8a, 0xda, 0xac, 0xb6, 0x34, 0x55,
+	0x3d, 0x56, 0x4e, 0x1d, 0x9c, 0x32, 0x27, 0x5f, 0x1b, 0x7f, 0xf3, 0xe3, 0xe9, 0xb1, 0x4d, 0x24,
+	0x35, 0xa6, 0xe1, 0xd7, 0x4c, 0xd6, 0xa6, 0xe7, 0xd0, 0x58, 0xc1, 0xff, 0x35, 0xd4, 0x8b, 0xab,
+	0xa8, 0xa0, 0x00, 0x13, 0xde, 0xdf, 0x5d, 0xea, 0x33, 0xf9, 0x93, 0x9b, 0xfc, 0x83, 0x2c, 0xc3,
+	0xaf, 0xc4, 0x19, 0xa9, 0xb5, 0x2d, 0xd7, 0x6a, 0x51, 0xbf, 0x78, 0x80, 0x11, 0xfc, 0x52, 0xac,
+	0xaf, 0xf3, 0x65, 0x72, 0x3c, 0x42, 0xd8, 0x0d, 0xa8, 0x5f, 0x3c, 0xc8, 0x08, 0xf0, 0x2b, 0x12,
+	0xc1, 0x4d, 0x6f, 0x78, 0x6e, 0xe8, 0x7b, 0x8e, 0x43, 0xfd, 0xe2, 0x38, 0x17, 0xc1, 0xd6, 0xff,
+	0x10, 0x2f, 0x1b, 0x97, 0x61, 0x86, 0x21, 0xbb, 0x43, 0xc3, 0x55, 0x94, 0x8e, 0xa8, 0x89, 0x0e,
+	0x87, 0x85, 0x42, 0x44, 0x18, 0x7f, 0x1b, 0x8f, 0xa0, 0x98, 0x67, 0x43, 0xb3, 0xae, 0x66, 0xf8,
+	0xa6, 0xaa, 0x33, 0x19, 0xcf, 0x09, 0x16, 0xf4, 0x5d, 0x22, 0xb6, 0x8e, 0x62, 0x57, 0x1d, 0x47,
+	0xd0, 0x08, 0x27, 0x92, 0xdb, 0x00, 0xc9, 0x7d, 0x44, 0xc1, 0x0b, 0x65, 0x7e, 0x79, 0xcb, 0xd1,
+	0xe5, 0x2d, 0xf3, 0x4b, 0x8e, 0x97, 0xb7, 0xbc, 0x61, 0xb5, 0x28, 0xf2, 0x6e, 0xf6, 0x70, 0x1a,
+	0xaf, 0x34, 0x38, 0x21, 0x51, 0x82, 0xe0, 0xaf, 0xc3, 0xa4, 0x40, 0x13, 0xc5, 0xfd, 0xe0, 0x60,
+	0xf4, 0x09, 0x3d, 0xb9, 0x93, 0x82, 0x78, 0x80, 0x41, 0x5c, 0x1c, 0x08, 0x91, 0x6b, 0x4e, 0x61,
+	0xbc, 0x06, 0x86, 0x70, 0xef, 0x06, 0xf5, 0xd7, 0xf9, 0xa5, 0x58, 0xeb, 0xfa, 0xee, 0xbd, 0xe8,
+	0xf2, 0x09, 0x8f, 0x14, 0x60, 0xa2, 0x49, 0x5d, 0xaf, 0x2d, 0xce, 0x0f, 0xfb, 0x30, 0x5c, 0x98,
+	0xef, 0xcb, 0x8b, 0x86, 0xde, 0x01, 0x48, 0xae, 0x33, 0xba, 0xd3, 0xc8, 0x9e, 0xf0, 0x3c, 0xbf,
+	0x30, 0xba, 0x2e, 0x16, 0x8c, 0x36, 0xea, 0x5b, 0x75, 0x1c, 0x09, 0xfd, 0xc8, 0xc3, 0xf7, 0xad,
+	0x06, 0x67, 0xfa, 0xeb, 0x43, 0x03, 0xef, 0xc2, 0x54, 0x62, 0xa0, 0x88, 0xe5, 0xf0, 0x16, 0x42,
+	0x6c, 0xe1, 0x08, 0xe3, 0xba, 0x04, 0x0b, 0x22, 0x36, 0x6b, 0x3c, 0xd3, 0xaf, 0xba, 0xcd, 0x75,
+	0x9e, 0xe7, 0x37, 0x58, 0xc6, 0x13, 0x29, 0xc3, 0x83, 0xc5, 0x81, 0x94, 0x68, 0xe8, 0x2d, 0xcc,
+	0x02, 0xcd, 0xd8, 0xab, 0x69, 0x1b, 0x15, 0xfc, 0x49, 0xe2, 0x8a, 0xbe, 0x8c, 0x2a, 0xac, 0x08,
+	0x85, 0x0f, 0x78, 0x6a, 0x5e, 0x75, 0x9b, 0x9b, 0x22, 0x31, 0xa3, 0x93, 0x82, 0x34, 0xc8, 0x97,
+	0x1a, 0x54, 0xf6, 0xc1, 0x84, 0x78, 0xef, 0x67, 0xf0, 0xae, 0x64, 0xf0, 0x0e, 0x94, 0x94, 0x41,
+	0x3e, 0x0f, 0x73, 0x02, 0xc4, 0xba, 0xb5, 0x2d, 0xc2, 0xe9, 0x35, 0x77, 0x1e, 0xd8, 0xcf, 0xc5,
+	0x11, 0x32, 0x68, 0x72, 0xa3, 0x64, 0x44, 0x08, 0xed, 0x26, 0x1c, 0xb2, 0xda, 0x5e, 0xd7, 0x15,
+	0x17, 0x62, 0x2e, 0x03, 0x2d, 0xcf, 0x2a, 0xb0, 0x70, 0xb6, 0x5e, 0x2c, 0xf7, 0xe9, 0x76, 0xb8,
+	0xba, 0x65, 0xd9, 0x8e, 0x55, 0x77, 0xe8, 0xfd, 0xa8, 0xf8, 0x0a, 0x2c, 0x8f, 0x13, 0x2c, 0x32,
+	0x22, 0xc4, 0xb2, 0x02, 0x13, 0xac, 0x64, 0x23, 0x94, 0x42, 0x06, 0x0a, 0x23, 0x46, 0xed, 0x9c,
+	0xb0, 0x57, 0xf9, 0x03, 0x51, 0x22, 0x1f, 0x8a, 0x0a, 0x29, 0x71, 0x84, 0x8c, 0x68, 0x48, 0x47,
+	0xe4, 0x59, 0x33, 0x8e, 0xa8, 0x27, 0x05, 0xe2, 0x61, 0x54, 0x72, 0x36, 0x2c, 0x3b, 0x2e, 0x2c,
+	0xf3, 0x70, 0x14, 0x3b, 0x85, 0xa6, 0xd7, 0xb6, 0x6c, 0x9e, 0x0d, 0x8e, 0x6e, 0x1e, 0xe1, 0x8b,
+	0xb7, 0xd8, 0x1a, 0x99, 0x83, 0x23, 0xbd, 0xed, 0x04, 0x96, 0xc0, 0x29, 0xbe, 0xc6, 0x44, 0x1a,
+	0x7f, 0xc2, 0x44, 0x9e, 0xd6, 0x81, 0x16, 0x54, 0x61, 0x3c, 0x2a, 0xfc, 0x88, 0xbf, 0x98, 0xc1,
+	0x1f, 0xd3, 0x23, 0x6c, 0x46, 0x6b, 0x34, 0x92, 0xca, 0x10, 0x13, 0x8c, 0x3c, 0x81, 0xbd, 0xd6,
+	0x40, 0x97, 0x69, 0x89, 0x3d, 0x3f, 0x95, 0xb4, 0x2d, 0x22, 0x6d, 0x0d, 0x82, 0x0f, 0x61, 0x2c,
+	0x68, 0x74, 0xc9, 0xaa, 0xa7, 0xc6, 0x3f, 0x0a, 0x68, 0xb3, 0xf7, 0x08, 0x47, 0x21, 0x0c, 0xbc,
+	0xae, 0xdf, 0xc8, 0x86, 0x90, 0x2f, 0x62, 0x08, 0x0b, 0xe2, 0x04, 0x47, 0x20, 0xc6, 0xc5, 0x29,
+	0x5d, 0x4f, 0xa2, 0xd6, 0x23, 0xf6, 0xa3, 0x0f, 0x7d, 0x4f, 0xcc, 0x62, 0x71, 0x23, 0x8f, 0xd9,
+	0xa7, 0x3d, 0x31, 0xeb, 0xd5, 0x12, 0x37, 0x0d, 0x53, 0x51, 0x26, 0xaa, 0x31, 0x44, 0x22, 0x66,
+	0xfd, 0xb0, 0x43, 0x37, 0x16, 0x32, 0xba, 0x78, 0xdd, 0x84, 0x59, 0xde, 0x64, 0x26, 0x57, 0x64,
+	0x5d, 0xf4, 0xe0, 0xc2, 0x21, 0x27, 0x61, 0x92, 0x07, 0xac, 0x66, 0x37, 0x31, 0x66, 0x87, 0xf9,
+	0xc2, 0xdd, 0xa6, 0xf1, 0x4f, 0x0d, 0x13, 0x88, 0x5c, 0x02, 0x1a, 0x5b, 0x83, 0xe3, 0xf2, 0x3e,
+	0x1f, 0xfd, 0x3b, 0x9f, 0xb1, 0x5b, 0x26, 0x0c, 0xdd, 0x50, 0xf0, 0x25, 0x7b, 0xc6, 0xd3, 0x3e,
+	0x28, 0x46, 0x1e, 0xd9, 0xb7, 0x1a, 0xe6, 0x43, 0x85, 0x36, 0x34, 0xda, 0x82, 0x19, 0xb9, 0xd1,
+	0x22, 0xda, 0xfb, 0xb0, 0xfa, 0x98, 0xcc, 0xea, 0x11, 0x9e, 0x83, 0x59, 0x28, 0x31, 0x8b, 0xa2,
+	0xba, 0x8f, 0xd5, 0xea, 0x31, 0xf5, 0x03, 0xdb, 0x73, 0x45, 0x0d, 0xb8, 0x0e, 0xa7, 0x95, 0x14,
+	0x68, 0x70, 0x11, 0x7e, 0xb1, 0xc5, 0x97, 0xf0, 0x98, 0x88, 0x4f, 0x63, 0x0e, 0x99, 0xef, 0x79,
+	0x0d, 0xcb, 0x91, 0xcb, 0xbf, 0x81, 0x27, 0x51, 0x4a, 0x32, 0x50, 0xc1, 0x09, 0x1c, 0x49, 0x18,
+	0x37, 0x4f, 0x25, 0x42, 0xf0, 0xef, 0x30, 0x25, 0xa5, 0xb6, 0x50, 0x60, 0xbf, 0xa3, 0x5d, 0x7d,
+	0x51, 0x84, 0x09, 0xc6, 0x49, 0xfe, 0x06, 0x13, 0x6c, 0x0a, 0x23, 0xb3, 0x99, 0x88, 0xe5, 0xc6,
+	0x36, 0x7d, 0xae, 0x0f, 0x05, 0x57, 0x6a, 0x9c, 0x7a, 0xf1, 0xfd, 0x87, 0xff, 0x1d, 0x38, 0x4e,
+	0x0a, 0x66, 0x66, 0x12, 0x66, 0x2a, 0xfe, 0xad, 0xc1, 0x61, 0x31, 0x2d, 0x90, 0x05, 0x99, 0xb4,
+	0xfc, 0xd8, 0xa5, 0x2f, 0x0e, 0xa4, 0x43, 0xdd, 0xe7, 0x98, 0xee, 0xdf, 0x92, 0x79, 0x53, 0xfe,
+	0xc2, 0x10, 0x98, 0xbb, 0xe2, 0xe7, 0x1e, 0xf9, 0x87, 0x06, 0x93, 0xf1, 0xb4, 0x43, 0xa4, 0x3a,
+	0x24, 0x43, 0x97, 0xbe, 0x34, 0x98, 0x10, 0xd1, 0xcc, 0x32, 0x34, 0x3a, 0x29, 0xaa, 0xd0, 0x90,
+	0xaf, 0x35, 0x98, 0x96, 0xf4, 0xdb, 0xa4, 0xa2, 0x30, 0x58, 0x3d, 0xf9, 0xe8, 0xd5, 0xfd, 0xb0,
+	0x20, 0xc0, 0x2b, 0x0c, 0xe0, 0x0a, 0x29, 0x9b, 0xc3, 0x3c, 0x70, 0x04, 0xe6, 0x2e, 0x1b, 0xa7,
+	0xf6, 0xc8, 0x57, 0x1a, 0x14, 0x64, 0x83, 0x06, 0xa9, 0x2a, 0x7c, 0xd3, 0x67, 0x0a, 0xd2, 0x2f,
+	0xee, 0x8b, 0x07, 0x91, 0x97, 0x19, 0xf2, 0x25, 0xb2, 0x30, 0x1c, 0x72, 0xf2, 0x9d, 0x06, 0x33,
+	0x8a, 0xa6, 0x9f, 0x5c, 0x56, 0x78, 0xae, 0xff, 0x38, 0xa2, 0x5f, 0xd9, 0x2f, 0x1b, 0x42, 0xaf,
+	0x30, 0xe8, 0xe7, 0xc8, 0xb2, 0x39, 0xec, 0x3b, 0x17, 0xf9, 0xa0, 0xc1, 0xdc, 0xc0, 0x11, 0x80,
+	0xdc, 0x54, 0x00, 0x1a, 0x76, 0x76, 0xd1, 0x7f, 0xff, 0xf1, 0x02, 0xd0, 0xb6, 0x1b, 0xcc, 0xb6,
+	0x2b, 0xe4, 0x92, 0xf9, 0x11, 0x2f, 0x5b, 0xe4, 0x0b, 0x0d, 0x48, 0x7e, 0x9c, 0x20, 0x2b, 0x0a,
+	0x58, 0xca, 0xc9, 0x46, 0xaf, 0xec, 0x83, 0x03, 0x91, 0x9f, 0x67, 0xc8, 0x17, 0xc8, 0x19, 0x73,
+	0x88, 0xd7, 0x44, 0xf2, 0x5a, 0x03, 0x92, 0x9f, 0x53, 0x94, 0x48, 0x95, 0x73, 0x8f, 0x12, 0xa9,
+	0x7a, 0x08, 0x52, 0xe6, 0x38, 0x97, 0x6e, 0x87, 0x35, 0x4b, 0xf0, 0xf0, 0xc6, 0x8b, 0x7c, 0xae,
+	0x01, 0xc9, 0x0f, 0x26, 0x4a, 0xa0, 0xca, 0x19, 0x49, 0x09, 0x54, 0x3d, 0x30, 0x19, 0x67, 0x19,
+	0xd0, 0x33, 0xc4, 0x30, 0x07, 0xbe, 0x55, 0x92, 0x57, 0x1a, 0x4c, 0xc6, 0x1d, 0x3c, 0x51, 0xe5,
+	0xfb, 0xec, 0xd8, 0x24, 0xcf, 0xc5, 0xb2, 0xd9, 0xc7, 0x58, 0x65, 0x60, 0xae, 0x93, 0xab, 0xa6,
+	0xea, 0x3d, 0x34, 0x30, 0x77, 0x53, 0x23, 0xd8, 0x5e, 0xfc, 0xcd, 0x68, 0xf6, 0xc8, 0xbf, 0x34,
+	0x80, 0x64, 0x3a, 0x21, 0xaa, 0x3a, 0x90, 0x1b, 0x93, 0xf4, 0xe5, 0x21, 0x28, 0x11, 0xa6, 0xc1,
+	0x60, 0x9e, 0x22, 0xba, 0x1a, 0x26, 0xf9, 0x8f, 0x06, 0x93, 0x71, 0xc7, 0xad, 0xf4, 0x55, 0x76,
+	0x3e, 0x51, 0xfa, 0x2a, 0x37, 0x71, 0x28, 0x03, 0xd7, 0xd3, 0xd0, 0x9b, 0xbb, 0xec, 0x2f, 0x77,
+	0x4a, 0xd2, 0xfe, 0x2b, 0x9d, 0x92, 0x9b, 0x43, 0x94, 0x4e, 0xc9, 0xcf, 0x12, 0x4a, 0xa7, 0xf4,
+	0xe0, 0x21, 0xdf, 0x68, 0x50, 0x90, 0x35, 0x98, 0xc4, 0x94, 0x76, 0x2c, 0xea, 0x79, 0x40, 0x5f,
+	0x19, 0x9e, 0x01, 0xf1, 0x5d, 0x63, 0xf8, 0x2e, 0x91, 0xaa, 0x39, 0xcc, 0xdb, 0x7f, 0x54, 0x46,
+	0x45, 0x53, 0xb6, 0x47, 0xbe, 0xd4, 0xe0, 0x98, 0xb4, 0xcf, 0x26, 0x43, 0xe3, 0x08, 0xfa, 0xde,
+	0xd1, 0xbe, 0x4d, 0xbc, 0xb2, 0x8e, 0x2a, 0xa0, 0x93, 0x4f, 0x34, 0x20, 0xf9, 0x16, 0x99, 0x5c,
+	0x90, 0x69, 0x56, 0x36, 0xdb, 0x7a, 0x79, 0x58, 0xf2, 0x01, 0x29, 0x8f, 0x55, 0x78, 0x91, 0x9d,
+	0xb1, 0x57, 0x26, 0x9f, 0x69, 0x30, 0x2d, 0xe9, 0xb2, 0x89, 0x54, 0xa9, 0xba, 0x63, 0xd7, 0xcd,
+	0xa1, 0xe9, 0x07, 0x94, 0x10, 0x27, 0xe2, 0xc9, 0xc1, 0x7c, 0xa9, 0xc1, 0x54, 0x4f, 0xcf, 0x2e,
+	0xef, 0x85, 0xf3, 0xfd, 0xbe, 0xbc, 0x17, 0x96, 0x34, 0xff, 0xc6, 0x3c, 0x83, 0xf3, 0x1b, 0x72,
+	0x52, 0x0a, 0x87, 0x1f, 0xc1, 0xb5, 0xdb, 0x6f, 0xde, 0x95, 0xb4, 0xb7, 0xef, 0x4a, 0xda, 0x4f,
+	0xef, 0x4a, 0xda, 0x7f, 0xdf, 0x97, 0xc6, 0xde, 0xbe, 0x2f, 0x8d, 0xfd, 0xf0, 0xbe, 0x34, 0xf6,
+	0x97, 0xf3, 0x2d, 0x3b, 0x7c, 0xd2, 0xad, 0x97, 0x1b, 0x5e, 0xdb, 0x6c, 0xd8, 0x7e, 0xc3, 0xa1,
+	0x7f, 0xb5, 0x5d, 0x2e, 0xea, 0x02, 0x13, 0xb5, 0xcd, 0x25, 0x86, 0x3b, 0x1d, 0x1a, 0xd4, 0x0f,
+	0xb1, 0x7f, 0x26, 0x5d, 0xfc, 0x39, 0x00, 0x00, 0xff, 0xff, 0xa1, 0x89, 0x83, 0xc7, 0x64, 0x1c,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1730,10 +2019,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
-	// Parameters queries the parameters of the module.
-	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries the Authority
-	Authority(ctx context.Context, in *QueryGetAuthorityRequest, opts ...grpc.CallOption) (*QueryGetAuthorityResponse, error)
+	Roles(ctx context.Context, in *QueryRolesRequest, opts ...grpc.CallOption) (*QueryRolesResponse, error)
 	// Queries an Attester by index
 	Attester(ctx context.Context, in *QueryGetAttesterRequest, opts ...grpc.CallOption) (*QueryGetAttesterResponse, error)
 	// Queries a list of Attesters
@@ -1760,10 +2046,13 @@ type QueryClient interface {
 	UsedNonce(ctx context.Context, in *QueryGetUsedNonceRequest, opts ...grpc.CallOption) (*QueryGetUsedNonceResponse, error)
 	// Queries a list of UsedNonces
 	UsedNonces(ctx context.Context, in *QueryAllUsedNoncesRequest, opts ...grpc.CallOption) (*QueryAllUsedNoncesResponse, error)
-	// Queries a TokenMessenger by index
-	TokenMessenger(ctx context.Context, in *QueryGetTokenMessengerRequest, opts ...grpc.CallOption) (*QueryGetTokenMessengerResponse, error)
-	// Queries a list of TokenMessenger
-	TokenMessengers(ctx context.Context, in *QueryAllTokenMessengersRequest, opts ...grpc.CallOption) (*QueryAllTokenMessengersResponse, error)
+	// Query the RemoteTokenMessenger of a specific domain.
+	RemoteTokenMessenger(ctx context.Context, in *QueryRemoteTokenMessengerRequest, opts ...grpc.CallOption) (*QueryRemoteTokenMessengerResponse, error)
+	// Query all RemoteTokenMessenger's.
+	RemoteTokenMessengers(ctx context.Context, in *QueryRemoteTokenMessengersRequest, opts ...grpc.CallOption) (*QueryRemoteTokenMessengersResponse, error)
+	BurnMessageVersion(ctx context.Context, in *QueryBurnMessageVersionRequest, opts ...grpc.CallOption) (*QueryBurnMessageVersionResponse, error)
+	LocalMessageVersion(ctx context.Context, in *QueryLocalMessageVersionRequest, opts ...grpc.CallOption) (*QueryLocalMessageVersionResponse, error)
+	LocalDomain(ctx context.Context, in *QueryLocalDomainRequest, opts ...grpc.CallOption) (*QueryLocalDomainResponse, error)
 }
 
 type queryClient struct {
@@ -1774,18 +2063,9 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
 }
 
-func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
-	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/Params", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) Authority(ctx context.Context, in *QueryGetAuthorityRequest, opts ...grpc.CallOption) (*QueryGetAuthorityResponse, error) {
-	out := new(QueryGetAuthorityResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/Authority", in, out, opts...)
+func (c *queryClient) Roles(ctx context.Context, in *QueryRolesRequest, opts ...grpc.CallOption) (*QueryRolesResponse, error) {
+	out := new(QueryRolesResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/Roles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1909,18 +2189,45 @@ func (c *queryClient) UsedNonces(ctx context.Context, in *QueryAllUsedNoncesRequ
 	return out, nil
 }
 
-func (c *queryClient) TokenMessenger(ctx context.Context, in *QueryGetTokenMessengerRequest, opts ...grpc.CallOption) (*QueryGetTokenMessengerResponse, error) {
-	out := new(QueryGetTokenMessengerResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/TokenMessenger", in, out, opts...)
+func (c *queryClient) RemoteTokenMessenger(ctx context.Context, in *QueryRemoteTokenMessengerRequest, opts ...grpc.CallOption) (*QueryRemoteTokenMessengerResponse, error) {
+	out := new(QueryRemoteTokenMessengerResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/RemoteTokenMessenger", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) TokenMessengers(ctx context.Context, in *QueryAllTokenMessengersRequest, opts ...grpc.CallOption) (*QueryAllTokenMessengersResponse, error) {
-	out := new(QueryAllTokenMessengersResponse)
-	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/TokenMessengers", in, out, opts...)
+func (c *queryClient) RemoteTokenMessengers(ctx context.Context, in *QueryRemoteTokenMessengersRequest, opts ...grpc.CallOption) (*QueryRemoteTokenMessengersResponse, error) {
+	out := new(QueryRemoteTokenMessengersResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/RemoteTokenMessengers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) BurnMessageVersion(ctx context.Context, in *QueryBurnMessageVersionRequest, opts ...grpc.CallOption) (*QueryBurnMessageVersionResponse, error) {
+	out := new(QueryBurnMessageVersionResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/BurnMessageVersion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) LocalMessageVersion(ctx context.Context, in *QueryLocalMessageVersionRequest, opts ...grpc.CallOption) (*QueryLocalMessageVersionResponse, error) {
+	out := new(QueryLocalMessageVersionResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/LocalMessageVersion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) LocalDomain(ctx context.Context, in *QueryLocalDomainRequest, opts ...grpc.CallOption) (*QueryLocalDomainResponse, error) {
+	out := new(QueryLocalDomainResponse)
+	err := c.cc.Invoke(ctx, "/noble.cctp.v1.Query/LocalDomain", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1929,10 +2236,7 @@ func (c *queryClient) TokenMessengers(ctx context.Context, in *QueryAllTokenMess
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
-	// Parameters queries the parameters of the module.
-	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries the Authority
-	Authority(context.Context, *QueryGetAuthorityRequest) (*QueryGetAuthorityResponse, error)
+	Roles(context.Context, *QueryRolesRequest) (*QueryRolesResponse, error)
 	// Queries an Attester by index
 	Attester(context.Context, *QueryGetAttesterRequest) (*QueryGetAttesterResponse, error)
 	// Queries a list of Attesters
@@ -1959,21 +2263,21 @@ type QueryServer interface {
 	UsedNonce(context.Context, *QueryGetUsedNonceRequest) (*QueryGetUsedNonceResponse, error)
 	// Queries a list of UsedNonces
 	UsedNonces(context.Context, *QueryAllUsedNoncesRequest) (*QueryAllUsedNoncesResponse, error)
-	// Queries a TokenMessenger by index
-	TokenMessenger(context.Context, *QueryGetTokenMessengerRequest) (*QueryGetTokenMessengerResponse, error)
-	// Queries a list of TokenMessenger
-	TokenMessengers(context.Context, *QueryAllTokenMessengersRequest) (*QueryAllTokenMessengersResponse, error)
+	// Query the RemoteTokenMessenger of a specific domain.
+	RemoteTokenMessenger(context.Context, *QueryRemoteTokenMessengerRequest) (*QueryRemoteTokenMessengerResponse, error)
+	// Query all RemoteTokenMessenger's.
+	RemoteTokenMessengers(context.Context, *QueryRemoteTokenMessengersRequest) (*QueryRemoteTokenMessengersResponse, error)
+	BurnMessageVersion(context.Context, *QueryBurnMessageVersionRequest) (*QueryBurnMessageVersionResponse, error)
+	LocalMessageVersion(context.Context, *QueryLocalMessageVersionRequest) (*QueryLocalMessageVersionResponse, error)
+	LocalDomain(context.Context, *QueryLocalDomainRequest) (*QueryLocalDomainResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
 type UnimplementedQueryServer struct {
 }
 
-func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
-}
-func (*UnimplementedQueryServer) Authority(ctx context.Context, req *QueryGetAuthorityRequest) (*QueryGetAuthorityResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Authority not implemented")
+func (*UnimplementedQueryServer) Roles(ctx context.Context, req *QueryRolesRequest) (*QueryRolesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Roles not implemented")
 }
 func (*UnimplementedQueryServer) Attester(ctx context.Context, req *QueryGetAttesterRequest) (*QueryGetAttesterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Attester not implemented")
@@ -2014,49 +2318,40 @@ func (*UnimplementedQueryServer) UsedNonce(ctx context.Context, req *QueryGetUse
 func (*UnimplementedQueryServer) UsedNonces(ctx context.Context, req *QueryAllUsedNoncesRequest) (*QueryAllUsedNoncesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UsedNonces not implemented")
 }
-func (*UnimplementedQueryServer) TokenMessenger(ctx context.Context, req *QueryGetTokenMessengerRequest) (*QueryGetTokenMessengerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TokenMessenger not implemented")
+func (*UnimplementedQueryServer) RemoteTokenMessenger(ctx context.Context, req *QueryRemoteTokenMessengerRequest) (*QueryRemoteTokenMessengerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoteTokenMessenger not implemented")
 }
-func (*UnimplementedQueryServer) TokenMessengers(ctx context.Context, req *QueryAllTokenMessengersRequest) (*QueryAllTokenMessengersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TokenMessengers not implemented")
+func (*UnimplementedQueryServer) RemoteTokenMessengers(ctx context.Context, req *QueryRemoteTokenMessengersRequest) (*QueryRemoteTokenMessengersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoteTokenMessengers not implemented")
+}
+func (*UnimplementedQueryServer) BurnMessageVersion(ctx context.Context, req *QueryBurnMessageVersionRequest) (*QueryBurnMessageVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BurnMessageVersion not implemented")
+}
+func (*UnimplementedQueryServer) LocalMessageVersion(ctx context.Context, req *QueryLocalMessageVersionRequest) (*QueryLocalMessageVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LocalMessageVersion not implemented")
+}
+func (*UnimplementedQueryServer) LocalDomain(ctx context.Context, req *QueryLocalDomainRequest) (*QueryLocalDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LocalDomain not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
 }
 
-func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryParamsRequest)
+func _Query_Roles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRolesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).Params(ctx, in)
+		return srv.(QueryServer).Roles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Query/Params",
+		FullMethod: "/noble.cctp.v1.Query/Roles",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_Authority_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetAuthorityRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).Authority(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Query/Authority",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Authority(ctx, req.(*QueryGetAuthorityRequest))
+		return srv.(QueryServer).Roles(ctx, req.(*QueryRolesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2295,38 +2590,92 @@ func _Query_UsedNonces_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_TokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetTokenMessengerRequest)
+func _Query_RemoteTokenMessenger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRemoteTokenMessengerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).TokenMessenger(ctx, in)
+		return srv.(QueryServer).RemoteTokenMessenger(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Query/TokenMessenger",
+		FullMethod: "/noble.cctp.v1.Query/RemoteTokenMessenger",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).TokenMessenger(ctx, req.(*QueryGetTokenMessengerRequest))
+		return srv.(QueryServer).RemoteTokenMessenger(ctx, req.(*QueryRemoteTokenMessengerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_TokenMessengers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllTokenMessengersRequest)
+func _Query_RemoteTokenMessengers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRemoteTokenMessengersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).TokenMessengers(ctx, in)
+		return srv.(QueryServer).RemoteTokenMessengers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/noble.cctp.v1.Query/TokenMessengers",
+		FullMethod: "/noble.cctp.v1.Query/RemoteTokenMessengers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).TokenMessengers(ctx, req.(*QueryAllTokenMessengersRequest))
+		return srv.(QueryServer).RemoteTokenMessengers(ctx, req.(*QueryRemoteTokenMessengersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_BurnMessageVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryBurnMessageVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).BurnMessageVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Query/BurnMessageVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).BurnMessageVersion(ctx, req.(*QueryBurnMessageVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_LocalMessageVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryLocalMessageVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).LocalMessageVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Query/LocalMessageVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).LocalMessageVersion(ctx, req.(*QueryLocalMessageVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_LocalDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryLocalDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).LocalDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/noble.cctp.v1.Query/LocalDomain",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).LocalDomain(ctx, req.(*QueryLocalDomainRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2336,12 +2685,8 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Params",
-			Handler:    _Query_Params_Handler,
-		},
-		{
-			MethodName: "Authority",
-			Handler:    _Query_Authority_Handler,
+			MethodName: "Roles",
+			Handler:    _Query_Roles_Handler,
 		},
 		{
 			MethodName: "Attester",
@@ -2396,12 +2741,24 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_UsedNonces_Handler,
 		},
 		{
-			MethodName: "TokenMessenger",
-			Handler:    _Query_TokenMessenger_Handler,
+			MethodName: "RemoteTokenMessenger",
+			Handler:    _Query_RemoteTokenMessenger_Handler,
 		},
 		{
-			MethodName: "TokenMessengers",
-			Handler:    _Query_TokenMessengers_Handler,
+			MethodName: "RemoteTokenMessengers",
+			Handler:    _Query_RemoteTokenMessengers_Handler,
+		},
+		{
+			MethodName: "BurnMessageVersion",
+			Handler:    _Query_BurnMessageVersion_Handler,
+		},
+		{
+			MethodName: "LocalMessageVersion",
+			Handler:    _Query_LocalMessageVersion_Handler,
+		},
+		{
+			MethodName: "LocalDomain",
+			Handler:    _Query_LocalDomain_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -2464,7 +2821,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetAuthorityRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryRolesRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -2474,12 +2831,12 @@ func (m *QueryGetAuthorityRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetAuthorityRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRolesRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetAuthorityRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRolesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2487,7 +2844,7 @@ func (m *QueryGetAuthorityRequest) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetAuthorityResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryRolesResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -2497,26 +2854,44 @@ func (m *QueryGetAuthorityResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetAuthorityResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRolesResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetAuthorityResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRolesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	{
-		size, err := m.Authority.MarshalToSizedBuffer(dAtA[:i])
-		if err != nil {
-			return 0, err
-		}
-		i -= size
-		i = encodeVarintQuery(dAtA, i, uint64(size))
+	if len(m.TokenController) > 0 {
+		i -= len(m.TokenController)
+		copy(dAtA[i:], m.TokenController)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.TokenController)))
+		i--
+		dAtA[i] = 0x22
 	}
-	i--
-	dAtA[i] = 0xa
+	if len(m.Pauser) > 0 {
+		i -= len(m.Pauser)
+		copy(dAtA[i:], m.Pauser)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Pauser)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.AttesterManager) > 0 {
+		i -= len(m.AttesterManager)
+		copy(dAtA[i:], m.AttesterManager)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.AttesterManager)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Owner) > 0 {
+		i -= len(m.Owner)
+		copy(dAtA[i:], m.Owner)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Owner)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -3396,7 +3771,7 @@ func (m *QueryAllUsedNoncesResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetTokenMessengerRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryRemoteTokenMessengerRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3406,12 +3781,12 @@ func (m *QueryGetTokenMessengerRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetTokenMessengerRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengerRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetTokenMessengerRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengerRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -3424,7 +3799,7 @@ func (m *QueryGetTokenMessengerRequest) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryRemoteTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3434,18 +3809,18 @@ func (m *QueryGetTokenMessengerResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengerResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
 	{
-		size, err := m.TokenMessenger.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.RemoteTokenMessenger.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -3457,7 +3832,7 @@ func (m *QueryGetTokenMessengerResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllTokenMessengersRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryRemoteTokenMessengersRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3467,12 +3842,12 @@ func (m *QueryAllTokenMessengersRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllTokenMessengersRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengersRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllTokenMessengersRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengersRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -3492,7 +3867,7 @@ func (m *QueryAllTokenMessengersRequest) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllTokenMessengersResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryRemoteTokenMessengersResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -3502,12 +3877,12 @@ func (m *QueryAllTokenMessengersResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllTokenMessengersResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengersResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllTokenMessengersResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryRemoteTokenMessengersResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -3524,10 +3899,10 @@ func (m *QueryAllTokenMessengersResponse) MarshalToSizedBuffer(dAtA []byte) (int
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.TokenMessengers) > 0 {
-		for iNdEx := len(m.TokenMessengers) - 1; iNdEx >= 0; iNdEx-- {
+	if len(m.RemoteTokenMessengers) > 0 {
+		for iNdEx := len(m.RemoteTokenMessengers) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.TokenMessengers[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.RemoteTokenMessengers[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -3537,6 +3912,159 @@ func (m *QueryAllTokenMessengersResponse) MarshalToSizedBuffer(dAtA []byte) (int
 			i--
 			dAtA[i] = 0xa
 		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryBurnMessageVersionRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryBurnMessageVersionRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryBurnMessageVersionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryBurnMessageVersionResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryBurnMessageVersionResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryBurnMessageVersionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Version != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Version))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLocalMessageVersionRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLocalMessageVersionRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLocalMessageVersionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLocalMessageVersionResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLocalMessageVersionResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLocalMessageVersionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Version != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Version))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLocalDomainRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLocalDomainRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLocalDomainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryLocalDomainResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryLocalDomainResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryLocalDomainResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.DomainId != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.DomainId))
+		i--
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -3572,7 +4100,7 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetAuthorityRequest) Size() (n int) {
+func (m *QueryRolesRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3581,14 +4109,28 @@ func (m *QueryGetAuthorityRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetAuthorityResponse) Size() (n int) {
+func (m *QueryRolesResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = m.Authority.Size()
-	n += 1 + l + sovQuery(uint64(l))
+	l = len(m.Owner)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.AttesterManager)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Pauser)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.TokenController)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
 	return n
 }
 
@@ -3921,7 +4463,7 @@ func (m *QueryAllUsedNoncesResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetTokenMessengerRequest) Size() (n int) {
+func (m *QueryRemoteTokenMessengerRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3933,18 +4475,18 @@ func (m *QueryGetTokenMessengerRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetTokenMessengerResponse) Size() (n int) {
+func (m *QueryRemoteTokenMessengerResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = m.TokenMessenger.Size()
+	l = m.RemoteTokenMessenger.Size()
 	n += 1 + l + sovQuery(uint64(l))
 	return n
 }
 
-func (m *QueryAllTokenMessengersRequest) Size() (n int) {
+func (m *QueryRemoteTokenMessengersRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3957,14 +4499,14 @@ func (m *QueryAllTokenMessengersRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllTokenMessengersResponse) Size() (n int) {
+func (m *QueryRemoteTokenMessengersResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if len(m.TokenMessengers) > 0 {
-		for _, e := range m.TokenMessengers {
+	if len(m.RemoteTokenMessengers) > 0 {
+		for _, e := range m.RemoteTokenMessengers {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -3972,6 +4514,69 @@ func (m *QueryAllTokenMessengersResponse) Size() (n int) {
 	if m.Pagination != nil {
 		l = m.Pagination.Size()
 		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryBurnMessageVersionRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryBurnMessageVersionResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Version != 0 {
+		n += 1 + sovQuery(uint64(m.Version))
+	}
+	return n
+}
+
+func (m *QueryLocalMessageVersionRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryLocalMessageVersionResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Version != 0 {
+		n += 1 + sovQuery(uint64(m.Version))
+	}
+	return n
+}
+
+func (m *QueryLocalDomainRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryLocalDomainResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.DomainId != 0 {
+		n += 1 + sovQuery(uint64(m.DomainId))
 	}
 	return n
 }
@@ -4115,7 +4720,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetAuthorityRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryRolesRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -4138,10 +4743,10 @@ func (m *QueryGetAuthorityRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetAuthorityRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRolesRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetAuthorityRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRolesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -4165,7 +4770,7 @@ func (m *QueryGetAuthorityRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetAuthorityResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryRolesResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -4188,17 +4793,17 @@ func (m *QueryGetAuthorityResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetAuthorityResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRolesResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetAuthorityResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRolesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Authority", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Owner", wireType)
 			}
-			var msglen int
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowQuery
@@ -4208,24 +4813,119 @@ func (m *QueryGetAuthorityResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= int(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if msglen < 0 {
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
 				return ErrInvalidLengthQuery
 			}
-			postIndex := iNdEx + msglen
+			postIndex := iNdEx + intStringLen
 			if postIndex < 0 {
 				return ErrInvalidLengthQuery
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.Authority.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
+			m.Owner = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttesterManager", wireType)
 			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AttesterManager = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pauser", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Pauser = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TokenController", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TokenController = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -6422,7 +7122,7 @@ func (m *QueryAllUsedNoncesResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetTokenMessengerRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryRemoteTokenMessengerRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6445,10 +7145,10 @@ func (m *QueryGetTokenMessengerRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetTokenMessengerRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRemoteTokenMessengerRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetTokenMessengerRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRemoteTokenMessengerRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -6491,7 +7191,7 @@ func (m *QueryGetTokenMessengerRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetTokenMessengerResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryRemoteTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6514,15 +7214,15 @@ func (m *QueryGetTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetTokenMessengerResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRemoteTokenMessengerResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRemoteTokenMessengerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TokenMessenger", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field RemoteTokenMessenger", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6549,7 +7249,7 @@ func (m *QueryGetTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.TokenMessenger.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.RemoteTokenMessenger.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -6574,7 +7274,7 @@ func (m *QueryGetTokenMessengerResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllTokenMessengersRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryRemoteTokenMessengersRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6597,10 +7297,10 @@ func (m *QueryAllTokenMessengersRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllTokenMessengersRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRemoteTokenMessengersRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllTokenMessengersRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRemoteTokenMessengersRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -6660,7 +7360,7 @@ func (m *QueryAllTokenMessengersRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllTokenMessengersResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryRemoteTokenMessengersResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6683,15 +7383,15 @@ func (m *QueryAllTokenMessengersResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllTokenMessengersResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryRemoteTokenMessengersResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllTokenMessengersResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryRemoteTokenMessengersResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TokenMessengers", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field RemoteTokenMessengers", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6718,8 +7418,8 @@ func (m *QueryAllTokenMessengersResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.TokenMessengers = append(m.TokenMessengers, TokenMessenger{})
-			if err := m.TokenMessengers[len(m.TokenMessengers)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.RemoteTokenMessengers = append(m.RemoteTokenMessengers, RemoteTokenMessenger{})
+			if err := m.RemoteTokenMessengers[len(m.RemoteTokenMessengers)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -6759,6 +7459,363 @@ func (m *QueryAllTokenMessengersResponse) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryBurnMessageVersionRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryBurnMessageVersionRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryBurnMessageVersionRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryBurnMessageVersionResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryBurnMessageVersionResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryBurnMessageVersionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Version", wireType)
+			}
+			m.Version = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Version |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLocalMessageVersionRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLocalMessageVersionRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLocalMessageVersionRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLocalMessageVersionResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLocalMessageVersionResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLocalMessageVersionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Version", wireType)
+			}
+			m.Version = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Version |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLocalDomainRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLocalDomainRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLocalDomainRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryLocalDomainResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryLocalDomainResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryLocalDomainResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DomainId", wireType)
+			}
+			m.DomainId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.DomainId |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])

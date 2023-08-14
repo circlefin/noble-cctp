@@ -29,8 +29,8 @@ func VerifyAttestationSignatures(
 	message []byte,
 	attestation []byte,
 	publicKeys []types.Attester,
-	signatureThreshold uint32) error {
-
+	signatureThreshold uint32,
+) error {
 	if uint32(len(attestation)) != types.SignatureLength*signatureThreshold {
 		return sdkerrors.Wrap(types.ErrSignatureVerification, "invalid attestation length")
 	}

@@ -22,11 +22,11 @@ func TestLinkTokenPairHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgLinkTokenPair{
-		From:         authority.Address,
+		From:         tokenController,
 		RemoteDomain: 1,
 		RemoteToken:  "0xabcd",
 		LocalToken:   "uusdc",
@@ -61,8 +61,8 @@ func TestLinkTokenPairInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	message := types.MsgLinkTokenPair{
 		From:         "not authority",
@@ -79,8 +79,8 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "authority"}
-	testkeeper.SetAuthority(ctx, authority)
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
 
 	existingTokenPair := types.TokenPair{
 		RemoteDomain: 1,
@@ -91,7 +91,7 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 	testkeeper.SetTokenPair(ctx, existingTokenPair)
 
 	message := types.MsgLinkTokenPair{
-		From:         authority.Address,
+		From:         tokenController,
 		RemoteDomain: existingTokenPair.RemoteDomain,
 		RemoteToken:  hex.EncodeToString(existingTokenPair.RemoteToken),
 		LocalToken:   existingTokenPair.LocalToken,

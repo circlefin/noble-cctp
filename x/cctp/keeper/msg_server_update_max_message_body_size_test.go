@@ -1,13 +1,14 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/strangelove-ventures/noble/testutil/sample"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -20,11 +21,11 @@ func TestUpdateMaxMessageBodySizeHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "current address"}
-	testkeeper.SetAuthority(ctx, authority)
+	owner := sample.AccAddress()
+	testkeeper.SetOwner(ctx, owner)
 
 	message := types.MsgUpdateMaxMessageBodySize{
-		From:        authority.Address,
+		From:        owner,
 		MessageSize: uint64(1023),
 	}
 	_, err := server.UpdateMaxMessageBodySize(sdk.WrapSDKContext(ctx), &message)
@@ -52,8 +53,8 @@ func TestUpdateMaxMessageBodySizeInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: "current address"}
-	testkeeper.SetAuthority(ctx, authority)
+	owner := sample.AccAddress()
+	testkeeper.SetOwner(ctx, owner)
 
 	message := types.MsgUpdateMaxMessageBodySize{
 		From:        "not the authority",

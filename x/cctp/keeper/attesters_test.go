@@ -1,9 +1,10 @@
 package keeper_test
 
 import (
-	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"strconv"
 	"testing"
+
+	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/nullify"
@@ -51,9 +52,7 @@ func TestAttestersGetAll(t *testing.T) {
 	cctpKeeper, ctx := keepertest.CctpKeeper(t)
 	items := createNAttesters(cctpKeeper, ctx, 10)
 	denom := make([]types.Attester, len(items))
-	for i, item := range items {
-		denom[i] = item
-	}
+	copy(denom, items)
 	require.ElementsMatch(t,
 		nullify.Fill(denom),
 		nullify.Fill(cctpKeeper.GetAllAttesters(ctx)),

@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
@@ -49,7 +50,6 @@ func (k Keeper) UsedNonces(c context.Context, req *types.QueryAllUsedNoncesReque
 		usedNonces = append(usedNonces, usedNonce)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

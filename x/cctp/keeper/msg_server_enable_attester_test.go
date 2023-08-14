@@ -1,13 +1,14 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 /*
@@ -20,11 +21,11 @@ func TestEnableAttesterHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	message := types.MsgEnableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 
@@ -54,8 +55,8 @@ func TestEnableAttesterInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	message := types.MsgEnableAttester{
 		From:     sample.AccAddress(),
@@ -71,14 +72,14 @@ func TestEnableAttesterAttesterAlreadyFound(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	authority := types.Authority{Address: sample.AccAddress()}
-	testkeeper.SetAuthority(ctx, authority)
+	attesterManager := sample.AccAddress()
+	testkeeper.SetAttesterManager(ctx, attesterManager)
 
 	existingAttester := types.Attester{Attester: "attester"}
 	testkeeper.SetAttester(ctx, existingAttester)
 
 	message := types.MsgEnableAttester{
-		From:     authority.Address,
+		From:     attesterManager,
 		Attester: []byte("attester"),
 	}
 

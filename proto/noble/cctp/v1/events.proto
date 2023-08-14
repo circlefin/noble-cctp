@@ -37,13 +37,13 @@ message SignatureThresholdUpdated {
 }
 
 /**
- * Emitted when authority address is updated
- * @param previous_authority representing the address of the previous authority
- * @param new_authority representing the address of the new authority
+ * Emitted when owner address is updated
+ * @param previous_owner representing the address of the previous owner
+ * @param new_owner representing the address of the new owner
  */
-message AuthorityUpdated {
-  string previous_authority = 1;
-  string new_authority = 2;
+message OwnerUpdated {
+  string previous_owner = 1;
+  string new_owner = 2;
 }
 
 /**
@@ -81,7 +81,10 @@ message SendingAndReceivingUnpausedEvent {}
 message DepositForBurn {
   uint64 nonce = 1;
   string burn_token = 2;
-  string amount = 3 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
   string depositor = 4;
   bytes mint_recipient = 5;
   uint32 destination_domain = 6;
@@ -97,7 +100,10 @@ message DepositForBurn {
  */
 message MintAndWithdraw {
   string mint_recipient = 1;
-  string amount = 2 [(gogoproto.customtype) = "cosmossdk.io/math.Int", (gogoproto.nullable) = false];
+  string amount = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
   string mint_token = 3;
 }
 
@@ -158,21 +164,21 @@ message MaxMessageBodySizeUpdated {
 }
 
 /**
- * Emitted when a remote TokenMessenger is added
+ * Emitted when a RemoteTokenMessenger is added
  * @param domain remote domain
- * @param token_messenger TokenMessenger on remote domain
+ * @param remote_token_messenger RemoteTokenMessenger on domain
  */
 message RemoteTokenMessengerAdded {
   uint32 domain = 1;
-  bytes token_messenger = 2;
+  bytes remote_token_messenger = 2;
 }
 
 /**
- * Emitted when a remote TokenMessenger is removed
+ * Emitted when a RemoteTokenMessenger is removed
  * @param domain remote domain
- * @param token_messenger TokenMessenger on remote domain
+ * @param remote_token_messenger RemoteTokenMessenger on domain
  */
 message RemoteTokenMessengerRemoved {
   uint32 domain = 1;
-  bytes token_messenger = 2;
+  bytes remote_token_messenger = 2;
 }

@@ -40,8 +40,8 @@ func (k msgServer) depositForBurn(
 	destinationDomain uint32,
 	mintRecipient []byte,
 	burnToken string,
-	destinationCaller []byte) (uint64, error) {
-
+	destinationCaller []byte,
+) (uint64, error) {
 	if !amount.IsPositive() {
 		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "amount must be positive")
 	}
@@ -51,7 +51,7 @@ func (k msgServer) depositForBurn(
 		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "mint recipient must be nonzero")
 	}
 
-	tokenMessenger, found := k.GetTokenMessenger(ctx, destinationDomain)
+	tokenMessenger, found := k.GetRemoteTokenMessenger(ctx, destinationDomain)
 	if !found {
 		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "unable to look up destination token messenger")
 	}
@@ -77,7 +77,7 @@ func (k msgServer) depositForBurn(
 	}
 
 	// burn coins
-	var fiatBurnMsg = fiattokenfactorytypes.MsgBurn{
+	fiatBurnMsg := fiattokenfactorytypes.MsgBurn{
 		From: from,
 		Amount: sdk.Coin{
 			Denom:  burnToken,
@@ -145,6 +145,5 @@ func (k msgServer) depositForBurn(
 	}
 	err = ctx.EventManager().EmitTypedEvent(&event)
 
-	return nonce.Nonce, nil
-
+	return nonce.Nonce, err
 }

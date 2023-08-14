@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/nullify"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
@@ -9,7 +11,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"testing"
 )
 
 func TestUsedNonceQuerySingle(t *testing.T) {
@@ -71,9 +72,7 @@ func TestUsedNonceQueryPaginated(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNUsedNonces(keeper, ctx, 5)
 	usedNonce := make([]types.Nonce, len(msgs))
-	for i, msg := range msgs {
-		usedNonce[i] = msg
-	}
+	copy(usedNonce, msgs)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllUsedNoncesRequest {
 		return &types.QueryAllUsedNoncesRequest{

@@ -8,7 +8,6 @@ import (
 )
 
 func TestRemoteTokenPadded(t *testing.T) {
-
 	type tc struct {
 		name           string
 		remoteTokenHex string
@@ -16,7 +15,7 @@ func TestRemoteTokenPadded(t *testing.T) {
 		err            error
 	}
 
-	var tcs = []tc{
+	tcs := []tc{
 		{
 			name:           "happy path",
 			remoteTokenHex: "0xabcd",

@@ -12,12 +12,8 @@ import (
 func (k msgServer) UnlinkTokenPair(goCtx context.Context, msg *types.MsgUnlinkTokenPair) (*types.MsgUnlinkTokenPairResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	owner, found := k.GetAuthority(ctx)
-	if !found {
-		return nil, sdkerrors.Wrap(types.ErrAuthorityNotSet, "authority is not set")
-	}
-
-	if owner.Address != msg.From {
+	tokenController := k.GetTokenController(ctx)
+	if tokenController != msg.From {
 		return nil, sdkerrors.Wrap(types.ErrUnauthorized, "this message sender cannot unlink token pairs")
 	}
 
