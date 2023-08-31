@@ -29,10 +29,10 @@ import (
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 	"google.golang.org/grpc/status"
 
+	"github.com/circlefin/noble-cctp/testutil/network"
+	"github.com/circlefin/noble-cctp/testutil/nullify"
 	"github.com/circlefin/noble-cctp/x/cctp/client/cli"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
-	"github.com/strangelove-ventures/noble/testutil/network"
-	"github.com/strangelove-ventures/noble/testutil/nullify"
 )
 
 func networkWithUsedNonceObjects(t *testing.T, n int) (*network.Network, []types.Nonce) {

@@ -42,8 +42,8 @@ func TestRemoveRemoteTokenMessengerHappyPath(t *testing.T) {
 
 	addMessage := types.MsgAddRemoteTokenMessenger{
 		From:     owner,
-		DomainId: 16,
-		Address:  "address to remove",
+		DomainId: 0,
+		Address:  tokenMessenger,
 	}
 
 	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &addMessage)
@@ -67,12 +67,12 @@ func TestRemoveRemoteTokenMessengerAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgRemoveRemoteTokenMessenger{
 		From:     sample.AccAddress(),
-		DomainId: 16,
+		DomainId: 0,
 	}
 
-	_, err := server.RemoveRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+	require.Panics(t, func() {
+		_, _ = server.RemoveRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp owner not found in state")
 }
 
 func TestRemoveRemoteTokenMessengerInvalidAuthority(t *testing.T) {
@@ -84,7 +84,7 @@ func TestRemoveRemoteTokenMessengerInvalidAuthority(t *testing.T) {
 
 	message := types.MsgRemoveRemoteTokenMessenger{
 		From:     "not the authority address",
-		DomainId: 16,
+		DomainId: 0,
 	}
 
 	_, err := server.RemoveRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
@@ -101,7 +101,7 @@ func TestRemoveRemoteTokenMessengerTokenMessengerNotFound(t *testing.T) {
 
 	message := types.MsgRemoveRemoteTokenMessenger{
 		From:     owner,
-		DomainId: 1,
+		DomainId: 0,
 	}
 
 	_, err := server.RemoveRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)

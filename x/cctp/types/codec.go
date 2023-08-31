@@ -48,7 +48,7 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgUnpauseSendingAndReceivingMessages{}, "cctp/UnpauseSendingAndReceivingMessages", nil)
 	cdc.RegisterConcrete(&MsgUpdateOwner{}, "cctp/UpdateOwner", nil)
 	cdc.RegisterConcrete(&MsgUpdateMaxMessageBodySize{}, "cctp/UpdateMaxMessageBodySize", nil)
-	cdc.RegisterConcrete(&MsgUpdatePerMessageBurnLimit{}, "cctp/UpdatePerMessageBurnLimit", nil)
+	cdc.RegisterConcrete(&MsgSetMaxBurnAmountPerMessage{}, "cctp/SetMaxBurnAmountPerMessage", nil)
 	cdc.RegisterConcrete(&MsgUpdateSignatureThreshold{}, "cctp/UpdateSignatureThreshold", nil)
 }
 
@@ -74,7 +74,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgUnpauseSendingAndReceivingMessages{},
 		&MsgUpdateOwner{},
 		&MsgUpdateMaxMessageBodySize{},
-		&MsgUpdatePerMessageBurnLimit{},
+		&MsgSetMaxBurnAmountPerMessage{},
 		&MsgUpdateSignatureThreshold{},
 	)
 

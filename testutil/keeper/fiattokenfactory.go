@@ -20,9 +20,6 @@ import (
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/strangelove-ventures/noble/testutil/sample"
-	cctpmoduletypes "github.com/strangelove-ventures/noble/x/cctp/types"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
@@ -70,10 +67,6 @@ func FiatTokenfactoryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 }
 
 type MockFiatTokenfactoryKeeper struct{}
-
-func (k MockFiatTokenfactoryKeeper) GetAuthority(ctx sdk.Context) (val cctpmoduletypes.Authority, found bool) {
-	return cctpmoduletypes.Authority{Address: sample.AccAddress()}, true
-}
 
 func (MockFiatTokenfactoryKeeper) Mint(ctx sdk.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
 	return &types.MsgMintResponse{}, nil

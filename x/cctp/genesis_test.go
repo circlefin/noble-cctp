@@ -92,11 +92,11 @@ func TestGenesisHappyPath(t *testing.T) {
 		TokenMessengerList: []types.RemoteTokenMessenger{
 			{
 				DomainId: uint32(1),
-				Address:  "1234",
+				Address:  make([]byte, 32),
 			},
 			{
 				DomainId: uint32(2),
-				Address:  "56789",
+				Address:  make([]byte, 32),
 			},
 		},
 	}

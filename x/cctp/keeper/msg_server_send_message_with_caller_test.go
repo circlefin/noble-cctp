@@ -19,6 +19,7 @@ import (
 	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -45,7 +46,7 @@ func TestSendMessageWithCallerHappyPath(t *testing.T) {
 	testkeeper.SetNextAvailableNonce(ctx, nonce)
 
 	msg := types.MsgSendMessageWithCaller{
-		From:              "12345678901234567890123456789012",
+		From:              sample.AccAddress(),
 		DestinationDomain: 3,
 		Recipient:         []byte("12345678901234567890123456789012"),
 		MessageBody:       []byte("It's not about money, it's about sending a message"),
@@ -74,7 +75,7 @@ func TestSendMessageWithCallerInvalidDestinationCaller(t *testing.T) {
 	testkeeper.SetNextAvailableNonce(ctx, nonce)
 
 	msg := types.MsgSendMessageWithCaller{
-		From:              "12345678901234567890123456789012",
+		From:              sample.AccAddress(),
 		DestinationDomain: 3,
 		Recipient:         []byte("12345678901234567890123456789012"),
 		MessageBody:       []byte("It's not about money, it's about sending a message"),
@@ -93,7 +94,7 @@ func TestSendMessageWithCallerSendingAndReceivingMessagesPaused(t *testing.T) {
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
 	msg := types.MsgSendMessageWithCaller{
-		From:              "12345678901234567890123456789012",
+		From:              sample.AccAddress(),
 		DestinationDomain: 3,
 		Recipient:         []byte("12345678901234567890123456789012"),
 		MessageBody:       []byte("It's not about money, it's about sending a message"),
@@ -118,7 +119,7 @@ func TestSendMessageWithCallerRecipientEmpty(t *testing.T) {
 	testkeeper.SetNextAvailableNonce(ctx, nonce)
 
 	msg := types.MsgSendMessageWithCaller{
-		From:              "anything",
+		From:              sample.AccAddress(),
 		DestinationDomain: 3,
 		Recipient:         make([]byte, types.MintRecipientLen),
 		MessageBody:       []byte("It's not about money, it's about sending a message"),
@@ -146,7 +147,7 @@ func TestSendMessageWithCallerMessageBodyTooLong(t *testing.T) {
 	testkeeper.SetNextAvailableNonce(ctx, nonce)
 
 	msg := types.MsgSendMessageWithCaller{
-		From:              "anything",
+		From:              sample.AccAddress(),
 		DestinationDomain: 3,
 		Recipient:         []byte("12345678901234567890123456789012"),
 		MessageBody:       []byte("It's not about money, it's about sending a message"),

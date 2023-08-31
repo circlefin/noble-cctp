@@ -16,9 +16,6 @@
 package types
 
 import (
-	"encoding/hex"
-	"strings"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -27,7 +24,7 @@ const TypeMsgLinkTokenPair = "link_token_pair"
 
 var _ sdk.Msg = &MsgLinkTokenPair{}
 
-func NewMsgLinkTokenPair(from string, localToken string, remoteToken string, remoteDomain uint32) *MsgLinkTokenPair {
+func NewMsgLinkTokenPair(from string, localToken string, remoteToken []byte, remoteDomain uint32) *MsgLinkTokenPair {
 	return &MsgLinkTokenPair{
 		From:         from,
 		LocalToken:   localToken,
@@ -63,8 +60,8 @@ func (msg *MsgLinkTokenPair) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid from address (%s)", err)
 	}
 
-	if _, err := hex.DecodeString(strings.TrimPrefix(msg.RemoteToken, "0x")); err != nil {
-		return sdkerrors.Wrapf(ErrInvalidRemoteToken, "must be hex string (%s)", err)
+	if len(msg.RemoteToken) != 32 {
+		return sdkerrors.Wrapf(ErrInvalidRemoteToken, "must be a byte32 array")
 	}
 
 	return nil

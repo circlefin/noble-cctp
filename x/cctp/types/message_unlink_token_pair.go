@@ -24,7 +24,7 @@ const TypeMsgUnlinkTokenPair = "unlink_token_pair"
 
 var _ sdk.Msg = &MsgUnlinkTokenPair{}
 
-func NewMsgUnlinkTokenPair(from string, localToken string, remoteToken string, remoteDomain uint32) *MsgUnlinkTokenPair {
+func NewMsgUnlinkTokenPair(from string, localToken string, remoteToken []byte, remoteDomain uint32) *MsgUnlinkTokenPair {
 	return &MsgUnlinkTokenPair{
 		From:         from,
 		LocalToken:   localToken,
@@ -59,5 +59,10 @@ func (msg *MsgUnlinkTokenPair) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid from address (%s)", err)
 	}
+
+	if len(msg.RemoteToken) != 32 {
+		return sdkerrors.Wrapf(ErrInvalidRemoteToken, "must be a byte32 array")
+	}
+
 	return nil
 }

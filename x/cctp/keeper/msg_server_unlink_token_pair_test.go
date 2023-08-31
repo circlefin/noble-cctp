@@ -40,23 +40,23 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 	testkeeper.SetTokenController(ctx, tokenController)
 
 	tokenPair := types.TokenPair{
-		RemoteDomain: 1,
-		RemoteToken:  []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD},
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 	testkeeper.SetTokenPair(ctx, tokenPair)
 
 	message := types.MsgUnlinkTokenPair{
 		From:         tokenController,
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
 	_, err := server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	_, found := testkeeper.GetTokenPairHex(ctx, message.RemoteDomain, message.RemoteToken)
+	_, found := testkeeper.GetTokenPair(ctx, message.RemoteDomain, message.RemoteToken)
 	require.False(t, found)
 }
 
@@ -66,14 +66,14 @@ func TestUnlinkTokenPairAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgUnlinkTokenPair{
 		From:         sample.AccAddress(),
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
-	_, err := server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+	require.Panics(t, func() {
+		_, _ = server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp token controller not found in state")
 }
 
 func TestUnlinkTokenPairInvalidAuthority(t *testing.T) {
@@ -85,8 +85,8 @@ func TestUnlinkTokenPairInvalidAuthority(t *testing.T) {
 
 	message := types.MsgUnlinkTokenPair{
 		From:         "not the authority",
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
@@ -104,8 +104,8 @@ func TestUnlinkTokenPairTokenPairNotFound(t *testing.T) {
 
 	message := types.MsgUnlinkTokenPair{
 		From:         tokenController,
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 

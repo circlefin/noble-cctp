@@ -23,7 +23,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdUpdateAuthority() *cobra.Command {
+func CmdUpdateOwner() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-owner [address]",
 		Short: "Broadcast message update-owner",

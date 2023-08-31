@@ -20,6 +20,7 @@ import (
 
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -50,7 +51,7 @@ func TestDepositForBurnWithCallerHappyPath(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "12345678901234567890123456789012",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -63,7 +64,7 @@ func TestDepositForBurnWithCallerHappyPath(t *testing.T) {
 	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
 
 	msg := types.MsgDepositForBurnWithCaller{
-		From:              "sender-address567890123456789012",
+		From:              sample.AccAddress(),
 		Amount:            math.NewInt(531),
 		DestinationDomain: 0,
 		MintRecipient:     []byte("12345678901234567890123456789012"),
@@ -192,7 +193,7 @@ func TestDepositForBurnWithCallerMintingDenomNotFound(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -219,7 +220,7 @@ func TestDepositForBurnWithCallerBurningAndMintingIsPaused(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -248,7 +249,7 @@ func TestDepositForBurnWithCallerAmountIsGreaterThanPerMessageBurnLimit(t *testi
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 

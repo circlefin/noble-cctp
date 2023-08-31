@@ -19,12 +19,19 @@ import (
 	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/strangelove-ventures/noble/testutil/sample"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )
+
+var tokenMessenger = make([]byte, 32)
+
+func init() {
+	tokenMessenger = common.FromHex("0x000000000000000000000000d0c3da58f55358142b8d3e06c1c30c5c6114efe8")
+}
 
 /*
 * Happy path
@@ -42,8 +49,8 @@ func TestAddRemoteTokenMessengerHappyPath(t *testing.T) {
 
 	message := types.MsgAddRemoteTokenMessenger{
 		From:     owner,
-		DomainId: 16,
-		Address:  "remote_token_messenger_address",
+		DomainId: 0,
+		Address:  tokenMessenger,
 	}
 
 	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
@@ -62,13 +69,13 @@ func TestAddRemoteTokenMessengerAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgAddRemoteTokenMessenger{
 		From:     sample.AccAddress(),
-		DomainId: 16,
-		Address:  "remote_token_messenger_address",
+		DomainId: 0,
+		Address:  tokenMessenger,
 	}
 
-	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+	require.Panics(t, func() {
+		_, _ = server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp owner not found in state")
 }
 
 func TestAddRemoteTokenMessengerInvalidAuthority(t *testing.T) {
@@ -80,8 +87,8 @@ func TestAddRemoteTokenMessengerInvalidAuthority(t *testing.T) {
 
 	message := types.MsgAddRemoteTokenMessenger{
 		From:     "not the authority address",
-		DomainId: 16,
-		Address:  "remote_token_messenger_address",
+		DomainId: 0,
+		Address:  tokenMessenger,
 	}
 
 	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
@@ -97,15 +104,15 @@ func TestAddRemoteTokenMessengerTokenMessengerAlreadyFound(t *testing.T) {
 	testkeeper.SetOwner(ctx, owner)
 
 	existingRemoteTokenMessenger := types.RemoteTokenMessenger{
-		DomainId: 3,
-		Address:  sample.AccAddress(),
+		DomainId: 0,
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, existingRemoteTokenMessenger)
 
 	message := types.MsgAddRemoteTokenMessenger{
 		From:     owner,
 		DomainId: existingRemoteTokenMessenger.DomainId,
-		Address:  "remote_token_messenger_address",
+		Address:  tokenMessenger,
 	}
 
 	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)

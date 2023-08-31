@@ -15,18 +15,18 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
+import "circle/cctp/v1/attester.proto";
+import "circle/cctp/v1/burning_and_minting_paused.proto";
+import "circle/cctp/v1/max_message_body_size.proto";
+import "circle/cctp/v1/nonce.proto";
+import "circle/cctp/v1/per_message_burn_limit.proto";
+import "circle/cctp/v1/remote_token_messenger.proto";
+import "circle/cctp/v1/sending_and_receiving_messages_paused.proto";
+import "circle/cctp/v1/signature_threshold.proto";
+import "circle/cctp/v1/token_pair.proto";
 import "gogoproto/gogo.proto";
-import "noble/cctp/v1/attester.proto";
-import "noble/cctp/v1/burning_and_minting_paused.proto";
-import "noble/cctp/v1/max_message_body_size.proto";
-import "noble/cctp/v1/nonce.proto";
-import "noble/cctp/v1/per_message_burn_limit.proto";
-import "noble/cctp/v1/remote_token_messenger.proto";
-import "noble/cctp/v1/sending_and_receiving_messages_paused.proto";
-import "noble/cctp/v1/signature_threshold.proto";
-import "noble/cctp/v1/token_pair.proto";
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 

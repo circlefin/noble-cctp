@@ -104,12 +104,15 @@ func (k msgServer) depositForBurn(
 		return 0, sdkerrors.Wrapf(err, "error during burn")
 	}
 
+	messageSender := make([]byte, 32)
+	copy(messageSender[12:], sdk.MustAccAddressFromBech32(from))
+
 	burnMessage := types.BurnMessage{
 		Version:       types.MessageBodyVersion,
 		BurnToken:     crypto.Keccak256([]byte(strings.ToLower(burnToken))),
 		MintRecipient: mintRecipient,
 		Amount:        amount,
-		MessageSender: []byte(from),
+		MessageSender: messageSender,
 	}
 
 	var nonce types.Nonce
@@ -121,9 +124,9 @@ func (k msgServer) depositForBurn(
 
 	if len(destinationCaller) == 0 {
 		message := types.MsgSendMessage{
-			From:              from,
+			From:              types.ModuleAddress.String(),
 			DestinationDomain: destinationDomain,
-			Recipient:         []byte(tokenMessenger.Address),
+			Recipient:         tokenMessenger.Address,
 			MessageBody:       newMessageBodyBytes,
 		}
 
@@ -134,9 +137,9 @@ func (k msgServer) depositForBurn(
 		nonce.Nonce = resp.Nonce
 	} else {
 		message := types.MsgSendMessageWithCaller{
-			From:              from,
+			From:              types.ModuleAddress.String(),
 			DestinationDomain: destinationDomain,
-			Recipient:         []byte(tokenMessenger.Address),
+			Recipient:         tokenMessenger.Address,
 			MessageBody:       newMessageBodyBytes,
 			DestinationCaller: destinationCaller,
 		}
@@ -155,7 +158,7 @@ func (k msgServer) depositForBurn(
 		Depositor:                 from,
 		MintRecipient:             mintRecipient,
 		DestinationDomain:         destinationDomain,
-		DestinationTokenMessenger: []byte(tokenMessenger.Address),
+		DestinationTokenMessenger: tokenMessenger.Address,
 		DestinationCaller:         destinationCaller,
 	}
 	err = ctx.EventManager().EmitTypedEvent(&event)

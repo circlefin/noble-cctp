@@ -17,7 +17,6 @@ package keeper
 
 import (
 	"context"
-	"strings"
 
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -37,8 +36,8 @@ func (k msgServer) AddRemoteTokenMessenger(goCtx context.Context, msg *types.Msg
 		return nil, sdkerrors.Wrapf(types.ErrRemoteTokenMessengerAlreadyFound, "a remote token messenger for this domain already exists")
 	}
 
-	if msg.Address == "" {
-		return nil, sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "address cannot be empty")
+	if len(msg.Address) != 32 {
+		return nil, sdkerrors.ErrInvalidAddress
 	}
 
 	newRemoteTokenMessenger := types.RemoteTokenMessenger{
@@ -49,7 +48,7 @@ func (k msgServer) AddRemoteTokenMessenger(goCtx context.Context, msg *types.Msg
 
 	event := types.RemoteTokenMessengerAdded{
 		Domain:               msg.DomainId,
-		RemoteTokenMessenger: []byte(strings.ToLower(msg.Address)),
+		RemoteTokenMessenger: msg.Address,
 	}
 	err := ctx.EventManager().EmitTypedEvent(&event)
 

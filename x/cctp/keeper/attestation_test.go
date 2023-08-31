@@ -126,7 +126,7 @@ func getAttestersFromPrivateKeys(privkeys []*ecdsa.PrivateKey) []types.Attester 
 		publicKey := privkey.PublicKey
 
 		// Marshal the public key into bytes
-		publicKeyBytes := elliptic.Marshal(publicKey.Curve, publicKey.X, publicKey.Y)
+		publicKeyBytes := elliptic.Marshal(publicKey.Curve, publicKey.X, publicKey.Y) //nolint:staticcheck
 
 		result[i] = types.Attester{Attester: hex.EncodeToString(publicKeyBytes)}
 	}

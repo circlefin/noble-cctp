@@ -22,6 +22,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +32,10 @@ func CmdLinkTokenPair() *cobra.Command {
 		Short: "Broadcast message link-token-pair",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			remoteDomain, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)
+			remoteToken := make([]byte, 32)
+			copy(remoteToken[12:], common.FromHex(args[1]))
+
+			remoteDomain, err := strconv.ParseUint(args[2], types.BaseTen, types.DomainBitLen)
 			if err != nil {
 				return err
 			}
@@ -44,7 +48,7 @@ func CmdLinkTokenPair() *cobra.Command {
 			msg := types.NewMsgLinkTokenPair(
 				clientCtx.GetFromAddress().String(),
 				args[0],
-				args[1],
+				remoteToken,
 				uint32(remoteDomain),
 			)
 

@@ -15,16 +15,18 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 import "gogoproto/gogo.proto";
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * PerMessageBurnLimit is the maximum amount of a certain denom that can be burned in an single burn
+ * PerMessageBurnLimit is the maximum amount of a certain denom that can be
+ * burned in an single burn
  * @param denom the denom
- * @param amount the amount that can be burned (in microunits).  An amount of 1000000 uusdc is equivalent to 1USDC
+ * @param amount the amount that can be burned (in microunits).  An amount of
+ * 1000000 uusdc is equivalent to 1USDC
  */
 message PerMessageBurnLimit {
   string denom = 1;

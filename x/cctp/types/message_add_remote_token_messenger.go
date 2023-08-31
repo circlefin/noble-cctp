@@ -24,7 +24,7 @@ const TypeMsgAddRemoteTokenMessenger = "add_remote_token_messenger"
 
 var _ sdk.Msg = &MsgAddRemoteTokenMessenger{}
 
-func NewMsgAddRemoteTokenMessenger(from string, domainId uint32, address string) *MsgAddRemoteTokenMessenger {
+func NewMsgAddRemoteTokenMessenger(from string, domainId uint32, address []byte) *MsgAddRemoteTokenMessenger {
 	return &MsgAddRemoteTokenMessenger{
 		From:     from,
 		DomainId: domainId,

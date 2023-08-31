@@ -15,7 +15,7 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 import "gogoproto/gogo.proto";
 
@@ -42,8 +42,11 @@ service Msg {
   rpc UnpauseBurningAndMinting(MsgUnpauseBurningAndMinting) returns (MsgUnpauseBurningAndMintingResponse);
   rpc UnpauseSendingAndReceivingMessages(MsgUnpauseSendingAndReceivingMessages) returns (MsgUnpauseSendingAndReceivingMessagesResponse);
   rpc UpdateOwner(MsgUpdateOwner) returns (MsgUpdateOwnerResponse);
+  rpc UpdateAttesterManager(MsgUpdateAttesterManager) returns (MsgUpdateAttesterManagerResponse);
+  rpc UpdateTokenController(MsgUpdateTokenController) returns (MsgUpdateTokenControllerResponse);
+  rpc UpdatePauser(MsgUpdatePauser) returns (MsgUpdatePauserResponse);
   rpc UpdateMaxMessageBodySize(MsgUpdateMaxMessageBodySize) returns (MsgUpdateMaxMessageBodySizeResponse);
-  rpc UpdatePerMessageBurnLimit(MsgUpdatePerMessageBurnLimit) returns (MsgUpdatePerMessageBurnLimitResponse);
+  rpc SetMaxBurnAmountPerMessage(MsgSetMaxBurnAmountPerMessage) returns (MsgSetMaxBurnAmountPerMessageResponse);
   rpc UpdateSignatureThreshold(MsgUpdateSignatureThreshold) returns (MsgUpdateSignatureThresholdResponse);
 }
 
@@ -54,6 +57,27 @@ message MsgUpdateOwner {
 }
 
 message MsgUpdateOwnerResponse {}
+
+message MsgUpdateAttesterManager {
+  string from = 1;
+  string new_attester_manager = 2;
+}
+
+message MsgUpdateAttesterManagerResponse {}
+
+message MsgUpdateTokenController {
+  string from = 1;
+  string new_token_controller = 2;
+}
+
+message MsgUpdateTokenControllerResponse {}
+
+message MsgUpdatePauser {
+  string from = 1;
+  string new_pauser = 2;
+}
+
+message MsgUpdatePauserResponse {}
 
 message MsgAcceptOwner {
   string from = 1;
@@ -106,16 +130,16 @@ message MsgUpdateMaxMessageBodySize {
 
 message MsgUpdateMaxMessageBodySizeResponse {}
 
-message MsgUpdatePerMessageBurnLimit {
+message MsgSetMaxBurnAmountPerMessage {
   string from = 1;
-  string denom = 2;
+  string local_token = 2;
   string amount = 3 [
     (gogoproto.customtype) = "cosmossdk.io/math.Int",
     (gogoproto.nullable) = false
   ];
 }
 
-message MsgUpdatePerMessageBurnLimitResponse {}
+message MsgSetMaxBurnAmountPerMessageResponse {}
 
 message MsgDepositForBurn {
   string from = 1;
@@ -211,7 +235,7 @@ message MsgUpdateSignatureThresholdResponse {}
 message MsgLinkTokenPair {
   string from = 1;
   uint32 remote_domain = 2;
-  string remote_token = 3;
+  bytes remote_token = 3;
   string local_token = 4;
 }
 
@@ -220,7 +244,7 @@ message MsgLinkTokenPairResponse {}
 message MsgUnlinkTokenPair {
   string from = 1;
   uint32 remote_domain = 2;
-  string remote_token = 3;
+  bytes remote_token = 3;
   string local_token = 4;
 }
 
@@ -229,7 +253,7 @@ message MsgUnlinkTokenPairResponse {}
 message MsgAddRemoteTokenMessenger {
   string from = 1;
   uint32 domain_id = 2;
-  string address = 3;
+  bytes address = 3;
 }
 
 message MsgAddRemoteTokenMessengerResponse {}

@@ -18,28 +18,28 @@ package types
 import (
 	"testing"
 
-	"github.com/strangelove-ventures/noble/testutil/sample"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgUpdatePerMessageBurnLimit_ValidateBasic(t *testing.T) {
+func TestMsgSetMaxBurnAmountPerMessage_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgUpdatePerMessageBurnLimit
+		msg  MsgSetMaxBurnAmountPerMessage
 		err  error
 	}{
 		{
 			name: "invalid from",
-			msg: MsgUpdatePerMessageBurnLimit{
+			msg: MsgSetMaxBurnAmountPerMessage{
 				From: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		},
 		{
 			name: "valid from",
-			msg: MsgUpdatePerMessageBurnLimit{
+			msg: MsgSetMaxBurnAmountPerMessage{
 				From: sample.AccAddress(),
 			},
 		},

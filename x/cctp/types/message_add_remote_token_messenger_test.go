@@ -18,7 +18,7 @@ package types
 import (
 	"testing"
 
-	"github.com/strangelove-ventures/noble/testutil/sample"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
@@ -35,7 +35,7 @@ func TestAddRemoteTokenMessenger_ValidateBasic(t *testing.T) {
 			msg: MsgAddRemoteTokenMessenger{
 				From:     "invalid_address",
 				DomainId: uint32(123),
-				Address:  "123",
+				Address:  make([]byte, 32),
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		},
@@ -44,7 +44,7 @@ func TestAddRemoteTokenMessenger_ValidateBasic(t *testing.T) {
 			msg: MsgAddRemoteTokenMessenger{
 				From:     sample.AccAddress(),
 				DomainId: uint32(123),
-				Address:  "123",
+				Address:  make([]byte, 32),
 			},
 		},
 	}

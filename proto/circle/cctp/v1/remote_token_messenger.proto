@@ -15,14 +15,15 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * Message format for SendingAndReceivingMessagesPaused
- * @param paused true if paused, false if not paused
+ * @param domain_id
+ * @param address
  */
-message SendingAndReceivingMessagesPaused {
-  bool paused = 1;
+message RemoteTokenMessenger {
+  uint32 domain_id = 1;
+  bytes address = 2;
 }

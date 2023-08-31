@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"cosmossdk.io/math"
-	"github.com/strangelove-ventures/noble/testutil/sample"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"

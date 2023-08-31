@@ -19,10 +19,10 @@ import (
 	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/strangelove-ventures/noble/testutil/sample"
 	"github.com/stretchr/testify/require"
 )
 
@@ -59,9 +59,10 @@ func TestUpdateAuthorityAuthorityNotSet(t *testing.T) {
 		From:     sample.AccAddress(),
 		NewOwner: "new address",
 	}
-	_, err := server.UpdateOwner(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+
+	require.Panics(t, func() {
+		_, _ = server.UpdateOwner(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp owner not found in state")
 }
 
 func TestUpdateAuthorityInvalidAuthority(t *testing.T) {

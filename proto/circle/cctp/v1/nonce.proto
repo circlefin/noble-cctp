@@ -15,13 +15,15 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * The Nonce type functions both to mark receipt of received messages and a counter for sending messages
- * @param source_domain the domain id, used to mark used nonces for received messages
+ * The Nonce type functions both to mark receipt of received messages and a
+ * counter for sending messages
+ * @param source_domain the domain id, used to mark used nonces for received
+ * messages
  * @param nonce the nonce number
  */
 message Nonce {

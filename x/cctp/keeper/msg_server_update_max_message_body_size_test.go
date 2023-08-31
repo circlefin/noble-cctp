@@ -19,10 +19,10 @@ import (
 	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/strangelove-ventures/noble/testutil/sample"
 	"github.com/stretchr/testify/require"
 )
 
@@ -49,19 +49,6 @@ func TestUpdateMaxMessageBodySizeHappyPath(t *testing.T) {
 	actual, found := testkeeper.GetMaxMessageBodySize(ctx)
 	require.True(t, found)
 	require.Equal(t, message.MessageSize, actual.Amount)
-}
-
-func TestUpdateMaxMessageBodySizeAuthorityNotSet(t *testing.T) {
-	testkeeper, ctx := keepertest.CctpKeeper(t)
-	server := keeper.NewMsgServerImpl(testkeeper)
-
-	message := types.MsgUpdateMaxMessageBodySize{
-		From:        sample.AccAddress(),
-		MessageSize: uint64(1023),
-	}
-	_, err := server.UpdateMaxMessageBodySize(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
 }
 
 func TestUpdateMaxMessageBodySizeInvalidAuthority(t *testing.T) {

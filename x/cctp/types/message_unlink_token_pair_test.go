@@ -18,8 +18,8 @@ package types
 import (
 	"testing"
 
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/strangelove-ventures/noble/testutil/sample"
 	"github.com/stretchr/testify/require"
 )
 
@@ -34,7 +34,7 @@ func TestMsgUnlinkTokenPair_ValidateBasic(t *testing.T) {
 			msg: MsgUnlinkTokenPair{
 				From:         "invalid_address",
 				RemoteDomain: 1,
-				RemoteToken:  "0x12345",
+				RemoteToken:  make([]byte, 32),
 				LocalToken:   "uusdc",
 			},
 			err: sdkerrors.ErrInvalidAddress,
@@ -44,7 +44,7 @@ func TestMsgUnlinkTokenPair_ValidateBasic(t *testing.T) {
 			msg: MsgUnlinkTokenPair{
 				From:         sample.AccAddress(),
 				RemoteDomain: 1,
-				RemoteToken:  "12345",
+				RemoteToken:  make([]byte, 32),
 				LocalToken:   "uusdc",
 			},
 		},

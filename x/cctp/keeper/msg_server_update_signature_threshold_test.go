@@ -66,9 +66,9 @@ func TestUpdateSignatureThresholdAuthorityNotSet(t *testing.T) {
 		Amount: 1,
 	}
 
-	_, err := server.UpdateSignatureThreshold(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+	require.Panics(t, func() {
+		_, _ = server.UpdateSignatureThreshold(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp attester manager not found in state")
 }
 
 func TestUpdateSignatureThresholdInvalidAuthority(t *testing.T) {

@@ -16,7 +16,6 @@
 package keeper_test
 
 import (
-	"encoding/hex"
 	"testing"
 
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
@@ -24,8 +23,15 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )
+
+var token = make([]byte, 32)
+
+func init() {
+	token = common.FromHex("0x00000000000000000000000007865c6e87b9f70255377e024ace6630c1eaa37f")
+}
 
 /*
  * Happy path
@@ -42,18 +48,18 @@ func TestLinkTokenPairHappyPath(t *testing.T) {
 
 	message := types.MsgLinkTokenPair{
 		From:         tokenController,
-		RemoteDomain: 1,
-		RemoteToken:  "0xabcd",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
 	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
 	require.NoError(t, err)
 
-	actual, found := testkeeper.GetTokenPairHex(ctx, message.RemoteDomain, message.RemoteToken)
+	actual, found := testkeeper.GetTokenPair(ctx, message.RemoteDomain, message.RemoteToken)
 	require.True(t, found)
-	require.Equal(t, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD}, actual.RemoteToken)
 	require.Equal(t, message.RemoteDomain, actual.RemoteDomain)
+	require.Equal(t, message.RemoteToken, actual.RemoteToken)
 	require.Equal(t, message.LocalToken, actual.LocalToken)
 }
 
@@ -63,13 +69,14 @@ func TestLinkTokenPairAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgLinkTokenPair{
 		From:         sample.AccAddress(),
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
-	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
+	require.Panics(t, func() {
+		_, _ = server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp token controller not found in state")
 }
 
 func TestLinkTokenPairInvalidAuthority(t *testing.T) {
@@ -81,8 +88,8 @@ func TestLinkTokenPairInvalidAuthority(t *testing.T) {
 
 	message := types.MsgLinkTokenPair{
 		From:         "not authority",
-		RemoteDomain: 1,
-		RemoteToken:  "0xABCD",
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
@@ -98,8 +105,8 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 	testkeeper.SetTokenController(ctx, tokenController)
 
 	existingTokenPair := types.TokenPair{
-		RemoteDomain: 1,
-		RemoteToken:  []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAB, 0xCD},
+		RemoteDomain: 0,
+		RemoteToken:  token,
 		LocalToken:   "uusdc",
 	}
 
@@ -108,7 +115,7 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 	message := types.MsgLinkTokenPair{
 		From:         tokenController,
 		RemoteDomain: existingTokenPair.RemoteDomain,
-		RemoteToken:  hex.EncodeToString(existingTokenPair.RemoteToken),
+		RemoteToken:  existingTokenPair.RemoteToken,
 		LocalToken:   existingTokenPair.LocalToken,
 	}
 

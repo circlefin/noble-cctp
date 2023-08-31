@@ -16,7 +16,6 @@
 package keeper_test
 
 import (
-	"strconv"
 	"testing"
 
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
@@ -33,7 +32,7 @@ func createNRemoteTokenMessengers(keeper *keeper.Keeper, ctx sdk.Context, n int)
 	items := make([]types.RemoteTokenMessenger, n)
 	for i := range items {
 		items[i].DomainId = uint32(i)
-		items[i].Address = strconv.Itoa(i)
+		items[i].Address = make([]byte, 32)
 
 		keeper.SetRemoteTokenMessenger(ctx, items[i])
 	}

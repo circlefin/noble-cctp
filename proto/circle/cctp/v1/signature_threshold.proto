@@ -15,12 +15,13 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * SignatureThreshold is the minimum amount of signatures required to attest to a message (the 'm' in a m/n multisig)
+ * SignatureThreshold is the minimum amount of signatures required to attest to
+ * a message (the 'm' in a m/n multisig)
  * @param amount the number of signatures required
  */
 message SignatureThreshold {

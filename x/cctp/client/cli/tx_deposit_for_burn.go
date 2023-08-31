@@ -19,12 +19,12 @@ import (
 	"strconv"
 
 	"cosmossdk.io/math"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 )
 
@@ -44,6 +44,9 @@ func CmdDepositForBurn() *cobra.Command {
 				return err
 			}
 
+			mintRecipient := make([]byte, 32)
+			copy(mintRecipient[12:], common.FromHex(args[2]))
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -53,7 +56,7 @@ func CmdDepositForBurn() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				amount,
 				uint32(destinationDomain),
-				[]byte(args[2]),
+				mintRecipient,
 				args[3],
 			)
 

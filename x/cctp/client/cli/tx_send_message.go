@@ -22,6 +22,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 )
 
@@ -36,6 +37,9 @@ func CmdSendMessage() *cobra.Command {
 				return err
 			}
 
+			recipient := make([]byte, 32)
+			copy(recipient[12:], common.FromHex(args[1]))
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -44,7 +48,7 @@ func CmdSendMessage() *cobra.Command {
 			msg := types.NewMsgSendMessage(
 				clientCtx.GetFromAddress().String(),
 				uint32(destinationDomain),
-				[]byte(args[1]),
+				recipient,
 				[]byte(args[2]),
 			)
 

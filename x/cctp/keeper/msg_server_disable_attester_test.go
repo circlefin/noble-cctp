@@ -84,9 +84,9 @@ func TestDisableAttesterAuthorityNotSet(t *testing.T) {
 		Attester: []byte("attester"),
 	}
 
-	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority is not set")
+	require.Panics(t, func() {
+		_, _ = server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp attester manager not found in state")
 }
 
 func TestDisableAttesterInvalidAuthority(t *testing.T) {

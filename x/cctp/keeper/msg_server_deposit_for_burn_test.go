@@ -20,6 +20,7 @@ import (
 
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -50,7 +51,7 @@ func TestDepositForBurnHappyPath(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "12345678901234567890123456789012",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -63,7 +64,7 @@ func TestDepositForBurnHappyPath(t *testing.T) {
 	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
 
 	msg := types.MsgDepositForBurn{
-		From:              "sender-address567890123456789012",
+		From:              sample.AccAddress(),
 		Amount:            math.NewInt(531),
 		DestinationDomain: 0,
 		MintRecipient:     []byte("12345678901234567890123456789012"),
@@ -169,7 +170,7 @@ func TestDepositForBurnMintingDenomNotFound(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -195,7 +196,7 @@ func TestDepositForBurnBurningAndMintingIsPaused(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -223,7 +224,7 @@ func TestDepositForBurnAmountIsGreaterThanPerMessageBurnLimit(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 
@@ -257,7 +258,7 @@ func TestDepositForBurnBurnFails(t *testing.T) {
 
 	remoteTokenMessenger := types.RemoteTokenMessenger{
 		DomainId: 0,
-		Address:  "destination-remote-token-messenger",
+		Address:  tokenMessenger,
 	}
 	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
 	fiattfkeeper.SetMintingDenom(fiattfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
@@ -276,6 +277,5 @@ func TestDepositForBurnBurnFails(t *testing.T) {
 		BurnToken:         "uUsDC",
 	}
 	_, err := server.DepositForBurn(sdk.WrapSDKContext(ctx), &msg)
-	require.ErrorIs(t, types.ErrBurn, err)
 	require.Contains(t, err.Error(), "tokens can not be burned")
 }

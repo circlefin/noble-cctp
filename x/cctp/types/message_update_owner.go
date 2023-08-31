@@ -57,5 +57,9 @@ func (msg *MsgUpdateOwner) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid from address (%s)", err)
 	}
+	_, err = sdk.AccAddressFromBech32(msg.NewOwner)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid owner address (%s)", err)
+	}
 	return nil
 }

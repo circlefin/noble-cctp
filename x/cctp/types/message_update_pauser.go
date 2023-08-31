@@ -16,32 +16,30 @@
 package types
 
 import (
-	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgUpdatePerMessageBurnLimit = "update_per_message_burn_limit"
+const TypeMsgUpdatePauser = "update_pauser"
 
-var _ sdk.Msg = &MsgUpdatePerMessageBurnLimit{}
+var _ sdk.Msg = &MsgUpdatePauser{}
 
-func NewMsgUpdatePerMessageBurnLimit(from string, denom string, amount math.Int) *MsgUpdatePerMessageBurnLimit {
-	return &MsgUpdatePerMessageBurnLimit{
-		From:   from,
-		Denom:  denom,
-		Amount: amount,
+func NewMsgUpdatePauser(from string, newPauser string) *MsgUpdatePauser {
+	return &MsgUpdatePauser{
+		From:      from,
+		NewPauser: newPauser,
 	}
 }
 
-func (msg *MsgUpdatePerMessageBurnLimit) Route() string {
+func (msg *MsgUpdatePauser) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgUpdatePerMessageBurnLimit) Type() string {
-	return TypeMsgUpdatePerMessageBurnLimit
+func (msg *MsgUpdatePauser) Type() string {
+	return TypeMsgUpdatePauser
 }
 
-func (msg *MsgUpdatePerMessageBurnLimit) GetSigners() []sdk.AccAddress {
+func (msg *MsgUpdatePauser) GetSigners() []sdk.AccAddress {
 	from, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		panic(err)
@@ -49,15 +47,19 @@ func (msg *MsgUpdatePerMessageBurnLimit) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{from}
 }
 
-func (msg *MsgUpdatePerMessageBurnLimit) GetSignBytes() []byte {
+func (msg *MsgUpdatePauser) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgUpdatePerMessageBurnLimit) ValidateBasic() error {
+func (msg *MsgUpdatePauser) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid from address (%s)", err)
+	}
+	_, err = sdk.AccAddressFromBech32(msg.NewPauser)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid pauser address (%s)", err)
 	}
 	return nil
 }

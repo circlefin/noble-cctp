@@ -15,7 +15,7 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 import "gogoproto/gogo.proto";
 
@@ -87,11 +87,14 @@ message SendingAndReceivingUnpausedEvent {}
  * @param burn_token address of token burnt on source domain
  * @param amount deposit amount
  * @param depositor address where deposit is transferred from
- * @param mint_recipient address receiving minted tokens on destination domain as bytes32
+ * @param mint_recipient address receiving minted tokens on destination domain
+ * as bytes32
  * @param destination_domain destination domain
- * @param destination_token_messenger address of TokenMessenger on destination domain as bytes32
- * @param destination_caller authorized caller as bytes32 of receiveMessage() on destination domain, if not equal to bytes32(0).
- * If equal to bytes32(0), any address can call receiveMessage().
+ * @param destination_token_messenger address of TokenMessenger on destination
+ * domain as bytes32
+ * @param destination_caller authorized caller as bytes32 of receiveMessage() on
+ * destination domain, if not equal to bytes32(0). If equal to bytes32(0), any
+ * address can call receiveMessage().
  */
 message DepositForBurn {
   uint64 nonce = 1;
@@ -131,7 +134,7 @@ message MintAndWithdraw {
 message TokenPairLinked {
   string local_token = 1;
   uint32 remote_domain = 2;
-  string remote_token = 3;
+  bytes remote_token = 3;
 }
 
 /**
@@ -143,7 +146,7 @@ message TokenPairLinked {
 message TokenPairUnlinked {
   string local_token = 1;
   uint32 remote_domain = 2;
-  string remote_token = 3;
+  bytes remote_token = 3;
 }
 
 /**

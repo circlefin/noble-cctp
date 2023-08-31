@@ -33,57 +33,57 @@ import (
  * Invalid authority
  */
 
-func TestUpdatePerMessageBurnLimitHappyPath(t *testing.T) {
+func TestSetMaxBurnAmountPerMessageHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	tokenController := sample.AccAddress()
 	testkeeper.SetTokenController(ctx, tokenController)
 
-	message := types.MsgUpdatePerMessageBurnLimit{
-		From:   tokenController,
-		Denom:  "uusdc",
-		Amount: math.NewInt(123),
+	message := types.MsgSetMaxBurnAmountPerMessage{
+		From:       tokenController,
+		LocalToken: "uusdc",
+		Amount:     math.NewInt(123),
 	}
 
-	_, err := server.UpdatePerMessageBurnLimit(sdk.WrapSDKContext(ctx), &message)
+	_, err := server.SetMaxBurnAmountPerMessage(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	actual, found := testkeeper.GetPerMessageBurnLimit(ctx, message.Denom)
+	actual, found := testkeeper.GetPerMessageBurnLimit(ctx, message.LocalToken)
 	require.True(t, found)
-	require.Equal(t, message.Denom, actual.Denom)
+	require.Equal(t, message.LocalToken, actual.Denom)
 	require.Equal(t, message.Amount, actual.Amount)
 }
 
-func TestUpdatePerMessageBurnLimitAuthorityNotSet(t *testing.T) {
+func TestSetMaxBurnAmountPerMessageAuthorityNotSet(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	message := types.MsgUpdatePerMessageBurnLimit{
-		From:   sample.AccAddress(),
-		Denom:  "uusdc",
-		Amount: math.NewInt(123),
+	message := types.MsgSetMaxBurnAmountPerMessage{
+		From:       sample.AccAddress(),
+		LocalToken: "uusdc",
+		Amount:     math.NewInt(123),
 	}
 
-	_, err := server.UpdatePerMessageBurnLimit(sdk.WrapSDKContext(ctx), &message)
-	require.ErrorIs(t, types.ErrAuthorityNotSet, err)
-	require.Contains(t, err.Error(), "authority not set")
+	require.Panics(t, func() {
+		_, _ = server.SetMaxBurnAmountPerMessage(sdk.WrapSDKContext(ctx), &message)
+	}, "cctp token controller not found in state")
 }
 
-func TestUpdatePerMessageBurnLimitInvalidAuthority(t *testing.T) {
+func TestSetMaxBurnAmountPerMessageInvalidAuthority(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	tokenController := sample.AccAddress()
 	testkeeper.SetTokenController(ctx, tokenController)
 
-	message := types.MsgUpdatePerMessageBurnLimit{
-		From:   "not authority",
-		Denom:  "uusdc",
-		Amount: math.NewInt(123),
+	message := types.MsgSetMaxBurnAmountPerMessage{
+		From:       "not authority",
+		LocalToken: "uusdc",
+		Amount:     math.NewInt(123),
 	}
 
-	_, err := server.UpdatePerMessageBurnLimit(sdk.WrapSDKContext(ctx), &message)
+	_, err := server.SetMaxBurnAmountPerMessage(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrUnauthorized, err)
-	require.Contains(t, err.Error(), "this message sender cannot update the per message burn limit")
+	require.Contains(t, err.Error(), "this message sender cannot set the max burn amount per message")
 }

@@ -15,20 +15,14 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * TokenPair is used to look up the Noble token (i.e. "uusdc") from a remote domain token address
- * Multiple remote_domain + remote_token pairs can map to the same local_token
- *
- * @param remote_domain the remote domain_id corresponding to the token
- * @param remote_token the remote token address
- * @param local_token the corresponding Noble token denom in uunits
+ * Message format for SendingAndReceivingMessagesPaused
+ * @param paused true if paused, false if not paused
  */
-message TokenPair {
-  uint32 remote_domain = 1;
-  bytes remote_token = 2;
-  string local_token = 3;
+message SendingAndReceivingMessagesPaused {
+  bool paused = 1;
 }

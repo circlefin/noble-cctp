@@ -92,12 +92,12 @@ func TestReplaceDepositForBurnFailsWhenPaused(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
-	paused := types.BurningAndMintingPaused{Paused: false}
+	paused := types.BurningAndMintingPaused{Paused: true}
 	testkeeper.SetBurningAndMintingPaused(ctx, paused)
 
 	_, err := server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &types.MsgReplaceDepositForBurn{})
 	require.ErrorIs(t, types.ErrDepositForBurn, err)
-	require.Contains(t, err.Error(), "sending and receiving messages are paused")
+	require.Contains(t, err.Error(), "burning and minting are paused")
 }
 
 func TestReplaceDepositForBurnOuterMessageTooShort(t *testing.T) {
@@ -153,8 +153,8 @@ func TestReplaceDepositForBurnBurnMessageInvalidLength(t *testing.T) {
 	}
 
 	_, err = server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &msg)
-	require.ErrorIs(t, types.ErrDepositForBurn, err)
-	require.Contains(t, err.Error(), "burn message body is not the correct length")
+	require.ErrorIs(t, types.ErrParsingBurnMessage, err)
+	require.Contains(t, err.Error(), "burn message must be 132 bytes")
 }
 
 func TestReplaceDepositForBurnInvalidSender(t *testing.T) {

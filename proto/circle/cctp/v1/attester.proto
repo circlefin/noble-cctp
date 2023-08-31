@@ -15,14 +15,14 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * Message format for BurningAndMintingPaused
- * @param paused true if paused, false if not paused
+ * A public key used to verify message signatures
+ * @param attester ECDSA uncompressed public key, hex encoded
  */
-message MaxMessageBodySize {
-  uint64 amount = 1;
+message Attester {
+  string attester = 1;
 }

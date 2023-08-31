@@ -24,21 +24,15 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/bech32"
-	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/ethereum/go-ethereum/crypto"
 	fiattokenfactorytypes "github.com/strangelove-ventures/noble/x/fiattokenfactory/types"
 )
 
-var (
-	tokenMessengerRecipient = crypto.Keccak256([]byte("cctp/TokenMessenger"))
-
-	zeroByteArray = []byte{ // 32 bytes
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-	}
-)
+var zeroByteArray = []byte{ // 32 bytes
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+}
 
 func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMessage) (*types.MsgReceiveMessageResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -104,7 +98,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 	k.SetUsedNonce(ctx, usedNonce)
 
 	// verify and parse BurnMessage
-	if bytes.Equal(message.Recipient, tokenMessengerRecipient) { // then mint
+	if bytes.Equal(message.Recipient, types.PaddedModuleAddress) { // then mint
 		burnMessage, err := new(types.BurnMessage).Parse(message.MessageBody)
 		if err != nil {
 			return nil, err
@@ -128,7 +122,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 
 		msgMint := fiattokenfactorytypes.MsgMint{
-			From:    authtypes.NewModuleAddress(types.ModuleName).String(),
+			From:    types.ModuleAddress.String(),
 			Address: mintRecipient,
 			Amount: sdk.Coin{
 				Denom:  strings.ToLower(tokenPair.LocalToken),

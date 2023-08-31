@@ -15,14 +15,15 @@
  */
 syntax = "proto3";
 
-package noble.cctp.v1;
+package circle.cctp.v1;
+
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 
 /**
- * Message format for BurningAndMintingPaused
- * @param paused true if paused, false if not paused
+ * Params defines the parameters for the module.
  */
-message BurningAndMintingPaused {
-  bool paused = 1;
+message Params {
+  option (gogoproto.goproto_stringer) = false;
 }
