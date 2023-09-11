@@ -32,18 +32,18 @@ func (k msgServer) EnableAttester(goCtx context.Context, msg *types.MsgEnableAtt
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot enable attesters")
 	}
 
-	_, found := k.GetAttester(ctx, string(msg.Attester))
+	_, found := k.GetAttester(ctx, msg.Attester)
 	if found {
 		return nil, sdkerrors.Wrapf(types.ErrAttesterAlreadyFound, "this attester already exists in the store")
 	}
 
 	newAttester := types.Attester{
-		Attester: string(msg.Attester),
+		Attester: msg.Attester,
 	}
 	k.SetAttester(ctx, newAttester)
 
 	event := types.AttesterEnabled{
-		Attester: string(msg.Attester),
+		Attester: msg.Attester,
 	}
 	err := ctx.EventManager().EmitTypedEvent(&event)
 

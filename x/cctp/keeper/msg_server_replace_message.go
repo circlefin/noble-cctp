@@ -16,6 +16,7 @@
 package keeper
 
 import (
+	"bytes"
 	"context"
 
 	sdkerrors "cosmossdk.io/errors"
@@ -51,7 +52,10 @@ func (k msgServer) ReplaceMessage(goCtx context.Context, msg *types.MsgReplaceMe
 	}
 
 	// validate that the original message sender is the same as this message sender
-	if msg.From != string(originalMessage.Sender) {
+	messageSender := make([]byte, 32)
+	copy(messageSender[12:], sdk.MustAccAddressFromBech32(msg.From))
+
+	if !bytes.Equal(messageSender, originalMessage.Sender) {
 		return nil, sdkerrors.Wrap(types.ErrReplaceMessage, "sender not permitted to use nonce")
 	}
 

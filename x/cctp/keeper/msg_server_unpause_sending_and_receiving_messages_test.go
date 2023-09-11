@@ -57,9 +57,9 @@ func TestUnpauseSendingAndReceivingMessagesAuthorityNotSet(t *testing.T) {
 		From: "authority",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp pauser not found in state", func() {
 		_, _ = server.UnpauseSendingAndReceivingMessages(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp pauser not found in state")
+	})
 }
 
 func TestUnpauseSendingAndReceivingMessagesInvalidAuthority(t *testing.T) {

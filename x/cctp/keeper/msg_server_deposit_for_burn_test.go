@@ -270,7 +270,7 @@ func TestDepositForBurnBurnFails(t *testing.T) {
 	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
 
 	msg := types.MsgDepositForBurn{
-		From:              "sender-address567890123456789012",
+		From:              sample.AccAddress(),
 		Amount:            math.NewInt(531),
 		DestinationDomain: 0,
 		MintRecipient:     []byte("12345678901234567890123456789012"),

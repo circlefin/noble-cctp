@@ -16,6 +16,7 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 
 	"cosmossdk.io/math"
@@ -24,7 +25,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 )
 
@@ -44,11 +44,15 @@ func CmdDepositForBurnWithCaller() *cobra.Command {
 				return err
 			}
 
-			mintRecipient := make([]byte, 32)
-			copy(mintRecipient[12:], common.FromHex(args[2]))
+			mintRecipient, err := parseAddress(args[2])
+			if err != nil {
+				return fmt.Errorf("invalid mint recipient: %w", err)
+			}
 
-			destinationCaller := make([]byte, 32)
-			copy(destinationCaller[12:], common.FromHex(args[4]))
+			destinationCaller, err := parseAddress(args[4])
+			if err != nil {
+				return fmt.Errorf("invalid destination caller: %w", err)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

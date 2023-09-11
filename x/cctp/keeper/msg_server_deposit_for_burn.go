@@ -92,14 +92,18 @@ func (k msgServer) depositForBurn(
 	}
 
 	// burn coins
-	fiatBurnMsg := fiattokenfactorytypes.MsgBurn{
-		From: from,
-		Amount: sdk.Coin{
-			Denom:  burnToken,
-			Amount: sdk.NewIntFromBigInt(amount.BigInt()),
-		},
+	coin := sdk.NewCoin(burnToken, sdk.NewIntFromBigInt(amount.BigInt()))
+
+	err := k.bank.SendCoinsFromAccountToModule(ctx, sdk.MustAccAddressFromBech32(from), types.ModuleName, sdk.NewCoins(coin))
+	if err != nil {
+		return 0, sdkerrors.Wrap(err, "error during transfer")
 	}
-	_, err := k.fiattokenfactory.Burn(ctx, &fiatBurnMsg)
+
+	fiatBurnMsg := fiattokenfactorytypes.MsgBurn{
+		From:   types.ModuleAddress.String(),
+		Amount: coin,
+	}
+	_, err = k.fiattokenfactory.Burn(ctx, &fiatBurnMsg)
 	if err != nil {
 		return 0, sdkerrors.Wrapf(err, "error during burn")
 	}

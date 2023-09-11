@@ -32,7 +32,7 @@ func (k msgServer) DisableAttester(goCtx context.Context, msg *types.MsgDisableA
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot disable attesters")
 	}
 
-	_, found := k.GetAttester(ctx, string(msg.Attester))
+	_, found := k.GetAttester(ctx, msg.Attester)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrDisableAttester, "attester not found")
 	}
@@ -53,10 +53,10 @@ func (k msgServer) DisableAttester(goCtx context.Context, msg *types.MsgDisableA
 		return nil, sdkerrors.Wrap(types.ErrDisableAttester, "signature threshold is too low")
 	}
 
-	k.DeleteAttester(ctx, string(msg.Attester))
+	k.DeleteAttester(ctx, msg.Attester)
 
 	event := types.AttesterDisabled{
-		Attester: string(msg.Attester),
+		Attester: msg.Attester,
 	}
 	err := ctx.EventManager().EmitTypedEvent(&event)
 

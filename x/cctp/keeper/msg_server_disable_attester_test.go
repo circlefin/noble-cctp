@@ -60,13 +60,13 @@ func TestDisableAttesterHappyPath(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	_, found := testkeeper.GetAttester(ctx, string(message.Attester))
+	_, found := testkeeper.GetAttester(ctx, message.Attester)
 	require.False(t, found)
 }
 
@@ -81,12 +81,12 @@ func TestDisableAttesterAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     sample.AccAddress(),
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp attester manager not found in state", func() {
 		_, _ = server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp attester manager not found in state")
+	})
 }
 
 func TestDisableAttesterInvalidAuthority(t *testing.T) {
@@ -103,7 +103,7 @@ func TestDisableAttesterInvalidAuthority(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     sample.AccAddress(),
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
@@ -120,7 +120,7 @@ func TestDisableAttesterAttesterNotFound(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
@@ -142,14 +142,14 @@ func TestDisableAttesterFailsWhenOnly1AttesterIsLeft(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrDisableAttester, err)
 	require.Contains(t, err.Error(), "cannot disable the last attester")
 
-	_, found := testkeeper.GetAttester(ctx, string(message.Attester))
+	_, found := testkeeper.GetAttester(ctx, message.Attester)
 	require.True(t, found)
 }
 
@@ -171,7 +171,7 @@ func TestDisableAttesterFailsWhenSignatureThresholdNotFound(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)
@@ -200,7 +200,7 @@ func TestDisableAttesterFailsWhenSignatureThresholdIsTooLow(t *testing.T) {
 
 	message := types.MsgDisableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester1"),
+		Attester: "attester1",
 	}
 
 	_, err := server.DisableAttester(sdk.WrapSDKContext(ctx), &message)

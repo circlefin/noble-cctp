@@ -57,9 +57,9 @@ func TestUnpauseBurningAndMintingAuthorityNotSet(t *testing.T) {
 		From: "authority",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp pauser not found in state", func() {
 		_, _ = server.UnpauseBurningAndMinting(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp pauser not found in state")
+	})
 }
 
 func TestUnpauseBurningAndMintingInvalidAuthority(t *testing.T) {

@@ -54,7 +54,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 	}
 
 	if err := VerifyAttestationSignatures(msg.Message, msg.Attestation, publicKeys, signatureThreshold.Amount); err != nil {
-		return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to verify signatures")
+		return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to verify signatures: %s", err)
 	}
 
 	// parse message
@@ -73,7 +73,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		bech32Prefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
 		destinationCaller, err := bech32.ConvertAndEncode(bech32Prefix, message.DestinationCaller[12:])
 		if err != nil {
-			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to encode destination caller: %s", msg.From)
+			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "unable to encode destination caller %s: %s", msg.From, err)
 		}
 
 		if destinationCaller != msg.From {
@@ -118,7 +118,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		bech32Prefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
 		mintRecipient, err := sdk.Bech32ifyAddressBytes(bech32Prefix, burnMessage.MintRecipient[12:])
 		if err != nil {
-			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "error bech32 encoding mint recipient address")
+			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "error bech32 encoding mint recipient address: %s", err)
 		}
 
 		msgMint := fiattokenfactorytypes.MsgMint{
@@ -131,7 +131,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 		_, err = k.fiattokenfactory.Mint(ctx, &msgMint)
 		if err != nil {
-			return nil, sdkerrors.Wrap(err, "Error during minting")
+			return nil, sdkerrors.Wrapf(err, "error during minting: %s", err)
 		}
 
 		mintEvent := types.MintAndWithdraw{
@@ -141,13 +141,13 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 		err = ctx.EventManager().EmitTypedEvent(&mintEvent)
 		if err != nil {
-			return nil, sdkerrors.Wrap(err, "Error emitting mint event")
+			return nil, sdkerrors.Wrapf(err, "error emitting mint event: %s", err)
 		}
 	}
 
 	// on failure to decode, nil err from handleMessage
 	if err := k.router.HandleMessage(ctx, msg.Message); err != nil {
-		return nil, sdkerrors.Wrap(types.ErrHandleMessage, "Error in handleMessage")
+		return nil, sdkerrors.Wrapf(types.ErrHandleMessage, "error in handleMessage: %s", err)
 	}
 
 	event := types.MessageReceived{

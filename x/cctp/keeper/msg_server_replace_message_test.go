@@ -20,6 +20,7 @@ import (
 
 	"cosmossdk.io/math"
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -54,12 +55,17 @@ func TestReplaceMessageHappyPath(t *testing.T) {
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      4, // Noble domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            []byte("sender78901234567890123456789012"),
+		Sender:            senderEncoded,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -77,7 +83,7 @@ func TestReplaceMessageHappyPath(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
 
 	msg := types.MsgReplaceMessage{
-		From:                 string(originalMessage.Sender),
+		From:                 sender,
 		OriginalMessage:      originalMessageBytes,
 		OriginalAttestation:  originalAttestation,
 		NewMessageBody:       []byte("123"),
@@ -281,12 +287,17 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      4, // Noble domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            []byte("sender78901234567890123456789012"),
+		Sender:            senderEncoded,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -304,7 +315,7 @@ func TestReplaceMessageInvalidSender(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
 
 	msg := types.MsgReplaceMessage{
-		From:                 "not the original sender",
+		From:                 sample.AccAddress(), // different sender than in original message
 		OriginalMessage:      originalMessageBytes,
 		OriginalAttestation:  originalAttestation,
 		NewMessageBody:       []byte("123"),
@@ -334,12 +345,17 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.Nil(t, err)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      8, // not Noble's domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            []byte("sender78901234567890123456789012"),
+		Sender:            senderEncoded,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -357,7 +373,7 @@ func TestReplaceMessageMessageNotOriginallySentFromThisDomain(t *testing.T) {
 	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
 
 	msg := types.MsgReplaceMessage{
-		From:                 string(originalMessage.Sender),
+		From:                 sender,
 		OriginalMessage:      originalMessageBytes,
 		OriginalAttestation:  originalAttestation,
 		NewMessageBody:       []byte("123"),

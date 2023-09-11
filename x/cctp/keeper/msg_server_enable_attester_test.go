@@ -41,15 +41,15 @@ func TestEnableAttesterHappyPath(t *testing.T) {
 
 	message := types.MsgEnableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.EnableAttester(sdk.WrapSDKContext(ctx), &message)
 	require.Nil(t, err)
 
-	actual, found := testkeeper.GetAttester(ctx, string(message.Attester))
+	actual, found := testkeeper.GetAttester(ctx, message.Attester)
 	require.True(t, found)
-	require.Equal(t, message.Attester, []byte(actual.Attester))
+	require.Equal(t, message.Attester, actual.Attester)
 }
 
 func TestEnableAttesterAuthorityNotSet(t *testing.T) {
@@ -58,12 +58,12 @@ func TestEnableAttesterAuthorityNotSet(t *testing.T) {
 
 	message := types.MsgEnableAttester{
 		From:     sample.AccAddress(),
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp attester manager not found in state", func() {
 		_, _ = server.EnableAttester(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp attester manager not found in state")
+	})
 }
 
 func TestEnableAttesterInvalidAuthority(t *testing.T) {
@@ -75,7 +75,7 @@ func TestEnableAttesterInvalidAuthority(t *testing.T) {
 
 	message := types.MsgEnableAttester{
 		From:     sample.AccAddress(),
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.EnableAttester(sdk.WrapSDKContext(ctx), &message)
@@ -95,7 +95,7 @@ func TestEnableAttesterAttesterAlreadyFound(t *testing.T) {
 
 	message := types.MsgEnableAttester{
 		From:     attesterManager,
-		Attester: []byte("attester"),
+		Attester: "attester",
 	}
 
 	_, err := server.EnableAttester(sdk.WrapSDKContext(ctx), &message)

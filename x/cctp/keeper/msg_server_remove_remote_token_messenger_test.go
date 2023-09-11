@@ -70,9 +70,9 @@ func TestRemoveRemoteTokenMessengerAuthorityNotSet(t *testing.T) {
 		DomainId: 0,
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp owner not found in state", func() {
 		_, _ = server.RemoveRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp owner not found in state")
+	})
 }
 
 func TestRemoveRemoteTokenMessengerInvalidAuthority(t *testing.T) {

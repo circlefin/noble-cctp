@@ -87,14 +87,14 @@ message MsgAcceptOwnerResponse {}
 
 message MsgEnableAttester {
   string from = 1;
-  bytes attester = 2;
+  string attester = 2;
 }
 
 message MsgEnableAttesterResponse {}
 
 message MsgDisableAttester {
   string from = 1;
-  bytes attester = 2;
+  string attester = 2;
 }
 
 message MsgDisableAttesterResponse {}

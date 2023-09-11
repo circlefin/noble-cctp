@@ -61,14 +61,16 @@ func CmdListPerMessageBurnLimits() *cobra.Command {
 func CmdShowPerMessageBurnLimit() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "show-per-message-burn-limit",
-		Short: "shows per message burn limit",
-		Args:  cobra.NoArgs,
+		Short: "shows per message burn limit [denom]",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryGetPerMessageBurnLimitRequest{}
+			params := &types.QueryGetPerMessageBurnLimitRequest{
+				Denom: args[0],
+			}
 
 			res, err := queryClient.PerMessageBurnLimit(context.Background(), params)
 			if err != nil {

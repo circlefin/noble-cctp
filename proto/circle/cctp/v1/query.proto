@@ -37,84 +37,84 @@ option go_package = "github.com/circlefin/noble-cctp/x/cctp/types";
 service Query {
   // Parameters queries the parameters of the module.
   //  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-  //    option (google.api.http).get = "/noble/cctp/v1/params";
+  //    option (google.api.http).get = "/circle/cctp/v1/params";
   //  }
 
   rpc Roles(QueryRolesRequest) returns (QueryRolesResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/roles";
+    option (google.api.http).get = "/circle/cctp/v1/roles";
   }
 
   // Queries an Attester by index
   rpc Attester(QueryGetAttesterRequest) returns (QueryGetAttesterResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/attesters/{attester}";
+    option (google.api.http).get = "/circle/cctp/v1/attesters/{attester}";
   }
   // Queries a list of Attesters
   rpc Attesters(QueryAllAttestersRequest) returns (QueryAllAttestersResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/attesters";
+    option (google.api.http).get = "/circle/cctp/v1/attesters";
   }
   // Queries a PerMessageBurnLimit by index
   rpc PerMessageBurnLimit(QueryGetPerMessageBurnLimitRequest) returns (QueryGetPerMessageBurnLimitResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/per_message_burn_limits/{denom}";
+    option (google.api.http).get = "/circle/cctp/v1/per_message_burn_limits/{denom}";
   }
   // Queries a list of PerMessageBurnLimits
   rpc PerMessageBurnLimits(QueryAllPerMessageBurnLimitsRequest) returns (QueryAllPerMessageBurnLimitsResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/per_message_burn_limits";
+    option (google.api.http).get = "/circle/cctp/v1/per_message_burn_limits";
   }
   // Queries BurningAndMintingPaused
   rpc BurningAndMintingPaused(QueryGetBurningAndMintingPausedRequest) returns (QueryGetBurningAndMintingPausedResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/burning_and_minting_paused";
+    option (google.api.http).get = "/circle/cctp/v1/burning_and_minting_paused";
   }
   // Queries SendingAndReceivingPaused
   rpc SendingAndReceivingMessagesPaused(QueryGetSendingAndReceivingMessagesPausedRequest) returns (QueryGetSendingAndReceivingMessagesPausedResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/sending_and_receiving_messages_paused";
+    option (google.api.http).get = "/circle/cctp/v1/sending_and_receiving_messages_paused";
   }
   // Queries the MaxMessageBodySize
   rpc MaxMessageBodySize(QueryGetMaxMessageBodySizeRequest) returns (QueryGetMaxMessageBodySizeResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/max_message_body_size";
+    option (google.api.http).get = "/circle/cctp/v1/max_message_body_size";
   }
   // Queries the NextAvailableNonce
   rpc NextAvailableNonce(QueryGetNextAvailableNonceRequest) returns (QueryGetNextAvailableNonceResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/next_available_nonce";
+    option (google.api.http).get = "/circle/cctp/v1/next_available_nonce";
   }
   // Queries the SignatureThreshold
   rpc SignatureThreshold(QueryGetSignatureThresholdRequest) returns (QueryGetSignatureThresholdResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/signature_threshold";
+    option (google.api.http).get = "/circle/cctp/v1/signature_threshold";
   }
   // Queries a TokenPair by index
   rpc TokenPair(QueryGetTokenPairRequest) returns (QueryGetTokenPairResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/token_pairs/{remote_domain}/{remote_token}";
+    option (google.api.http).get = "/circle/cctp/v1/token_pairs/{remote_domain}/{remote_token}";
   }
   // Queries a list of TokenPair
   rpc TokenPairs(QueryAllTokenPairsRequest) returns (QueryAllTokenPairsResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/token_pairs";
+    option (google.api.http).get = "/circle/cctp/v1/token_pairs";
   }
   // Queries a UsedNonce by index
   rpc UsedNonce(QueryGetUsedNonceRequest) returns (QueryGetUsedNonceResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/used_nonces/{nonce}";
+    option (google.api.http).get = "/circle/cctp/v1/used_nonces/{nonce}";
   }
   // Queries a list of UsedNonces
   rpc UsedNonces(QueryAllUsedNoncesRequest) returns (QueryAllUsedNoncesResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/used_nonces";
+    option (google.api.http).get = "/circle/cctp/v1/used_nonces";
   }
   // Query the RemoteTokenMessenger of a specific domain.
   rpc RemoteTokenMessenger(QueryRemoteTokenMessengerRequest) returns (QueryRemoteTokenMessengerResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/remote_token_messengers/{domain_id}";
+    option (google.api.http).get = "/circle/cctp/v1/remote_token_messengers/{domain_id}";
   }
   // Query all RemoteTokenMessenger's.
   rpc RemoteTokenMessengers(QueryRemoteTokenMessengersRequest) returns (QueryRemoteTokenMessengersResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/remote_token_messengers";
+    option (google.api.http).get = "/circle/cctp/v1/remote_token_messengers";
   }
 
   rpc BurnMessageVersion(QueryBurnMessageVersionRequest) returns (QueryBurnMessageVersionResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/burn_message_version";
+    option (google.api.http).get = "/circle/cctp/v1/burn_message_version";
   }
 
   rpc LocalMessageVersion(QueryLocalMessageVersionRequest) returns (QueryLocalMessageVersionResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/local_message_version";
+    option (google.api.http).get = "/circle/cctp/v1/local_message_version";
   }
 
   rpc LocalDomain(QueryLocalDomainRequest) returns (QueryLocalDomainResponse) {
-    option (google.api.http).get = "/noble/cctp/v1/local_domain";
+    option (google.api.http).get = "/circle/cctp/v1/local_domain";
   }
 }
 

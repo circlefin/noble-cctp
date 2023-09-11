@@ -73,9 +73,9 @@ func TestAddRemoteTokenMessengerAuthorityNotSet(t *testing.T) {
 		Address:  tokenMessenger,
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp owner not found in state", func() {
 		_, _ = server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp owner not found in state")
+	})
 }
 
 func TestAddRemoteTokenMessengerInvalidAuthority(t *testing.T) {

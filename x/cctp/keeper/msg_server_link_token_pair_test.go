@@ -74,9 +74,9 @@ func TestLinkTokenPairAuthorityNotSet(t *testing.T) {
 		LocalToken:   "uusdc",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp token controller not found in state", func() {
 		_, _ = server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp token controller not found in state")
+	})
 }
 
 func TestLinkTokenPairInvalidAuthority(t *testing.T) {

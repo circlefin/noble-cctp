@@ -16,13 +16,13 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 )
 
@@ -32,13 +32,15 @@ func CmdUnlinkTokenPair() *cobra.Command {
 		Short: "Broadcast message unlink-token-pair",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			remoteToken, err := parseAddress(args[1])
+			if err != nil {
+				return fmt.Errorf("invalid remote token: %w", err)
+			}
+
 			remoteDomain, err := strconv.ParseUint(args[2], types.BaseTen, types.DomainBitLen)
 			if err != nil {
 				return err
 			}
-
-			remoteToken := make([]byte, 32)
-			copy(remoteToken[12:], common.FromHex(args[1]))
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

@@ -1553,43 +1553,43 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Roles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "roles"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Roles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "roles"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Attester_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "attesters", "attester"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Attester_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "attesters", "attester"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Attesters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "attesters"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Attesters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "attesters"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_PerMessageBurnLimit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "per_message_burn_limits", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_PerMessageBurnLimit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "per_message_burn_limits", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_PerMessageBurnLimits_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "per_message_burn_limits"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_PerMessageBurnLimits_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "per_message_burn_limits"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_BurningAndMintingPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "burning_and_minting_paused"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurningAndMintingPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "burning_and_minting_paused"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SendingAndReceivingMessagesPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "sending_and_receiving_messages_paused"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SendingAndReceivingMessagesPaused_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "sending_and_receiving_messages_paused"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MaxMessageBodySize_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "max_message_body_size"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_MaxMessageBodySize_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "max_message_body_size"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_NextAvailableNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "next_available_nonce"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_NextAvailableNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "next_available_nonce"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_SignatureThreshold_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "signature_threshold"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_SignatureThreshold_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "signature_threshold"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"noble", "cctp", "v1", "token_pairs", "remote_domain", "remote_token"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TokenPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"circle", "cctp", "v1", "token_pairs", "remote_domain", "remote_token"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_TokenPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "token_pairs"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TokenPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "token_pairs"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_UsedNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "used_nonces", "nonce"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_UsedNonce_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "used_nonces", "nonce"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_UsedNonces_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "used_nonces"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_UsedNonces_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "used_nonces"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_RemoteTokenMessenger_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"noble", "cctp", "v1", "remote_token_messengers", "domain_id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_RemoteTokenMessenger_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"circle", "cctp", "v1", "remote_token_messengers", "domain_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_RemoteTokenMessengers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "remote_token_messengers"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_RemoteTokenMessengers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "remote_token_messengers"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_BurnMessageVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "burn_message_version"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurnMessageVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "burn_message_version"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_LocalMessageVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "local_message_version"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_LocalMessageVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "local_message_version"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_LocalDomain_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"noble", "cctp", "v1", "local_domain"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_LocalDomain_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"circle", "cctp", "v1", "local_domain"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

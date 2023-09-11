@@ -60,9 +60,9 @@ func TestUpdateAuthorityAuthorityNotSet(t *testing.T) {
 		NewOwner: "new address",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp owner not found in state", func() {
 		_, _ = server.UpdateOwner(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp owner not found in state")
+	})
 }
 
 func TestUpdateAuthorityInvalidAuthority(t *testing.T) {

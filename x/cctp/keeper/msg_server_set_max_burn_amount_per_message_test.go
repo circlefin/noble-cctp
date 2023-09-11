@@ -65,9 +65,9 @@ func TestSetMaxBurnAmountPerMessageAuthorityNotSet(t *testing.T) {
 		Amount:     math.NewInt(123),
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp token controller not found in state", func() {
 		_, _ = server.SetMaxBurnAmountPerMessage(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp token controller not found in state")
+	})
 }
 
 func TestSetMaxBurnAmountPerMessageInvalidAuthority(t *testing.T) {

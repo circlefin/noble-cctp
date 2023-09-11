@@ -47,7 +47,10 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 	}
 
 	// validate originalMessage sender is the same as this message sender
-	if msg.From != string(originalMessage.Sender) {
+	messageSender := make([]byte, 32)
+	copy(messageSender[12:], sdk.MustAccAddressFromBech32(msg.From))
+
+	if !bytes.Equal(messageSender, originalMessage.Sender) {
 		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "invalid sender for message")
 	}
 

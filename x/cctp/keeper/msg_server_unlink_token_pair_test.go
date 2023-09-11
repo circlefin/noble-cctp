@@ -48,9 +48,9 @@ func TestUnlinkTokenPairHappyPath(t *testing.T) {
 
 	message := types.MsgUnlinkTokenPair{
 		From:         tokenController,
-		RemoteDomain: 0,
-		RemoteToken:  token,
-		LocalToken:   "uusdc",
+		RemoteDomain: tokenPair.RemoteDomain,
+		RemoteToken:  tokenPair.RemoteToken,
+		LocalToken:   tokenPair.LocalToken,
 	}
 
 	_, err := server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
@@ -71,9 +71,9 @@ func TestUnlinkTokenPairAuthorityNotSet(t *testing.T) {
 		LocalToken:   "uusdc",
 	}
 
-	require.Panics(t, func() {
+	require.PanicsWithValue(t, "cctp token controller not found in state", func() {
 		_, _ = server.UnlinkTokenPair(sdk.WrapSDKContext(ctx), &message)
-	}, "cctp token controller not found in state")
+	})
 }
 
 func TestUnlinkTokenPairInvalidAuthority(t *testing.T) {

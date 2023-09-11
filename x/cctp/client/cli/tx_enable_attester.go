@@ -36,7 +36,7 @@ func CmdEnableAttester() *cobra.Command {
 
 			msg := types.NewMsgEnableAttester(
 				clientCtx.GetFromAddress().String(),
-				[]byte(args[0]),
+				args[0],
 			)
 
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)

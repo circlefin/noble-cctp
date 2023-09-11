@@ -33,7 +33,7 @@ func TestMsgDisableAttester_ValidateBasic(t *testing.T) {
 			name: "invalid from",
 			msg: MsgDisableAttester{
 				From:     "invalid_address",
-				Attester: []byte{1, 2, 3},
+				Attester: "",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		},
@@ -41,7 +41,7 @@ func TestMsgDisableAttester_ValidateBasic(t *testing.T) {
 			name: "valid from",
 			msg: MsgDisableAttester{
 				From:     sample.AccAddress(),
-				Attester: []byte{1, 2, 3},
+				Attester: "1234",
 			},
 		},
 	}
