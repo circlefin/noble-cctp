@@ -26,7 +26,8 @@ import (
 func CmdUpdateTokenController() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-token-controller [address]",
-		Short: "Broadcast message update-token-controller",
+		Short: "Update the Token Controller",
+		Long:  "Broadcast a transaction that updates the token controller to the provided address.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

@@ -28,7 +28,8 @@ import (
 func CmdRemoveRemoteTokenMessenger() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "remove-remote-token-messenger [domain-id]",
-		Short: "Broadcast message remove-remote-token-messenger",
+		Short: "Remove a Remote Token Messenger",
+		Long:  "Broadcast a transaction that removes the remote token messenger of a provided domain.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			domainId, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)

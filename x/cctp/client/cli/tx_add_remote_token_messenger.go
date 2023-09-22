@@ -29,7 +29,8 @@ import (
 func CmdAddRemoteTokenMessenger() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "add-remote-token-messenger [domain-id] [address]",
-		Short: "Broadcast message add-remote-token-messenger",
+		Short: "Add a Remote Token Messenger",
+		Long:  "Broadcast a transaction that adds a remote token messenger for a provided domain.",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			domainId, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)

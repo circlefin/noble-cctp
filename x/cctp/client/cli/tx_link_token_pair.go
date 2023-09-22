@@ -29,7 +29,8 @@ import (
 func CmdLinkTokenPair() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "link-token-pair [local-token] [remote-token] [remote-domain]",
-		Short: "Broadcast message link-token-pair",
+		Short: "Link a Token Pair",
+		Long:  "Broadcast a transaction that links a token pair for a provided domain.",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			remoteToken, err := parseAddress(args[1])

@@ -31,7 +31,8 @@ import (
 func CmdDepositForBurn() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "deposit-for-burn [amount] [destination-domain] [mint-recipient] [burn-token]",
-		Short: "Broadcast message deposit-for-burn",
+		Short: "Deposit For Burn",
+		Long:  "Broadcast a transaction that deposits for burn to a provided domain.",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			amount, ok := math.NewIntFromString(args[0])

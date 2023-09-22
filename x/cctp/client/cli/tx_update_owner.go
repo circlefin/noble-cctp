@@ -26,7 +26,8 @@ import (
 func CmdUpdateOwner() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-owner [address]",
-		Short: "Broadcast message update-owner",
+		Short: "Transfer Ownership",
+		Long:  "Broadcast a transaction that initiates a transfer of ownership to the provided address.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

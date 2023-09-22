@@ -27,8 +27,9 @@ import (
 
 func CmdUpdateSignatureThreshold() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "set-signature-threshold [amount]",
-		Short: "Broadcast message set-signature-threshold",
+		Use:   "update-signature-threshold [amount]",
+		Short: "Update the Signature Threshold",
+		Long:  "Broadcast a transaction that updates the signature threshold to the provided amount.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			amount, err := strconv.ParseUint(args[0], types.BaseTen, types.SignatureThresholdBitLength)

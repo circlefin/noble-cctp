@@ -29,7 +29,8 @@ import (
 func CmdSendMessage() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "send-message [destination-domain] [recipient] [message-body]",
-		Short: "Broadcast message send-message",
+		Short: "Send a Message",
+		Long:  "Broadcast a transaction that sends a message to a provided domain.",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			destinationDomain, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)

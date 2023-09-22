@@ -26,7 +26,8 @@ import (
 func CmdUpdateAttesterManager() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-attester-manager [address]",
-		Short: "Broadcast message update-attester-manager",
+		Short: "Update the Attester Manager",
+		Long:  "Broadcast a transaction that updates the attester manager to the provided address.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

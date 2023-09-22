@@ -28,7 +28,8 @@ import (
 func CmdUpdateMaxMessageBodySize() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-max-message-body-size [size]",
-		Short: "Broadcast message update-max-message-body-size",
+		Short: "Update the Max Message Body Size",
+		Long:  "Broadcast a transaction that updates the max message body size to the provided size.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			size, err := strconv.ParseUint(args[0], types.BaseTen, 64)

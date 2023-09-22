@@ -26,7 +26,8 @@ import (
 func CmdUnpauseBurningAndMinting() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "unpause-burning-and-minting",
-		Short: "Broadcast message unpause-burning-and-minting",
+		Short: "Unpause Burning & Minting",
+		Long:  "Broadcast a transaction that unpauses burning & minting.",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

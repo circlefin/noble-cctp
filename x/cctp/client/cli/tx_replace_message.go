@@ -26,7 +26,8 @@ import (
 func CmdReplaceMessage() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "replace-message [original-message] [original-attestation] [new-message-body] [new-destination-caller]",
-		Short: "Broadcast message replace-message",
+		Short: "Replace a Message",
+		Long:  "Broadcast a transaction that replaces a provided message.",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

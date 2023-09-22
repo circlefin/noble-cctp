@@ -29,7 +29,8 @@ import (
 func CmdSendMessageWithCaller() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "send-message-with-caller [destination-domain] [recipient] [message-body] [destination-caller]",
-		Short: "Broadcast message send-message-with-caller",
+		Short: "Send a Message With Caller",
+		Long:  "Broadcast a transaction that sends a message with a caller to a provided domain.",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			destinationDomain, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)

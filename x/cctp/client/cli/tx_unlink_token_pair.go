@@ -29,7 +29,8 @@ import (
 func CmdUnlinkTokenPair() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "unlink-token-pair [local-token] [remote-token] [remote-domain]",
-		Short: "Broadcast message unlink-token-pair",
+		Short: "Unlink a Token Pair",
+		Long:  "Broadcast a transaction that unlinks a token pair for a provided domain.",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			remoteToken, err := parseAddress(args[1])

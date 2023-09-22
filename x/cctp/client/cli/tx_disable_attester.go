@@ -26,7 +26,8 @@ import (
 func CmdDisableAttester() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "disable-attester [attester]",
-		Short: "Broadcast message disable-attester",
+		Short: "Disable an Attester",
+		Long:  "Broadcast a transaction that disables a provided attester.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

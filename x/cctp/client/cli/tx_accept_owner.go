@@ -26,7 +26,8 @@ import (
 func CmdAcceptOwner() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "accept-owner",
-		Short: "Broadcast message accept-owner",
+		Short: "Accept Ownership",
+		Long:  "Broadcast a transaction that finalizes a transfer of ownership.",
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

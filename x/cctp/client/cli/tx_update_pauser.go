@@ -26,7 +26,8 @@ import (
 func CmdUpdatePauser() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-pauser [address]",
-		Short: "Broadcast message update-pauser",
+		Short: "Update the Pauser",
+		Long:  "Broadcast a transaction that updates the pauser to the provided address.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

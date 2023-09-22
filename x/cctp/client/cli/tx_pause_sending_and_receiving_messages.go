@@ -26,7 +26,8 @@ import (
 func CmdPauseSendingAndReceivingMessages() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "pause-sending-and-receiving-messages",
-		Short: "Broadcast message pause-sending-and-receiving-messages",
+		Short: "Pause Sending & Receiving Messages",
+		Long:  "Broadcast a transaction that pauses sending & receiving messages.",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

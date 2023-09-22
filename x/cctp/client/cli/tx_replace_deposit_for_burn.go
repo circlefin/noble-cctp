@@ -26,7 +26,8 @@ import (
 func CmdReplaceDepositForBurn() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "replace-deposit-for-burn [original-message] [original-attestation] [new-destination-caller] [new-mint-recipient]",
-		Short: "Broadcast message replace-deposit-for-burn",
+		Short: "Replace a Deposit For Burn Message",
+		Long:  "Broadcast a transaction that replaces a deposit for burn message.",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)

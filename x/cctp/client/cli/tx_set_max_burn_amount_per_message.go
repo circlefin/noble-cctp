@@ -25,10 +25,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdSetMaxBurnAmountPerMessage() *cobra.Command {
+func CmdUpdateMaxBurnAmountPerMessage() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "set-max-burn-amount-per-message [local-token] [amount]",
-		Short: "Broadcast message set-max-burn-amount-per-message",
+		Use:   "update-max-burn-amount-per-message [local-token] [amount]",
+		Short: "Update the Max Burn Amount Per Message",
+		Long:  "Broadcast a transaction that updates the max burn amount per message for a provided token.",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			amount, ok := math.NewIntFromString(args[1])

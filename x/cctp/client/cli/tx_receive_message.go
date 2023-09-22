@@ -26,7 +26,8 @@ import (
 func CmdReceiveMessage() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "receive-message [message] [attestation]",
-		Short: "Broadcast message receive-message",
+		Short: "Receive a Message",
+		Long:  "Broadcast a transaction that receives a provided message from another domain.",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx, err := client.GetClientTxContext(cmd)
