@@ -30,8 +30,8 @@ func init() {
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgAcceptOwner{}, "cctp/AcceptOwner", nil)
 	cdc.RegisterConcrete(&MsgAddRemoteTokenMessenger{}, "cctp/AddRemoteTokenMessenger", nil)
-	cdc.RegisterConcrete(&MsgDepositForBurnWithCaller{}, "cctp/DepositForBurnWithCaller", nil)
 	cdc.RegisterConcrete(&MsgDepositForBurn{}, "cctp/DepositForBurn", nil)
+	cdc.RegisterConcrete(&MsgDepositForBurnWithCaller{}, "cctp/DepositForBurnWithCaller", nil)
 	cdc.RegisterConcrete(&MsgDisableAttester{}, "cctp/DisableAttester", nil)
 	cdc.RegisterConcrete(&MsgEnableAttester{}, "cctp/EnableAttester", nil)
 	cdc.RegisterConcrete(&MsgLinkTokenPair{}, "cctp/LinkTokenPair", nil)
@@ -41,12 +41,15 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRemoveRemoteTokenMessenger{}, "cctp/RemoveRemoteTokenMessenger", nil)
 	cdc.RegisterConcrete(&MsgReplaceDepositForBurn{}, "cctp/ReplaceDepositForBurn", nil)
 	cdc.RegisterConcrete(&MsgReplaceMessage{}, "cctp/ReplaceMessage", nil)
-	cdc.RegisterConcrete(&MsgSendMessageWithCaller{}, "cctp/SendMessageWithCaller", nil)
 	cdc.RegisterConcrete(&MsgSendMessage{}, "cctp/SendMessage", nil)
+	cdc.RegisterConcrete(&MsgSendMessageWithCaller{}, "cctp/SendMessageWithCaller", nil)
 	cdc.RegisterConcrete(&MsgUnlinkTokenPair{}, "cctp/UnlinkTokenPair", nil)
 	cdc.RegisterConcrete(&MsgUnpauseBurningAndMinting{}, "cctp/UnpauseBurningAndMinting", nil)
 	cdc.RegisterConcrete(&MsgUnpauseSendingAndReceivingMessages{}, "cctp/UnpauseSendingAndReceivingMessages", nil)
 	cdc.RegisterConcrete(&MsgUpdateOwner{}, "cctp/UpdateOwner", nil)
+	cdc.RegisterConcrete(&MsgUpdateAttesterManager{}, "cctp/UpdateAttesterManager", nil)
+	cdc.RegisterConcrete(&MsgUpdateTokenController{}, "cctp/UpdateTokenController", nil)
+	cdc.RegisterConcrete(&MsgUpdatePauser{}, "cctp/UpdatePauser", nil)
 	cdc.RegisterConcrete(&MsgUpdateMaxMessageBodySize{}, "cctp/UpdateMaxMessageBodySize", nil)
 	cdc.RegisterConcrete(&MsgSetMaxBurnAmountPerMessage{}, "cctp/SetMaxBurnAmountPerMessage", nil)
 	cdc.RegisterConcrete(&MsgUpdateSignatureThreshold{}, "cctp/UpdateSignatureThreshold", nil)
@@ -56,8 +59,8 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAcceptOwner{},
 		&MsgAddRemoteTokenMessenger{},
-		&MsgDepositForBurnWithCaller{},
 		&MsgDepositForBurn{},
+		&MsgDepositForBurnWithCaller{},
 		&MsgDisableAttester{},
 		&MsgEnableAttester{},
 		&MsgLinkTokenPair{},
@@ -67,12 +70,15 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgRemoveRemoteTokenMessenger{},
 		&MsgReplaceDepositForBurn{},
 		&MsgReplaceMessage{},
-		&MsgSendMessageWithCaller{},
 		&MsgSendMessage{},
+		&MsgSendMessageWithCaller{},
 		&MsgUnlinkTokenPair{},
 		&MsgUnpauseBurningAndMinting{},
 		&MsgUnpauseSendingAndReceivingMessages{},
 		&MsgUpdateOwner{},
+		&MsgUpdateAttesterManager{},
+		&MsgUpdateTokenController{},
+		&MsgUpdatePauser{},
 		&MsgUpdateMaxMessageBodySize{},
 		&MsgSetMaxBurnAmountPerMessage{},
 		&MsgUpdateSignatureThreshold{},
