@@ -37,8 +37,8 @@ var zeroByteArray = []byte{ // 32 bytes
 func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMessage) (*types.MsgReceiveMessageResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	paused, found := k.GetSendingAndReceivingMessagesPaused(ctx)
-	if found && paused.Paused {
+	sendingReceivingPaused, found := k.GetSendingAndReceivingMessagesPaused(ctx)
+	if found && sendingReceivingPaused.Paused {
 		return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "sending and receiving messages are paused")
 	}
 
@@ -99,6 +99,11 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 
 	// verify and parse BurnMessage
 	if bytes.Equal(message.Recipient, types.PaddedModuleAddress) { // then mint
+		burningMintingPaused, found := k.GetBurningAndMintingPaused(ctx)
+		if found && burningMintingPaused.Paused {
+			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "cctp burning and minting is paused")
+		}
+
 		burnMessage, err := new(types.BurnMessage).Parse(message.MessageBody)
 		if err != nil {
 			return nil, err

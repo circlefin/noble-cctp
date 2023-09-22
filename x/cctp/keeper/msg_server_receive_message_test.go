@@ -32,6 +32,7 @@ import (
  * Happy path
  * Happy path with destination caller
  * Sending and receiving messages paused
+ * Burning and minting paused
  * No attesters found
  * Signature threshold not found
  * Unable to verify signatures
@@ -43,6 +44,7 @@ import (
  * Invalid message body version
  * Token pair not found
  */
+
 func TestReceiveMessageHappyPath(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
@@ -167,6 +169,70 @@ func TestReceiveMessageSendingAndReceivingMessagesPaused(t *testing.T) {
 	_, err := server.ReceiveMessage(sdk.WrapSDKContext(ctx), &types.MsgReceiveMessage{})
 	require.ErrorIs(t, types.ErrReceiveMessage, err)
 	require.Contains(t, err.Error(), "sending and receiving messages are paused")
+}
+
+func TestReceiveMessageBurningAndMintingPaused(t *testing.T) {
+	// Initialize Keeper
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	// Link Token Pair.
+	tokenPair := types.TokenPair{
+		RemoteDomain: 0,
+		RemoteToken:  token,
+		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
+	}
+	testkeeper.SetTokenPair(ctx, tokenPair)
+
+	// Enable Attesters & Set Signature Threshold.
+	keys := generateNPrivateKeys(2)
+	for _, attester := range getAttestersFromPrivateKeys(keys) {
+		testkeeper.SetAttester(ctx, attester)
+	}
+
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: 2})
+
+	// Create Burn Content & Format Message.
+	burnMessage := types.BurnMessage{
+		Version:       0,
+		BurnToken:     token,
+		MintRecipient: []byte("message sender567890123456789012"),
+		Amount:        math.NewInt(9876),
+		MessageSender: []byte("message sender567890123456789012"),
+	}
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.Nil(t, err)
+
+	message := types.Message{
+		Version:           0,
+		SourceDomain:      0,
+		DestinationDomain: 4,
+		Nonce:             0,
+		Sender:            []byte("01234567890123456789012345678912"),
+		Recipient:         types.PaddedModuleAddress,
+		DestinationCaller: make([]byte, types.DestinationCallerLen),
+		MessageBody:       burnMessageBytes,
+	}
+	messageBytes, err := message.Bytes()
+	require.Nil(t, err)
+
+	// Attest Message.
+	attestation := generateAttestation(messageBytes, keys)
+
+	// Pause Burning & Minting -- this allows us to test for an error.
+	paused := types.BurningAndMintingPaused{Paused: true}
+	testkeeper.SetBurningAndMintingPaused(ctx, paused)
+
+	// Receive Message -- this should fail!
+	_, err = server.ReceiveMessage(sdk.WrapSDKContext(ctx), &types.MsgReceiveMessage{
+		From:        sample.AccAddress(),
+		Message:     messageBytes,
+		Attestation: attestation,
+	})
+
+	require.ErrorIs(t, types.ErrReceiveMessage, err)
+	require.Contains(t, err.Error(), "cctp burning and minting is paused")
 }
 
 func TestReceiveMessageNoAttestersFound(t *testing.T) {
