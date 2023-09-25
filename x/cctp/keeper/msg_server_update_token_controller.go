@@ -32,7 +32,15 @@ func (k msgServer) UpdateTokenController(goCtx context.Context, msg *types.MsgUp
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the authority")
 	}
 
+	currentTokenController := k.GetTokenController(ctx)
 	k.SetTokenController(ctx, msg.NewTokenController)
 
-	return &types.MsgUpdateTokenControllerResponse{}, nil
+	event := types.TokenControllerUpdated{
+		PreviousTokenController: currentTokenController,
+		NewTokenController:      msg.NewTokenController,
+	}
+
+	err := ctx.EventManager().EmitTypedEvent(&event)
+
+	return &types.MsgUpdateTokenControllerResponse{}, err
 }

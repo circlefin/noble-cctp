@@ -62,6 +62,50 @@ message OwnerUpdated {
 }
 
 /**
+ * Emitted when starting the two stage transfer ownership process
+ * @param previousOwner representing the address of the previous owner
+ * @param newOwner representing the address of the new owner
+ */
+ message OwnershipTransferStarted {
+  string previousOwner = 1;
+  string newOwner = 2;
+}
+
+/**
+ * Emitted when pauser address is updated
+ * @param previous_pauser representing the address of the previous pauser
+ * @param new_pauser representing the address of the new pauser
+ */
+message PauserUpdated {
+  string previous_pauser = 1;
+  string new_pauser = 2;
+}
+
+/**
+ * Emitted when attester manager address is updated
+ * @param previous_attester_manager representing the address of the previous
+ * attester manager
+ * @param new_attester_manager representing the address of the new attester
+ * manager
+ */
+message AttesterManagerUpdated {
+  string previous_attester_manager = 1;
+  string new_attester_manager = 2;
+}
+
+/**
+ * Emitted when token controller address is updated
+ * @param previous_token_controller representing the address of the previous
+ * token controller
+ * @param new_token_controller representing the address of the new token
+ * controller
+ */
+message TokenControllerUpdated {
+  string previous_token_controller = 1;
+  string new_token_controller = 2;
+}
+
+/**
  * Emitted when burning and minting tokens is paused
  */
 message BurningAndMintingPausedEvent {}

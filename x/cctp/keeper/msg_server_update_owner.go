@@ -27,12 +27,19 @@ import (
 func (k msgServer) UpdateOwner(goCtx context.Context, msg *types.MsgUpdateOwner) (*types.MsgUpdateOwnerResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	currentOwner := k.GetOwner(ctx)
-	if currentOwner != msg.From {
+	previousOwner := k.GetOwner(ctx)
+	if previousOwner != msg.From {
 		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the authority")
 	}
 
 	k.SetPendingOwner(ctx, msg.NewOwner)
 
-	return &types.MsgUpdateOwnerResponse{}, nil
+	event := types.OwnershipTransferStarted{
+		PreviousOwner: previousOwner,
+		NewOwner:      msg.NewOwner,
+	}
+
+	err := ctx.EventManager().EmitTypedEvent(&event)
+
+	return &types.MsgUpdateOwnerResponse{}, err
 }

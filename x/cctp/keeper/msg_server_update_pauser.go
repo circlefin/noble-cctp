@@ -29,10 +29,17 @@ func (k msgServer) UpdatePauser(goCtx context.Context, msg *types.MsgUpdatePause
 
 	currentOwner := k.GetOwner(ctx)
 	if currentOwner != msg.From {
-		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the authority")
+		return nil, sdkerrors.Wrapf(types.ErrUnauthorized, "this message sender cannot update the pauser")
 	}
 
+	currentPauser := k.GetPauser(ctx)
 	k.SetPauser(ctx, msg.NewPauser)
 
-	return &types.MsgUpdatePauserResponse{}, nil
+	event := types.PauserUpdated{
+		PreviousPauser: currentPauser,
+		NewPauser:      msg.NewPauser,
+	}
+	err := ctx.EventManager().EmitTypedEvent(&event)
+
+	return &types.MsgUpdatePauserResponse{}, err
 }
