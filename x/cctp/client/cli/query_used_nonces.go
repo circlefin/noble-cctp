@@ -61,21 +61,27 @@ func CmdListUsedNonces() *cobra.Command {
 
 func CmdShowUsedNonce() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-used-nonce [nonce]",
+		Use:   "show-used-nonce [source-domain] [nonce]",
 		Short: "shows a used nonce",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			nonce, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)
+			sourceDomain, err := strconv.ParseUint(args[0], types.BaseTen, types.DomainBitLen)
+			if err != nil {
+				return err
+			}
+
+			nonce, err := strconv.ParseUint(args[1], types.BaseTen, types.DomainBitLen)
 			if err != nil {
 				return err
 			}
 
 			params := &types.QueryGetUsedNonceRequest{
-				Nonce: nonce,
+				SourceDomain: uint32(sourceDomain),
+				Nonce:        nonce,
 			}
 
 			res, err := queryClient.UsedNonce(context.Background(), params)

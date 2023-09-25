@@ -90,7 +90,7 @@ service Query {
   }
   // Queries a UsedNonce by index
   rpc UsedNonce(QueryGetUsedNonceRequest) returns (QueryGetUsedNonceResponse) {
-    option (google.api.http).get = "/circle/cctp/v1/used_nonces/{nonce}";
+    option (google.api.http).get = "/circle/cctp/v1/used_nonces/{source_domain}/{nonce}";
   }
   // Queries a list of UsedNonces
   rpc UsedNonces(QueryAllUsedNoncesRequest) returns (QueryAllUsedNoncesResponse) {
