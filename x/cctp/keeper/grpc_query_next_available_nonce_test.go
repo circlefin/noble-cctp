@@ -29,20 +29,26 @@ import (
 )
 
 func TestNextAvailableNonceQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
-	nonce := types.Nonce{Nonce: uint64(123)}
-	keeper.SetNextAvailableNonce(ctx, nonce)
+	Nonce := types.Nonce{Nonce: uint64(123)}
+
 	for _, tc := range []struct {
 		desc     string
+		set      bool
 		request  *types.QueryGetNextAvailableNonceRequest
 		response *types.QueryGetNextAvailableNonceResponse
 		err      error
 	}{
 		{
-			desc:     "First",
+			desc:     "HappyPath",
+			set:      true,
 			request:  &types.QueryGetNextAvailableNonceRequest{},
-			response: &types.QueryGetNextAvailableNonceResponse{Nonce: nonce},
+			response: &types.QueryGetNextAvailableNonceResponse{Nonce: Nonce},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetNextAvailableNonceRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -50,7 +56,15 @@ func TestNextAvailableNonceQuery(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.NextAvailableNonce(wctx, tc.request)
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
+
+			if tc.set {
+				keeper.SetNextAvailableNonce(ctx, Nonce)
+			}
+
+			response, err := keeper.NextAvailableNonce(goCtx, tc.request)
+
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

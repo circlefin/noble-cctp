@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package keeper
+package keeper_test
 
 import (
-	"errors"
+	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 )
 
-type MockRouterKeeper struct{}
-
-func (MockRouterKeeper) HandleMessage(sdk.Context, []byte) error {
-	return nil
-}
-
-type ErrorRouterKeeper struct{}
-
-func (ErrorRouterKeeper) HandleMessage(sdk.Context, []byte) error {
-	return errors.New("intentional error")
+func TestLogger(t *testing.T) {
+	keeper, ctx := keepertest.CctpKeeper(t)
+	_ = keeper.Logger(ctx)
 }

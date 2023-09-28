@@ -24,6 +24,7 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ethereum/go-ethereum/common"
 	fiattokenfactorytypes "github.com/strangelove-ventures/noble/x/fiattokenfactory/types"
 	"github.com/stretchr/testify/require"
 )
@@ -278,4 +279,103 @@ func TestDepositForBurnBurnFails(t *testing.T) {
 	}
 	_, err := server.DepositForBurn(sdk.WrapSDKContext(ctx), &msg)
 	require.Contains(t, err.Error(), "tokens can not be burned")
+}
+
+func TestDepositForBurnTransferFails(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeperWithErrBank(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	remoteTokenMessenger := types.RemoteTokenMessenger{
+		DomainId: 0,
+		Address:  tokenMessenger,
+	}
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
+
+	perMessageBurnLimit := types.PerMessageBurnLimit{
+		Denom:  "uusdc",
+		Amount: math.NewInt(1_000_000),
+	}
+	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
+
+	msg := types.MsgDepositForBurn{
+		From:              sample.AccAddress(),
+		Amount:            math.NewInt(42),
+		DestinationDomain: 0,
+		MintRecipient:     []byte("12345678901234567890123456789012"),
+		BurnToken:         "uusdc",
+	}
+
+	_, err := server.DepositForBurn(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorContains(t, err, "error during transfer: intentional error")
+}
+
+func TestDepositForBurnMessageFormatFails(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	fiatfkeeper, fiatfctx := keepertest.FiatTokenfactoryKeeper(t)
+
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	startingNonce := types.Nonce{Nonce: 1}
+	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
+
+	remoteTokenMessenger := types.RemoteTokenMessenger{
+		DomainId: 0,
+		Address:  tokenMessenger,
+	}
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
+	fiatfkeeper.SetMintingDenom(fiatfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
+
+	perMessageBurnLimit := types.PerMessageBurnLimit{
+		Denom:  "uusdc",
+		Amount: math.NewInt(800000),
+	}
+	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
+
+	msg := types.MsgDepositForBurn{
+		From:              sample.AccAddress(),
+		Amount:            math.NewInt(531),
+		DestinationDomain: 0,
+		MintRecipient:     common.FromHex("0xfCE4cE85e1F74C01e0ecccd8BbC4606f83D3FC90"),
+		BurnToken:         "uUsDC",
+	}
+
+	_, err := server.DepositForBurn(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, err, types.ErrParsingBurnMessage)
+}
+
+func TestDepositForBurnSendMessageFails(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	fiatfkeeper, fiatfctx := keepertest.FiatTokenfactoryKeeper(t)
+
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	startingNonce := types.Nonce{Nonce: 1}
+	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
+
+	remoteTokenMessenger := types.RemoteTokenMessenger{
+		DomainId: 0,
+		Address:  tokenMessenger,
+	}
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
+
+	fiatfkeeper.SetMintingDenom(fiatfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
+
+	perMessageBurnLimit := types.PerMessageBurnLimit{
+		Denom:  "uusdc",
+		Amount: math.NewInt(800000),
+	}
+	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
+
+	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, types.SendingAndReceivingMessagesPaused{Paused: true})
+
+	msg := types.MsgDepositForBurn{
+		From:              sample.AccAddress(),
+		Amount:            math.NewInt(531),
+		DestinationDomain: 0,
+		MintRecipient:     []byte("12345678901234567890123456789012"),
+		BurnToken:         "uUsDC",
+	}
+
+	_, err := server.DepositForBurn(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, types.ErrSendMessage, err)
 }

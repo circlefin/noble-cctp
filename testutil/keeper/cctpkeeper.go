@@ -32,6 +32,97 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 )
 
+func CctpKeeperWithKey(t testing.TB, storeKey sdk.StoreKey) (*keeper.Keeper, sdk.Context) {
+	db := tmdb.NewMemDB()
+	stateStore := store.NewCommitMultiStore(db)
+	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+	require.NoError(t, stateStore.LoadLatestVersion())
+
+	registry := codectypes.NewInterfaceRegistry()
+	cdc := codec.NewProtoCodec(registry)
+
+	paramsSubspace := typesparams.NewSubspace(cdc,
+		codec.NewLegacyAmino(),
+		storeKey,
+		nil,
+		"CctpParams",
+	)
+	k := keeper.NewKeeper(
+		cdc,
+		storeKey,
+		paramsSubspace,
+		MockBankKeeper{},
+		MockFiatTokenfactoryKeeper{},
+		MockRouterKeeper{},
+	)
+
+	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+
+	return k, ctx
+}
+
+func CctpKeeperWithErrBank(t testing.TB) (*keeper.Keeper, sdk.Context) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+
+	db := tmdb.NewMemDB()
+	stateStore := store.NewCommitMultiStore(db)
+	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+	require.NoError(t, stateStore.LoadLatestVersion())
+
+	registry := codectypes.NewInterfaceRegistry()
+	cdc := codec.NewProtoCodec(registry)
+
+	paramsSubspace := typesparams.NewSubspace(cdc,
+		codec.NewLegacyAmino(),
+		storeKey,
+		nil,
+		"CctpParams",
+	)
+	k := keeper.NewKeeper(
+		cdc,
+		storeKey,
+		paramsSubspace,
+		ErrBankKeeper{},
+		MockFiatTokenfactoryKeeper{},
+		MockRouterKeeper{},
+	)
+
+	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+
+	return k, ctx
+}
+
+func CctpKeeperWithErrRouter(t testing.TB) (*keeper.Keeper, sdk.Context) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+
+	db := tmdb.NewMemDB()
+	stateStore := store.NewCommitMultiStore(db)
+	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+	require.NoError(t, stateStore.LoadLatestVersion())
+
+	registry := codectypes.NewInterfaceRegistry()
+	cdc := codec.NewProtoCodec(registry)
+
+	paramsSubspace := typesparams.NewSubspace(cdc,
+		codec.NewLegacyAmino(),
+		storeKey,
+		nil,
+		"CctpParams",
+	)
+	k := keeper.NewKeeper(
+		cdc,
+		storeKey,
+		paramsSubspace,
+		MockBankKeeper{},
+		MockFiatTokenfactoryKeeper{},
+		ErrorRouterKeeper{},
+	)
+
+	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+
+	return k, ctx
+}
+
 func CctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 

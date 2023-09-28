@@ -649,3 +649,232 @@ func TestReceiveMessageTokenPairNotFound(t *testing.T) {
 	require.ErrorIs(t, types.ErrReceiveMessage, err)
 	require.Contains(t, err.Error(), "corresponding noble mint token not found")
 }
+
+func TestReceiveMessageInvalidMessageBody(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	burnMessage := types.BurnMessage{
+		Version:       0,
+		BurnToken:     []byte("02345678901234567890123456789012"),
+		MintRecipient: []byte("message sender567890123456789012"),
+		Amount:        math.NewInt(9876),
+		MessageSender: []byte("message sender567890123456789012"),
+	}
+
+	tokenPair := types.TokenPair{
+		RemoteDomain: 0,
+		RemoteToken:  burnMessage.BurnToken,
+		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
+	}
+	testkeeper.SetTokenPair(ctx, tokenPair)
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.Nil(t, err)
+
+	message := types.Message{
+		Version:           0,
+		SourceDomain:      0,
+		DestinationDomain: 4,
+		Nonce:             0,
+		Sender:            []byte("01234567890123456789012345678912"),
+		Recipient:         types.PaddedModuleAddress,
+		DestinationCaller: make([]byte, types.DestinationCallerLen),
+		MessageBody:       burnMessageBytes[:42], // TODO
+	}
+	messageBytes, err := message.Bytes()
+	require.Nil(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	attestation := generateAttestation(messageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReceiveMessage{
+		From:        "random address",
+		Message:     messageBytes,
+		Attestation: attestation,
+	}
+
+	_, err = server.ReceiveMessage(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, err, types.ErrParsingBurnMessage)
+}
+
+func TestReceiveMessageMintingFails(t *testing.T) {
+	testkeeper, ctx := keepertest.ErrCctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	burnMessage := types.BurnMessage{
+		Version:       0,
+		BurnToken:     []byte("02345678901234567890123456789012"),
+		MintRecipient: []byte("message sender567890123456789012"),
+		Amount:        math.NewInt(9876),
+		MessageSender: []byte("message sender567890123456789012"),
+	}
+
+	tokenPair := types.TokenPair{
+		RemoteDomain: 0,
+		RemoteToken:  burnMessage.BurnToken,
+		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
+	}
+	testkeeper.SetTokenPair(ctx, tokenPair)
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.Nil(t, err)
+
+	message := types.Message{
+		Version:           0,
+		SourceDomain:      0,
+		DestinationDomain: 4,
+		Nonce:             0,
+		Sender:            []byte("01234567890123456789012345678912"),
+		Recipient:         types.PaddedModuleAddress,
+		DestinationCaller: make([]byte, types.DestinationCallerLen),
+		MessageBody:       burnMessageBytes,
+	}
+	messageBytes, err := message.Bytes()
+	require.Nil(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	attestation := generateAttestation(messageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReceiveMessage{
+		From:        "random address",
+		Message:     messageBytes,
+		Attestation: attestation,
+	}
+
+	_, err = server.ReceiveMessage(sdk.WrapSDKContext(ctx), &msg)
+	require.Contains(t, err.Error(), "error calling mint")
+}
+
+func TestReceiveMessageRouterFails(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeperWithErrRouter(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	burnMessage := types.BurnMessage{
+		Version:       0,
+		BurnToken:     []byte("02345678901234567890123456789012"),
+		MintRecipient: []byte("message sender567890123456789012"),
+		Amount:        math.NewInt(9876),
+		MessageSender: []byte("message sender567890123456789012"),
+	}
+
+	tokenPair := types.TokenPair{
+		RemoteDomain: 0,
+		RemoteToken:  burnMessage.BurnToken,
+		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
+	}
+	testkeeper.SetTokenPair(ctx, tokenPair)
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.Nil(t, err)
+
+	message := types.Message{
+		Version:           0,
+		SourceDomain:      0,
+		DestinationDomain: 4,
+		Nonce:             0,
+		Sender:            []byte("01234567890123456789012345678912"),
+		Recipient:         types.PaddedModuleAddress,
+		DestinationCaller: make([]byte, types.DestinationCallerLen),
+		MessageBody:       burnMessageBytes,
+	}
+	messageBytes, err := message.Bytes()
+	require.Nil(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	attestation := generateAttestation(messageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReceiveMessage{
+		From:        "random address",
+		Message:     messageBytes,
+		Attestation: attestation,
+	}
+
+	_, err = server.ReceiveMessage(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, err, types.ErrHandleMessage)
+	require.ErrorContains(t, err, "intentional error")
+}
+
+func TestReceiveMessageInvalidPrefixForMintRecipient(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	burnMessage := types.BurnMessage{
+		Version:       0,
+		BurnToken:     []byte("02345678901234567890123456789012"),
+		MintRecipient: []byte("message sender567890123456789012"),
+		Amount:        math.NewInt(9876),
+		MessageSender: []byte("message sender567890123456789012"),
+	}
+
+	tokenPair := types.TokenPair{
+		RemoteDomain: 0,
+		RemoteToken:  burnMessage.BurnToken,
+		LocalToken:   string(crypto.Keccak256([]byte("uusdc"))),
+	}
+	testkeeper.SetTokenPair(ctx, tokenPair)
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.Nil(t, err)
+
+	message := types.Message{
+		Version:           0,
+		SourceDomain:      0,
+		DestinationDomain: 4,
+		Nonce:             0,
+		Sender:            []byte("01234567890123456789012345678912"),
+		Recipient:         types.PaddedModuleAddress,
+		DestinationCaller: make([]byte, types.DestinationCallerLen),
+		MessageBody:       burnMessageBytes,
+	}
+	messageBytes, err := message.Bytes()
+	require.Nil(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	attestation := generateAttestation(messageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReceiveMessage{
+		From:        "random address",
+		Message:     messageBytes,
+		Attestation: attestation,
+	}
+
+	config := sdk.GetConfig()
+	resetAddrPrefix := config.GetBech32AccountAddrPrefix()
+	resetPubPrefix := config.GetBech32AccountPubPrefix()
+	config.SetBech32PrefixForAccount("", "") // Empty bech32 prefix
+
+	_, err = server.ReceiveMessage(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, err, types.ErrReceiveMessage)
+	require.ErrorContains(t, err, "error bech32 encoding mint recipient address")
+
+	config.SetBech32PrefixForAccount(resetAddrPrefix, resetPubPrefix) // needed for other unit tests to pass
+}

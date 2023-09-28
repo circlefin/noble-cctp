@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package keeper
+package keeper_test
 
 import (
-	"errors"
+	"testing"
 
+	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
-type MockRouterKeeper struct{}
+func TestLocalDomainQuery(t *testing.T) {
+	keeper, ctx := keepertest.CctpKeeper(t)
+	goCtx := sdk.WrapSDKContext(ctx)
 
-func (MockRouterKeeper) HandleMessage(sdk.Context, []byte) error {
-	return nil
-}
+	res, err := keeper.LocalDomain(goCtx, &types.QueryLocalDomainRequest{})
 
-type ErrorRouterKeeper struct{}
-
-func (ErrorRouterKeeper) HandleMessage(sdk.Context, []byte) error {
-	return errors.New("intentional error")
+	require.NoError(t, err)
+	require.Equal(t, res, &types.QueryLocalDomainResponse{DomainId: types.NobleDomainId})
 }

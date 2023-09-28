@@ -18,6 +18,8 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
@@ -136,4 +138,23 @@ func TestAttesterQueryPaginated(t *testing.T) {
 		_, err := keeper.Attesters(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
+	t.Run("PaginateError", func(t *testing.T) {
+		_, err := keeper.Attesters(wctx, request([]byte("key"), 1, 0, true))
+		require.Contains(t, err.Error(), "invalid request, either offset or key is expected, got both")
+	})
+}
+
+func TestAttesterQueryPaginatedInvalidState(t *testing.T) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+	keeper, ctx := keepertest.CctpKeeperWithKey(t, storeKey)
+
+	store := prefix.NewStore(ctx.KVStore(storeKey), types.KeyPrefix(types.AttesterKeyPrefix))
+	store.Set(types.KeyPrefix(string(types.AttesterKey([]byte("attester")))), []byte("invalid"))
+
+	goCtx := sdk.WrapSDKContext(ctx)
+	_, err := keeper.Attesters(goCtx, &types.QueryAllAttestersRequest{})
+
+	parsedErr, ok := status.FromError(err)
+	require.True(t, ok)
+	require.Equal(t, parsedErr.Code(), codes.Internal)
 }

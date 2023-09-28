@@ -16,6 +16,8 @@
 package keeper
 
 import (
+	"errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 )
@@ -47,6 +49,41 @@ func (MockBankKeeper) GetDenomMetaData(ctx sdk.Context, denom string) (banktypes
 }
 
 func (MockBankKeeper) GetBalance(ctx sdk.Context, addr sdk.AccAddress, denom string) sdk.Coin {
+	return sdk.Coin{
+		Denom:  "uusdc",
+		Amount: sdk.Int{},
+	}
+}
+
+//
+
+type ErrBankKeeper struct{}
+
+func (ErrBankKeeper) SpendableCoins(ctx sdk.Context, addr sdk.AccAddress) sdk.Coins {
+	return nil
+}
+
+func (ErrBankKeeper) MintCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error {
+	return nil
+}
+
+func (ErrBankKeeper) BurnCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error {
+	return nil
+}
+
+func (ErrBankKeeper) SendCoinsFromModuleToAccount(ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error {
+	return nil
+}
+
+func (ErrBankKeeper) SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error {
+	return errors.New("intentional error")
+}
+
+func (ErrBankKeeper) GetDenomMetaData(ctx sdk.Context, denom string) (banktypes.Metadata, bool) {
+	return banktypes.Metadata{}, true
+}
+
+func (ErrBankKeeper) GetBalance(ctx sdk.Context, addr sdk.AccAddress, denom string) sdk.Coin {
 	return sdk.Coin{
 		Denom:  "uusdc",
 		Amount: sdk.Int{},

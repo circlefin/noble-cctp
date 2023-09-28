@@ -29,20 +29,26 @@ import (
 )
 
 func TestSignatureThresholdQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
 	SignatureThreshold := types.SignatureThreshold{Amount: 2}
-	keeper.SetSignatureThreshold(ctx, SignatureThreshold)
+
 	for _, tc := range []struct {
 		desc     string
+		set      bool
 		request  *types.QueryGetSignatureThresholdRequest
 		response *types.QueryGetSignatureThresholdResponse
 		err      error
 	}{
 		{
-			desc:     "First",
+			desc:     "HappyPath",
+			set:      true,
 			request:  &types.QueryGetSignatureThresholdRequest{},
 			response: &types.QueryGetSignatureThresholdResponse{Amount: SignatureThreshold},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetSignatureThresholdRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -50,7 +56,15 @@ func TestSignatureThresholdQuery(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.SignatureThreshold(wctx, tc.request)
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
+
+			if tc.set {
+				keeper.SetSignatureThreshold(ctx, SignatureThreshold)
+			}
+
+			response, err := keeper.SignatureThreshold(goCtx, tc.request)
+
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

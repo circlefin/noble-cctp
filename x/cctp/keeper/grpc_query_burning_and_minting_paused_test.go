@@ -29,20 +29,26 @@ import (
 )
 
 func TestBurningAndMintingPausedQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
 	BurningAndMintingPaused := types.BurningAndMintingPaused{Paused: true}
-	keeper.SetBurningAndMintingPaused(ctx, BurningAndMintingPaused)
+
 	for _, tc := range []struct {
 		desc     string
+		set      bool
 		request  *types.QueryGetBurningAndMintingPausedRequest
 		response *types.QueryGetBurningAndMintingPausedResponse
 		err      error
 	}{
 		{
-			desc:     "First",
+			desc:     "HappyPath",
+			set:      true,
 			request:  &types.QueryGetBurningAndMintingPausedRequest{},
 			response: &types.QueryGetBurningAndMintingPausedResponse{Paused: BurningAndMintingPaused},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetBurningAndMintingPausedRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -50,7 +56,15 @@ func TestBurningAndMintingPausedQuery(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.BurningAndMintingPaused(wctx, tc.request)
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
+
+			if tc.set {
+				keeper.SetBurningAndMintingPaused(ctx, BurningAndMintingPaused)
+			}
+
+			response, err := keeper.BurningAndMintingPaused(goCtx, tc.request)
+
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

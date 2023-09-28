@@ -18,6 +18,8 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
+
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -32,34 +34,56 @@ import (
 )
 
 func TestPerMessageBurnLimitQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-
-	perMessageBurnLimit := types.PerMessageBurnLimit{
+	PerMessageBurnLimit := types.PerMessageBurnLimit{
 		Denom:  "uusdc",
-		Amount: math.NewInt(int64(21)),
-	}
-	keeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
-
-	rst, found := keeper.GetPerMessageBurnLimit(ctx, perMessageBurnLimit.Denom)
-	require.True(t, found)
-	require.Equal(t,
-		perMessageBurnLimit,
-		nullify.Fill(&rst),
-	)
-
-	newPerMessageBurnLimit := types.PerMessageBurnLimit{
-		Denom:  "uusdc",
-		Amount: math.NewInt(int64(22)),
+		Amount: math.NewInt(int64(42)),
 	}
 
-	keeper.SetPerMessageBurnLimit(ctx, newPerMessageBurnLimit)
+	for _, tc := range []struct {
+		desc     string
+		set      bool
+		request  *types.QueryGetPerMessageBurnLimitRequest
+		response *types.QueryGetPerMessageBurnLimitResponse
+		err      error
+	}{
+		{
+			desc:     "HappyPath",
+			set:      true,
+			request:  &types.QueryGetPerMessageBurnLimitRequest{Denom: PerMessageBurnLimit.Denom},
+			response: &types.QueryGetPerMessageBurnLimitResponse{BurnLimit: PerMessageBurnLimit},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetPerMessageBurnLimitRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
+		},
+		{
+			desc: "InvalidRequest",
+			err:  status.Error(codes.InvalidArgument, "invalid request"),
+		},
+	} {
+		t.Run(tc.desc, func(t *testing.T) {
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
 
-	rst, found = keeper.GetPerMessageBurnLimit(ctx, newPerMessageBurnLimit.Denom)
-	require.True(t, found)
-	require.Equal(t,
-		newPerMessageBurnLimit,
-		nullify.Fill(&rst),
-	)
+			if tc.set {
+				keeper.SetPerMessageBurnLimit(ctx, PerMessageBurnLimit)
+			}
+
+			response, err := keeper.PerMessageBurnLimit(goCtx, tc.request)
+
+			if tc.err != nil {
+				require.ErrorIs(t, err, tc.err)
+			} else {
+				require.NoError(t, err)
+				require.Equal(t,
+					nullify.Fill(tc.response),
+					nullify.Fill(response),
+				)
+			}
+		})
+	}
 }
 
 func TestPerMessageBurnLimitQueryPaginated(t *testing.T) {
@@ -115,7 +139,26 @@ func TestPerMessageBurnLimitQueryPaginated(t *testing.T) {
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {
-		_, err := keeper.Attesters(wctx, nil)
+		_, err := keeper.PerMessageBurnLimits(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
+	t.Run("PaginateError", func(t *testing.T) {
+		_, err := keeper.PerMessageBurnLimits(wctx, request([]byte("key"), 1, 0, true))
+		require.Contains(t, err.Error(), "invalid request, either offset or key is expected, got both")
+	})
+}
+
+func TestPerMessageBurnLimitQueryPaginatedInvalidState(t *testing.T) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+	keeper, ctx := keepertest.CctpKeeperWithKey(t, storeKey)
+
+	store := prefix.NewStore(ctx.KVStore(storeKey), types.KeyPrefix(types.PerMessageBurnLimitKeyPrefix))
+	store.Set(types.KeyPrefix(string(types.PerMessageBurnLimitKey("denom"))), []byte("invalid"))
+
+	goCtx := sdk.WrapSDKContext(ctx)
+	_, err := keeper.PerMessageBurnLimits(goCtx, &types.QueryAllPerMessageBurnLimitsRequest{})
+
+	parsedErr, ok := status.FromError(err)
+	require.True(t, ok)
+	require.Equal(t, parsedErr.Code(), codes.Internal)
 }

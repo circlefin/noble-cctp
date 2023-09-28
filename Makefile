@@ -22,7 +22,7 @@ lint:
 ###                                Protobuf                                 ###
 ###############################################################################
 
-BUF_VERSION=1.23.1
+BUF_VERSION=1.26.1
 
 proto-all: proto-format proto-lint proto-gen
 

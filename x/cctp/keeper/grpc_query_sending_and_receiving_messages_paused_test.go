@@ -29,20 +29,26 @@ import (
 )
 
 func TestSendingAndReceivingMessagesPausedQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
 	SendingAndReceivingMessagesPaused := types.SendingAndReceivingMessagesPaused{Paused: true}
-	keeper.SetSendingAndReceivingMessagesPaused(ctx, SendingAndReceivingMessagesPaused)
+
 	for _, tc := range []struct {
 		desc     string
+		set      bool
 		request  *types.QueryGetSendingAndReceivingMessagesPausedRequest
 		response *types.QueryGetSendingAndReceivingMessagesPausedResponse
 		err      error
 	}{
 		{
-			desc:     "First",
+			desc:     "HappyPath",
+			set:      true,
 			request:  &types.QueryGetSendingAndReceivingMessagesPausedRequest{},
 			response: &types.QueryGetSendingAndReceivingMessagesPausedResponse{Paused: SendingAndReceivingMessagesPaused},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetSendingAndReceivingMessagesPausedRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -50,7 +56,15 @@ func TestSendingAndReceivingMessagesPausedQuery(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.SendingAndReceivingMessagesPaused(wctx, tc.request)
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
+
+			if tc.set {
+				keeper.SetSendingAndReceivingMessagesPaused(ctx, SendingAndReceivingMessagesPaused)
+			}
+
+			response, err := keeper.SendingAndReceivingMessagesPaused(goCtx, tc.request)
+
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

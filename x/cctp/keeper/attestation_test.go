@@ -111,6 +111,38 @@ func TestVerifyAttestationSignaturesDupe(t *testing.T) {
 	require.Contains(t, err.Error(), "invalid signature order or dupe")
 }
 
+func TestVerifyAttestationSignaturesLegacySignature(t *testing.T) {
+	message := []byte("")
+
+	keys := generateNPrivateKeys(2)
+	attesters := getAttestersFromPrivateKeys(keys)
+	attestation := generateAttestation(message, keys)
+
+	// Because we use updated signers, we need to mock a legacy signature by
+	// manually changing the v-value.
+	for i := 0; i < len(keys); i++ {
+		signature := attestation[i*types.SignatureLength : (i*types.SignatureLength)+types.SignatureLength]
+		signature[len(signature)-1] += 27
+	}
+
+	err := keeper.VerifyAttestationSignatures(message, attestation, attesters, uint32(len(keys)))
+	require.NoError(t, err)
+}
+
+func TestVerifyAttestationSignaturesInvalidAttester(t *testing.T) {
+	message := []byte("")
+
+	keys := generateNPrivateKeys(3)
+	attesters := getAttestersFromPrivateKeys(keys)
+	attestation := generateAttestation(message, keys)
+
+	attestation = append(attestation[0:types.SignatureLength], attestation[2*types.SignatureLength:]...)
+
+	err := keeper.VerifyAttestationSignatures(message, attestation, attesters[:1], 2)
+	require.ErrorIs(t, types.ErrSignatureVerification, err)
+	require.Contains(t, err.Error(), "Invalid signature: not an attester")
+}
+
 func generateNPrivateKeys(n int) []*ecdsa.PrivateKey {
 	result := make([]*ecdsa.PrivateKey, n)
 	for i := 0; i < n; i++ {

@@ -264,7 +264,7 @@ func TestReplaceDepositForBurnInvalidSender(t *testing.T) {
 	require.Contains(t, err.Error(), "invalid sender for message")
 }
 
-func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
+func TestReplaceDepositForBurnEmptyNewMintRecipient(t *testing.T) {
 	testkeeper, ctx := keepertest.CctpKeeper(t)
 	server := keeper.NewMsgServerImpl(testkeeper)
 
@@ -321,4 +321,122 @@ func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
 	_, err = server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &msg)
 	require.ErrorIs(t, types.ErrDepositForBurn, err)
 	require.Contains(t, err.Error(), "mint recipient must be nonzero")
+}
+
+func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
+	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
+
+	burnMessage := types.BurnMessage{
+		Version:       1,
+		BurnToken:     make([]byte, 32),
+		MintRecipient: make([]byte, 32),
+		Amount:        math.NewInt(123456),
+		MessageSender: make([]byte, 32),
+	}
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.NoError(t, err)
+
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
+	originalMessage := types.Message{
+		Version:           1,
+		SourceDomain:      4, // Noble domain id
+		DestinationDomain: 3,
+		Nonce:             2,
+		Sender:            senderEncoded,
+		Recipient:         []byte("recipient01234567890123456789012"),
+		DestinationCaller: []byte("destination caller90123456789012"),
+		MessageBody:       burnMessageBytes,
+	}
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	originalAttestation := generateAttestation(originalMessageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReplaceDepositForBurn{
+		From:                 sender,
+		OriginalMessage:      originalMessageBytes,
+		OriginalAttestation:  originalAttestation,
+		NewDestinationCaller: []byte("new destination caller3456789012"),
+		NewMintRecipient:     []byte("INVALID RECIPIENT"),
+	}
+
+	_, err = server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, types.ErrParsingBurnMessage, err)
+	require.Contains(t, err.Error(), "error parsing burn message")
+}
+
+func TestReplaceDepositForBurnIncorrectSourceID(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	paused := types.BurningAndMintingPaused{Paused: false}
+	testkeeper.SetBurningAndMintingPaused(ctx, paused)
+
+	burnMessage := types.BurnMessage{
+		Version:       1,
+		BurnToken:     make([]byte, 32),
+		MintRecipient: make([]byte, 32),
+		Amount:        math.NewInt(123456),
+		MessageSender: make([]byte, 32),
+	}
+
+	burnMessageBytes, err := burnMessage.Bytes()
+	require.NoError(t, err)
+
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
+	originalMessage := types.Message{
+		Version:           1,
+		SourceDomain:      9000, // NOT THE NOBLE DOMAIN ID
+		DestinationDomain: 3,
+		Nonce:             2,
+		Sender:            senderEncoded,
+		Recipient:         []byte("recipient01234567890123456789012"),
+		DestinationCaller: []byte("destination caller90123456789012"),
+		MessageBody:       burnMessageBytes,
+	}
+	originalMessageBytes, err := originalMessage.Bytes()
+	require.NoError(t, err)
+
+	// generate attestation, set attesters, signature threshold
+	signatureThreshold := uint32(2)
+	privKeys := generateNPrivateKeys(int(signatureThreshold))
+	attesters := getAttestersFromPrivateKeys(privKeys)
+	originalAttestation := generateAttestation(originalMessageBytes, privKeys)
+	for _, attester := range attesters {
+		testkeeper.SetAttester(ctx, attester)
+	}
+	testkeeper.SetSignatureThreshold(ctx, types.SignatureThreshold{Amount: signatureThreshold})
+
+	msg := types.MsgReplaceDepositForBurn{
+		From:                 sender,
+		OriginalMessage:      originalMessageBytes,
+		OriginalAttestation:  originalAttestation,
+		NewDestinationCaller: []byte("new destination caller3456789012"),
+		NewMintRecipient:     []byte("new mint recipient90123456789012"),
+	}
+
+	_, err = server.ReplaceDepositForBurn(sdk.WrapSDKContext(ctx), &msg)
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "message not originally sent from this domain")
 }

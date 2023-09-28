@@ -18,6 +18,8 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
@@ -139,4 +141,23 @@ func TestTokenPairQueryPaginated(t *testing.T) {
 		_, err := keeper.TokenPairs(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
+	t.Run("PaginateError", func(t *testing.T) {
+		_, err := keeper.TokenPairs(wctx, request([]byte("key"), 1, 0, true))
+		require.Contains(t, err.Error(), "invalid request, either offset or key is expected, got both")
+	})
+}
+
+func TestTokenPairQueryPaginatedInvalidState(t *testing.T) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+	keeper, ctx := keepertest.CctpKeeperWithKey(t, storeKey)
+
+	store := prefix.NewStore(ctx.KVStore(storeKey), types.KeyPrefix(types.TokenPairKeyPrefix))
+	store.Set(types.TokenPairKey(0, []byte("remoteToken")), []byte("invalid"))
+
+	goCtx := sdk.WrapSDKContext(ctx)
+	_, err := keeper.TokenPairs(goCtx, &types.QueryAllTokenPairsRequest{})
+
+	parsedErr, ok := status.FromError(err)
+	require.True(t, ok)
+	require.Equal(t, parsedErr.Code(), codes.Internal)
 }

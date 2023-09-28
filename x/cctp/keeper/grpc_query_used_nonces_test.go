@@ -18,6 +18,8 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/nullify"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
@@ -138,4 +140,23 @@ func TestUsedNonceQueryPaginated(t *testing.T) {
 		_, err := keeper.UsedNonces(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
+	t.Run("PaginateError", func(t *testing.T) {
+		_, err := keeper.UsedNonces(wctx, request([]byte("key"), 1, 0, true))
+		require.Contains(t, err.Error(), "invalid request, either offset or key is expected, got both")
+	})
+}
+
+func TestUsedNonceQueryPaginatedInvalidState(t *testing.T) {
+	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+	keeper, ctx := keepertest.CctpKeeperWithKey(t, storeKey)
+
+	store := prefix.NewStore(ctx.KVStore(storeKey), types.KeyPrefix(types.UsedNonceKeyPrefix))
+	store.Set(types.UsedNonceKey(0, 0), []byte("invalid"))
+
+	goCtx := sdk.WrapSDKContext(ctx)
+	_, err := keeper.UsedNonces(goCtx, &types.QueryAllUsedNoncesRequest{})
+
+	parsedErr, ok := status.FromError(err)
+	require.True(t, ok)
+	require.Equal(t, parsedErr.Code(), codes.Internal)
 }

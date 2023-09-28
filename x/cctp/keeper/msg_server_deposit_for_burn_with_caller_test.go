@@ -272,3 +272,41 @@ func TestDepositForBurnWithCallerAmountIsGreaterThanPerMessageBurnLimit(t *testi
 	require.ErrorIs(t, types.ErrBurn, err)
 	require.Contains(t, err.Error(), "cannot burn more than the maximum per message burn limit")
 }
+
+func TestDepositForBurnWithCallerSendMessageFails(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	fiatfkeeper, fiatfctx := keepertest.FiatTokenfactoryKeeper(t)
+
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	startingNonce := types.Nonce{Nonce: 1}
+	testkeeper.SetNextAvailableNonce(ctx, startingNonce)
+
+	remoteTokenMessenger := types.RemoteTokenMessenger{
+		DomainId: 0,
+		Address:  tokenMessenger,
+	}
+	testkeeper.SetRemoteTokenMessenger(ctx, remoteTokenMessenger)
+
+	fiatfkeeper.SetMintingDenom(fiatfctx, fiattokenfactorytypes.MintingDenom{Denom: "uUsDC"})
+
+	perMessageBurnLimit := types.PerMessageBurnLimit{
+		Denom:  "uusdc",
+		Amount: math.NewInt(800000),
+	}
+	testkeeper.SetPerMessageBurnLimit(ctx, perMessageBurnLimit)
+
+	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, types.SendingAndReceivingMessagesPaused{Paused: true})
+
+	msg := types.MsgDepositForBurnWithCaller{
+		From:              sample.AccAddress(),
+		Amount:            math.NewInt(531),
+		DestinationDomain: 0,
+		MintRecipient:     []byte("12345678901234567890123456789012"),
+		BurnToken:         "uUsDC",
+		DestinationCaller: []byte("12345678901234567890123456789012"),
+	}
+
+	_, err := server.DepositForBurnWithCaller(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, types.ErrSendMessage, err)
+}

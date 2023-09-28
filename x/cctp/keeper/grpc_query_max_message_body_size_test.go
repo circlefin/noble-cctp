@@ -29,20 +29,26 @@ import (
 )
 
 func TestMaxMessageBodySizeQuery(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
 	MaxMessageBodySize := types.MaxMessageBodySize{Amount: 21}
-	keeper.SetMaxMessageBodySize(ctx, MaxMessageBodySize)
+
 	for _, tc := range []struct {
 		desc     string
+		set      bool
 		request  *types.QueryGetMaxMessageBodySizeRequest
 		response *types.QueryGetMaxMessageBodySizeResponse
 		err      error
 	}{
 		{
-			desc:     "First",
+			desc:     "HappyPath",
+			set:      true,
 			request:  &types.QueryGetMaxMessageBodySizeRequest{},
 			response: &types.QueryGetMaxMessageBodySizeResponse{Amount: MaxMessageBodySize},
+		},
+		{
+			desc:    "NotFound",
+			set:     false,
+			request: &types.QueryGetMaxMessageBodySizeRequest{},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -50,7 +56,15 @@ func TestMaxMessageBodySizeQuery(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.MaxMessageBodySize(wctx, tc.request)
+			keeper, ctx := keepertest.CctpKeeper(t)
+			goCtx := sdk.WrapSDKContext(ctx)
+
+			if tc.set {
+				keeper.SetMaxMessageBodySize(ctx, MaxMessageBodySize)
+			}
+
+			response, err := keeper.MaxMessageBodySize(goCtx, tc.request)
+
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

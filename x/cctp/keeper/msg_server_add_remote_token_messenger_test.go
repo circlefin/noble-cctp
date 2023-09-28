@@ -18,6 +18,8 @@ package keeper_test
 import (
 	"testing"
 
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
 	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
@@ -118,4 +120,21 @@ func TestAddRemoteTokenMessengerTokenMessengerAlreadyFound(t *testing.T) {
 	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
 	require.ErrorIs(t, types.ErrRemoteTokenMessengerAlreadyFound, err)
 	require.Contains(t, err.Error(), "a remote token messenger for this domain already exists")
+}
+
+func TestAddRemoteTokenMessengerInvalidAddress(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	owner := sample.AccAddress()
+	testkeeper.SetOwner(ctx, owner)
+
+	message := types.MsgAddRemoteTokenMessenger{
+		From:     owner,
+		DomainId: 0,
+		Address:  common.FromHex("0xD0C3da58f55358142b8d3e06C1C30c5C6114EFE8"),
+	}
+
+	_, err := server.AddRemoteTokenMessenger(sdk.WrapSDKContext(ctx), &message)
+	require.ErrorIs(t, err, sdkerrors.ErrInvalidAddress)
 }

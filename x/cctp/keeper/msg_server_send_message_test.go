@@ -23,6 +23,7 @@ import (
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )
 
@@ -123,4 +124,17 @@ func TestSendMessageRecipientEmpty(t *testing.T) {
 	_, err := server.SendMessage(sdk.WrapSDKContext(ctx), &msg)
 	require.ErrorIs(t, types.ErrSendMessage, err)
 	require.Contains(t, err.Error(), "recipient must not be nonzero")
+}
+
+func TestSendMessageRecipientInvalid(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper(t)
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	msg := types.MsgSendMessage{
+		From:      sample.AccAddress(),
+		Recipient: common.FromHex("0xfCE4cE85e1F74C01e0ecccd8BbC4606f83D3FC90"),
+	}
+
+	_, err := server.SendMessage(sdk.WrapSDKContext(ctx), &msg)
+	require.ErrorIs(t, err, types.ErrParsingMessage)
 }
