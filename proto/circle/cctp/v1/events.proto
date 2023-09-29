@@ -67,8 +67,8 @@ message OwnerUpdated {
  * @param newOwner representing the address of the new owner
  */
 message OwnershipTransferStarted {
-  string previousOwner = 1;
-  string newOwner = 2;
+  string previous_owner = 1;
+  string new_owner = 2;
 }
 
 /**
@@ -243,4 +243,18 @@ message RemoteTokenMessengerAdded {
 message RemoteTokenMessengerRemoved {
   uint32 domain = 1;
   bytes remote_token_messenger = 2;
+}
+
+/**
+ * Emitted when max burn amount per message is updated
+ * @param local_token
+ * @param old_amount old max burn amount
+ * @param new_amount new max burn amount
+ */
+message SetBurnLimitPerMessage {
+  string token = 1;
+  string burn_limit_per_message = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
 }

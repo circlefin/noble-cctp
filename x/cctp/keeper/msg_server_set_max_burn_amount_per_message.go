@@ -39,7 +39,11 @@ func (k msgServer) SetMaxBurnAmountPerMessage(goCtx context.Context, msg *types.
 	}
 	k.SetPerMessageBurnLimit(ctx, newPerMessageBurnLimit)
 
-	err := ctx.EventManager().EmitTypedEvent(msg)
+	event := types.SetBurnLimitPerMessage{
+		Token:               strings.ToLower(msg.LocalToken),
+		BurnLimitPerMessage: msg.Amount,
+	}
+	err := ctx.EventManager().EmitTypedEvent(&event)
 
 	return &types.MsgSetMaxBurnAmountPerMessageResponse{}, err
 }
