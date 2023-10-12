@@ -34,7 +34,6 @@ type (
 		paramstore       paramtypes.Subspace
 		bank             types.BankKeeper
 		fiattokenfactory types.FiatTokenfactoryKeeper
-		router           types.RouterKeeper
 	}
 )
 
@@ -44,7 +43,6 @@ func NewKeeper(
 	ps paramtypes.Subspace,
 	bank types.BankKeeper,
 	fiattokenfactory types.FiatTokenfactoryKeeper,
-	router types.RouterKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {
@@ -57,7 +55,6 @@ func NewKeeper(
 		paramstore:       ps,
 		bank:             bank,
 		fiattokenfactory: fiattokenfactory,
-		router:           router,
 	}
 }
 

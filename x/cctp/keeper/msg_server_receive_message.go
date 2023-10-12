@@ -150,11 +150,6 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 	}
 
-	// on failure to decode, nil err from handleMessage
-	if err := k.router.HandleMessage(ctx, msg.Message); err != nil {
-		return nil, sdkerrors.Wrapf(types.ErrHandleMessage, "error in handleMessage: %s", err)
-	}
-
 	event := types.MessageReceived{
 		Caller:       msg.From,
 		SourceDomain: message.SourceDomain,

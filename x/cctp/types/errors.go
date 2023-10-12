@@ -45,7 +45,6 @@ var (
 	ErrInvalidAmount                    = sdkerrors.Register(ModuleName, 49, "invalid amount")
 	ErrNextAvailableNonce               = sdkerrors.Register(ModuleName, 50, "error while retrieving next available nonce")
 	ErrRemoteTokenMessengerAlreadyFound = sdkerrors.Register(ModuleName, 51, "this remote token messenger mapping already exists")
-	ErrHandleMessage                    = sdkerrors.Register(ModuleName, 52, "error during handle message")
 	ErrRemoteTokenMessengerNotFound     = sdkerrors.Register(ModuleName, 53, "remote token messenger not found")
 	ErrParsingMessage                   = sdkerrors.Register(ModuleName, 54, "error while parsing message into bytes")
 	ErrParsingBurnMessage               = sdkerrors.Register(ModuleName, 55, "error while parsing burn message into bytes")

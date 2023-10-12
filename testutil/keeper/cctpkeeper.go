@@ -53,7 +53,6 @@ func CctpKeeperWithKey(t testing.TB, storeKey sdk.StoreKey) (*keeper.Keeper, sdk
 		paramsSubspace,
 		MockBankKeeper{},
 		MockFiatTokenfactoryKeeper{},
-		MockRouterKeeper{},
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
@@ -84,38 +83,6 @@ func CctpKeeperWithErrBank(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		paramsSubspace,
 		ErrBankKeeper{},
 		MockFiatTokenfactoryKeeper{},
-		MockRouterKeeper{},
-	)
-
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
-
-	return k, ctx
-}
-
-func CctpKeeperWithErrRouter(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	require.NoError(t, stateStore.LoadLatestVersion())
-
-	registry := codectypes.NewInterfaceRegistry()
-	cdc := codec.NewProtoCodec(registry)
-
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		codec.NewLegacyAmino(),
-		storeKey,
-		nil,
-		"CctpParams",
-	)
-	k := keeper.NewKeeper(
-		cdc,
-		storeKey,
-		paramsSubspace,
-		MockBankKeeper{},
-		MockFiatTokenfactoryKeeper{},
-		ErrorRouterKeeper{},
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
@@ -146,7 +113,6 @@ func CctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		paramsSubspace,
 		MockBankKeeper{},
 		MockFiatTokenfactoryKeeper{},
-		MockRouterKeeper{},
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
@@ -188,7 +154,6 @@ func ErrCctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		paramsSubspace,
 		MockBankKeeper{},
 		MockErrFiatTokenfactoryKeeper{},
-		MockRouterKeeper{},
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

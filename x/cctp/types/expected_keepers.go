@@ -37,7 +37,3 @@ type FiatTokenfactoryKeeper interface {
 	Mint(ctx sdk.Context, msg *fiattokenfactorytypes.MsgMint) (*fiattokenfactorytypes.MsgMintResponse, error)
 	GetMintingDenom(ctx sdk.Context) (val fiattokenfactorytypes.MintingDenom)
 }
-
-type RouterKeeper interface {
-	HandleMessage(ctx sdk.Context, msg []byte) error
-}
