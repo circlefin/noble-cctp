@@ -50,7 +50,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 	messageSender := make([]byte, 32)
 	copy(messageSender[12:], sdk.MustAccAddressFromBech32(msg.From))
 
-	if !bytes.Equal(messageSender, originalMessage.Sender) {
+	if !bytes.Equal(messageSender, burnMessage.MessageSender) {
 		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "invalid sender for message")
 	}
 
@@ -74,7 +74,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 	}
 
 	replaceMessage := types.MsgReplaceMessage{
-		From:                 msg.From,
+		From:                 types.ModuleAddress.String(),
 		OriginalMessage:      msg.OriginalMessage,
 		OriginalAttestation:  msg.OriginalAttestation,
 		NewMessageBody:       newMessageBodyBytes,

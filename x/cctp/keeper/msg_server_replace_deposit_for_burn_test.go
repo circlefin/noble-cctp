@@ -43,28 +43,28 @@ func TestReplaceDepositForBurnHappyPath(t *testing.T) {
 	paused := types.BurningAndMintingPaused{Paused: false}
 	testkeeper.SetBurningAndMintingPaused(ctx, paused)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	burnMessage := types.BurnMessage{
 		Version:       1,
 		BurnToken:     make([]byte, 32),
 		MintRecipient: make([]byte, 32),
 		Amount:        math.NewInt(123456),
-		MessageSender: make([]byte, 32),
+		MessageSender: senderEncoded,
 	}
 
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.NoError(t, err)
-
-	// we encode the message sender when sending messages, so we must use an encoded message in the original message
-	sender := sample.AccAddress()
-	senderEncoded := make([]byte, 32)
-	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
 
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      4, // Noble domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            senderEncoded,
+		Sender:            types.PaddedModuleAddress,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -271,28 +271,28 @@ func TestReplaceDepositForBurnEmptyNewMintRecipient(t *testing.T) {
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	burnMessage := types.BurnMessage{
 		Version:       1,
 		BurnToken:     make([]byte, 32),
 		MintRecipient: make([]byte, 32),
 		Amount:        math.NewInt(123456),
-		MessageSender: make([]byte, 32),
+		MessageSender: senderEncoded,
 	}
 
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.NoError(t, err)
-
-	// we encode the message sender when sending messages, so we must use an encoded message in the original message
-	sender := sample.AccAddress()
-	senderEncoded := make([]byte, 32)
-	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
 
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      4, // Noble domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            senderEncoded,
+		Sender:            types.PaddedModuleAddress,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -330,28 +330,28 @@ func TestReplaceDepositForBurnInvalidNewMintRecipient(t *testing.T) {
 	paused := types.SendingAndReceivingMessagesPaused{Paused: false}
 	testkeeper.SetSendingAndReceivingMessagesPaused(ctx, paused)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	burnMessage := types.BurnMessage{
 		Version:       1,
 		BurnToken:     make([]byte, 32),
 		MintRecipient: make([]byte, 32),
 		Amount:        math.NewInt(123456),
-		MessageSender: make([]byte, 32),
+		MessageSender: senderEncoded,
 	}
 
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.NoError(t, err)
-
-	// we encode the message sender when sending messages, so we must use an encoded message in the original message
-	sender := sample.AccAddress()
-	senderEncoded := make([]byte, 32)
-	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
 
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      4, // Noble domain id
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            senderEncoded,
+		Sender:            types.PaddedModuleAddress,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
@@ -389,28 +389,28 @@ func TestReplaceDepositForBurnIncorrectSourceID(t *testing.T) {
 	paused := types.BurningAndMintingPaused{Paused: false}
 	testkeeper.SetBurningAndMintingPaused(ctx, paused)
 
+	// we encode the message sender when sending messages, so we must use an encoded message in the original message
+	sender := sample.AccAddress()
+	senderEncoded := make([]byte, 32)
+	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
+
 	burnMessage := types.BurnMessage{
 		Version:       1,
 		BurnToken:     make([]byte, 32),
 		MintRecipient: make([]byte, 32),
 		Amount:        math.NewInt(123456),
-		MessageSender: make([]byte, 32),
+		MessageSender: senderEncoded,
 	}
 
 	burnMessageBytes, err := burnMessage.Bytes()
 	require.NoError(t, err)
-
-	// we encode the message sender when sending messages, so we must use an encoded message in the original message
-	sender := sample.AccAddress()
-	senderEncoded := make([]byte, 32)
-	copy(senderEncoded[12:], sdk.MustAccAddressFromBech32(sender))
 
 	originalMessage := types.Message{
 		Version:           1,
 		SourceDomain:      9000, // NOT THE NOBLE DOMAIN ID
 		DestinationDomain: 3,
 		Nonce:             2,
-		Sender:            senderEncoded,
+		Sender:            types.PaddedModuleAddress,
 		Recipient:         []byte("recipient01234567890123456789012"),
 		DestinationCaller: []byte("destination caller90123456789012"),
 		MessageBody:       burnMessageBytes,
