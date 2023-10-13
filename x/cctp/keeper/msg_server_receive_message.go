@@ -140,7 +140,7 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 		}
 
 		mintEvent := types.MintAndWithdraw{
-			MintRecipient: string(burnMessage.MintRecipient),
+			MintRecipient: burnMessage.MintRecipient,
 			Amount:        burnMessage.Amount,
 			MintToken:     strings.ToLower(tokenPair.LocalToken),
 		}
