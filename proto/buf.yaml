@@ -1,6 +1,6 @@
 version: v1
 deps:
-  - buf.build/noble/cosmos-sdk:v0.45.15
+  - buf.build/noble/cosmos-sdk:v0.45.16
 breaking:
   use:
     - FILE

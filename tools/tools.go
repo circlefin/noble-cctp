@@ -6,7 +6,6 @@
 package tools
 
 import (
-	_ "github.com/btcsuite/btcd/chaincfg/chainhash"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "mvdan.cc/gofumpt"
 )
