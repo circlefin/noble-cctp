@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "CCTP Quickstart - ETH to Noble",
+  "main": "index.js",
+  "scripts": {
+    "bridge-eth-to-noble": "node index.js"
+  },
+  "author": "",
+  "dependencies": {
+    "bech32": "^2.0.0",
+    "dotenv": "^16.0.3",
+    "web3": "^4.1.2"
+  }
+}
