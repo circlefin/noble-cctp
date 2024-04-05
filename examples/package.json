@@ -1,11 +1,11 @@
 {
   "name": "example",
   "version": "1.0.0",
-  "description": "CCTP Quickstart - Noble to ETH",
+  "description": "CCTP Quickstart - Noble <-> ETH",
   "main": "index.ts",
   "scripts": {
-    "bridge-noble-to-eth": "ts-node index.ts",
-    "codegen": "ts-proto.sh"
+    "depositForBurn": "ts-node depositForBurn.ts",
+    "receiveMessage": "ts-node receiveMessage.ts"
   },
   "author": "",
   "dependencies": {
