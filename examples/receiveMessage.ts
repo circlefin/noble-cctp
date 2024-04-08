@@ -16,12 +16,10 @@
  * limitations under the License.
  */
 
-import {GeneratedType, Registry} from "@cosmjs/proto-signing";
-
-require("dotenv").config();
-const { DirectSecp256k1HdWallet } = require("@cosmjs/proto-signing")
-const { SigningStargateClient } = require("@cosmjs/stargate")
-const { MsgReceiveMessage } = require("./generated/tx")
+import "dotenv/config"
+import { DirectSecp256k1HdWallet, Registry, GeneratedType } from "@cosmjs/proto-signing";
+import { SigningStargateClient } from "@cosmjs/stargate";
+import { MsgReceiveMessage } from "./generated/tx";
 
 export const cctpTypes: ReadonlyArray<[string, GeneratedType]> = [
     ["/circle.cctp.v1.MsgReceiveMessage", MsgReceiveMessage],
@@ -33,7 +31,7 @@ function createDefaultRegistry(): Registry {
 
 const main = async() => {
 
-    const mnemonic = process.env.MNEMONIC;
+    const mnemonic = process.env.MNEMONIC ? process.env.MNEMONIC : "";
     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(
         mnemonic,
         {

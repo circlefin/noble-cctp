@@ -1,8 +1,8 @@
-# Noble <-> Ethereum (Typescript)
+# Noble <-> Ethereum Bridging (Typescript)
 
 ## DepositForBurn instructions
 
-1. Install require packages:
+1. Install required packages:
 
     ```
     npm install
@@ -27,7 +27,7 @@ The Noble testnet -> ETH Sepolia CCTP relayer should pick up these messages auto
 
 ## ReceiveMessage instructions
 
-1. Install require packages:
+1. Install required packages:
 
     ```
     npm install
