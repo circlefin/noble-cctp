@@ -119,6 +119,14 @@ func (k msgServer) ReceiveMessage(goCtx context.Context, msg *types.MsgReceiveMe
 			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "corresponding noble mint token not found")
 		}
 
+		remoteTokenMessenger, found := k.GetRemoteTokenMessenger(ctx, message.SourceDomain)
+		if !found {
+			return nil, sdkerrors.Wrapf(types.ErrReceiveMessage, "could not retrieve remote token messenger for domain %d", message.SourceDomain)
+		}
+		if !bytes.Equal(message.Sender, remoteTokenMessenger.Address) {
+			return nil, sdkerrors.Wrap(types.ErrReceiveMessage, "message sender is not the remote token messenger")
+		}
+
 		// get mint recipient as noble address
 		bech32Prefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
 		mintRecipient, err := sdk.Bech32ifyAddressBytes(bech32Prefix, burnMessage.MintRecipient[12:])
