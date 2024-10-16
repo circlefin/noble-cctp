@@ -1,164 +1,110 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package keeper
 
 import (
-	"testing"
+	"context"
 
+	"cosmossdk.io/log"
+	"cosmossdk.io/store"
+	"cosmossdk.io/store/metrics"
+	storetypes "cosmossdk.io/store/types"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+	db "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/cosmos/cosmos-sdk/store"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/log"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	tmdb "github.com/tendermint/tm-db"
 )
 
-func CctpKeeperWithKey(t testing.TB, storeKey sdk.StoreKey) (*keeper.Keeper, sdk.Context) {
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	require.NoError(t, stateStore.LoadLatestVersion())
+func CctpKeeper() (*keeper.Keeper, context.Context) {
+	key := storetypes.NewKVStoreKey(types.StoreKey)
+	return CctpKeeperWithKey(key)
+}
+
+func CctpKeeperWithKey(key *storetypes.KVStoreKey) (*keeper.Keeper, context.Context) {
+	logger := log.NewNopLogger()
+
+	stateStore := store.NewCommitMultiStore(db.NewMemDB(), logger, metrics.NewNoOpMetrics())
+	stateStore.MountStoreWithDB(key, storetypes.StoreTypeIAVL, nil)
+	_ = stateStore.LoadLatestVersion()
 
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		codec.NewLegacyAmino(),
-		storeKey,
-		nil,
-		"CctpParams",
-	)
 	k := keeper.NewKeeper(
 		cdc,
-		storeKey,
-		paramsSubspace,
+		logger,
+		runtime.NewKVStoreService(key),
 		MockBankKeeper{},
 		MockFiatTokenfactoryKeeper{},
 	)
 
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+	ctx := sdk.NewContext(stateStore, cmtproto.Header{}, false, logger)
 
 	return k, ctx
 }
 
-func CctpKeeperWithErrBank(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+func CctpKeeperWithErrBank() (*keeper.Keeper, context.Context) {
+	logger := log.NewNopLogger()
 
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	require.NoError(t, stateStore.LoadLatestVersion())
+	key := storetypes.NewKVStoreKey(types.StoreKey)
+	stateStore := store.NewCommitMultiStore(db.NewMemDB(), logger, metrics.NewNoOpMetrics())
+	stateStore.MountStoreWithDB(key, storetypes.StoreTypeIAVL, nil)
+	_ = stateStore.LoadLatestVersion()
 
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		codec.NewLegacyAmino(),
-		storeKey,
-		nil,
-		"CctpParams",
-	)
 	k := keeper.NewKeeper(
 		cdc,
-		storeKey,
-		paramsSubspace,
-		ErrBankKeeper{},
+		logger,
+		runtime.NewKVStoreService(key),
+		MockErrBankKeeper{},
 		MockFiatTokenfactoryKeeper{},
 	)
 
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+	ctx := sdk.NewContext(stateStore, cmtproto.Header{}, false, logger)
 
 	return k, ctx
 }
 
-func CctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+func CctpKeeperWithErrFTF() (*keeper.Keeper, context.Context) {
+	logger := log.NewNopLogger()
 
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	require.NoError(t, stateStore.LoadLatestVersion())
-
-	registry := codectypes.NewInterfaceRegistry()
-	cdc := codec.NewProtoCodec(registry)
-
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		codec.NewLegacyAmino(),
-		storeKey,
-		nil,
-		"CctpParams",
-	)
-	k := keeper.NewKeeper(
-		cdc,
-		storeKey,
-		paramsSubspace,
-		MockBankKeeper{},
-		MockFiatTokenfactoryKeeper{},
-	)
-
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
-
-	return k, ctx
-}
-
-type MockCctpKeeper struct{}
-
-func (k MockCctpKeeper) GetTokenPair(ctx sdk.Context, remoteDomain uint32, remoteToken string) (val types.TokenPair, found bool) {
-	return types.TokenPair{}, true
-}
-
-func (MockCctpKeeper) GetAuthority(ctx sdk.Context) (val string, found bool) {
-	return "", true
-}
-
-// ErrCctpKeeper is used for wrapping a MockErrFiatTokenfactoryKeeper, which fails on mint/burn
-func ErrCctpKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	require.NoError(t, stateStore.LoadLatestVersion())
+	key := storetypes.NewKVStoreKey(types.StoreKey)
+	stateStore := store.NewCommitMultiStore(db.NewMemDB(), logger, metrics.NewNoOpMetrics())
+	stateStore.MountStoreWithDB(key, storetypes.StoreTypeIAVL, nil)
+	_ = stateStore.LoadLatestVersion()
 
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		codec.NewLegacyAmino(),
-		storeKey,
-		nil,
-		"CctpParams",
-	)
 	k := keeper.NewKeeper(
 		cdc,
-		storeKey,
-		paramsSubspace,
+		logger,
+		runtime.NewKVStoreService(key),
 		MockBankKeeper{},
 		MockErrFiatTokenfactoryKeeper{},
 	)
 
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+	ctx := sdk.NewContext(stateStore, cmtproto.Header{}, false, logger)
 
 	return k, ctx
 }
-
-type MockErrCctpKeeper struct{}

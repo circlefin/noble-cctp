@@ -1,18 +1,19 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package keeper
 
 import (
@@ -20,7 +21,7 @@ import (
 	"context"
 	"encoding/hex"
 
-	sdkerrors "cosmossdk.io/errors"
+	"cosmossdk.io/errors"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -31,7 +32,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 
 	paused, found := k.GetBurningAndMintingPaused(ctx)
 	if found && paused.Paused {
-		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "burning and minting are paused")
+		return nil, errors.Wrap(types.ErrDepositForBurn, "burning and minting are paused")
 	}
 
 	// verify and parse original originalMessage
@@ -48,16 +49,19 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 
 	// validate originalMessage sender is the same as this message sender
 	messageSender := make([]byte, 32)
-	copy(messageSender[12:], sdk.MustAccAddressFromBech32(msg.From))
-
+	fromAccAddress, err := sdk.AccAddressFromBech32(msg.From)
+	if err != nil {
+		return nil, errors.Wrapf(types.ErrInvalidAddress, "invalid from address (%s)", err)
+	}
+	copy(messageSender[12:], fromAccAddress)
 	if !bytes.Equal(messageSender, burnMessage.MessageSender) {
-		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "invalid sender for message")
+		return nil, errors.Wrap(types.ErrDepositForBurn, "invalid sender for message")
 	}
 
 	// validate new mint recipient
 	emptyByteArr := make([]byte, types.MintRecipientLen)
 	if bytes.Equal(emptyByteArr, msg.NewMintRecipient) {
-		return nil, sdkerrors.Wrap(types.ErrDepositForBurn, "mint recipient must be nonzero")
+		return nil, errors.Wrap(types.ErrDepositForBurn, "mint recipient must be nonzero")
 	}
 
 	newMessageBody := types.BurnMessage{
@@ -70,7 +74,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 
 	newMessageBodyBytes, err := newMessageBody.Bytes()
 	if err != nil {
-		return nil, sdkerrors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message")
+		return nil, errors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message")
 	}
 
 	replaceMessage := types.MsgReplaceMessage{
@@ -82,7 +86,7 @@ func (k msgServer) ReplaceDepositForBurn(goCtx context.Context, msg *types.MsgRe
 	}
 	_, err = k.ReplaceMessage(goCtx, &replaceMessage)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "error calling replace message")
+		return nil, errors.Wrap(err, "error calling replace message")
 	}
 
 	event := types.DepositForBurn{

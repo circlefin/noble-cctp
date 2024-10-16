@@ -1,31 +1,31 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
 
 package cctp
 
 import (
+	"context"
+
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	_ "github.com/cosmos/cosmos-sdk/types/errors" // sdkerrors
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
-func InitGenesis(ctx sdk.Context, k *keeper.Keeper, genState types.GenesisState) {
+func InitGenesis(ctx context.Context, k *keeper.Keeper, genState types.GenesisState) {
 	k.SetOwner(ctx, genState.Owner)
 	k.SetAttesterManager(ctx, genState.AttesterManager)
 	k.SetPauser(ctx, genState.Pauser)
@@ -86,7 +86,7 @@ func InitGenesis(ctx sdk.Context, k *keeper.Keeper, genState types.GenesisState)
 }
 
 // ExportGenesis returns the module's exported GenesisState
-func ExportGenesis(ctx sdk.Context, k *keeper.Keeper) *types.GenesisState {
+func ExportGenesis(ctx context.Context, k *keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	genesis.Owner = k.GetOwner(ctx)
