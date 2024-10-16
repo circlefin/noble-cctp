@@ -1,0 +1,5 @@
+pkg:golang/github.com/hashicorp/go-plugin
+pkg:golang/github.com/hashicorp/golang-lru
+pkg:golang/github.com/hashicorp/golang-lru/v2
+pkg:golang/github.com/hashicorp/yamux
+pkg:golang/pgregory.net/rapid

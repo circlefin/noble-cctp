@@ -1,4 +1,4 @@
-.PHONY: proto-setup proto-format proto-lint proto-gen format lint test
+.PHONY: proto-format proto-lint proto-gen format lint test
 all: proto-all format lint test
 
 ###############################################################################
@@ -22,7 +22,8 @@ lint:
 ###                                Protobuf                                 ###
 ###############################################################################
 
-BUF_VERSION=1.27.1
+BUF_VERSION=1.34.0
+BUILDER_VERSION=0.14.0
 
 proto-all: proto-format proto-lint proto-gen
 
@@ -35,7 +36,7 @@ proto-format:
 proto-gen:
 	@echo "🤖 Generating code from protobuf..."
 	@docker run --rm --volume "$(PWD)":/workspace --workdir /workspace \
-		noble-cctp-proto sh ./proto/generate.sh
+		ghcr.io/cosmos/proto-builder:$(BUILDER_VERSION) sh ./proto/generate.sh
 	@echo "✅ Completed code generation!"
 
 proto-lint:
@@ -44,16 +45,16 @@ proto-lint:
 		bufbuild/buf:$(BUF_VERSION) lint
 	@echo "✅ Completed protobuf linting!"
 
-proto-setup:
-	@echo "🤖 Setting up protobuf environment..."
-	@docker build --rm --tag noble-cctp-proto:latest --file proto/Dockerfile .
-	@echo "✅ Setup protobuf environment!"
-
 ###############################################################################
 ###                                 Testing                                 ###
 ###############################################################################
 
 test:
 	@echo "🤖 Running tests..."
-	@go test -cover -race -v ./x/...
+	@go test -coverprofile=coverage.out -race ./x/...
 	@echo "✅ Completed tests!"
+	@grep -v -f .covignore coverage.out > coverage.filtered.out && rm coverage.out
+	@echo "\n📝 Detailed coverage report, excluding files in .covignore:"
+	@go tool cover -func coverage.filtered.out
+	@go tool cover -html coverage.filtered.out -o coverage.html && rm coverage.filtered.out
+	@echo "\n📝 Produced html coverage report at coverage.html, excluding files in .covignore"

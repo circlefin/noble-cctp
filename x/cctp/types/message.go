@@ -1,31 +1,32 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package types
 
 import (
 	"encoding/binary"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"cosmossdk.io/errors"
 )
 
 // Parse parses a byte array into a Message struct
 // https://developers.circle.com/stablecoin/docs/cctp-technical-reference#message
 func (msg *Message) Parse(bz []byte) (*Message, error) {
 	if len(bz) < MessageBodyIndex {
-		return nil, sdkerrors.Wrapf(ErrParsingMessage, "cctp message must be at least %d bytes, got %d", MessageBodyIndex, len(bz))
+		return nil, errors.Wrapf(ErrParsingMessage, "cctp message must be at least %d bytes, got %d", MessageBodyIndex, len(bz))
 	}
 
 	msg.Version = binary.BigEndian.Uint32(bz[VersionIndex:SourceDomainIndex])
@@ -44,13 +45,13 @@ func (msg *Message) Parse(bz []byte) (*Message, error) {
 // sender, recipient, destination caller must be 32 bytes
 func (msg *Message) Bytes() ([]byte, error) {
 	if len(msg.Sender) != AddressBytesLen {
-		return nil, sdkerrors.Wrapf(ErrParsingMessage, "sender must be %d bytes, got %d", AddressBytesLen, len(msg.Sender))
+		return nil, errors.Wrapf(ErrParsingMessage, "sender must be %d bytes, got %d", AddressBytesLen, len(msg.Sender))
 	}
 	if len(msg.Recipient) != AddressBytesLen {
-		return nil, sdkerrors.Wrapf(ErrParsingMessage, "recipient must be %d bytes, got %d", AddressBytesLen, len(msg.Recipient))
+		return nil, errors.Wrapf(ErrParsingMessage, "recipient must be %d bytes, got %d", AddressBytesLen, len(msg.Recipient))
 	}
 	if len(msg.DestinationCaller) != AddressBytesLen {
-		return nil, sdkerrors.Wrapf(ErrParsingMessage, "destination caller must be %d bytes, got %d", AddressBytesLen, len(msg.DestinationCaller))
+		return nil, errors.Wrapf(ErrParsingMessage, "destination caller must be %d bytes, got %d", AddressBytesLen, len(msg.DestinationCaller))
 	}
 
 	result := make([]byte, MessageBodyIndex+len(msg.MessageBody))

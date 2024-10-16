@@ -1,18 +1,19 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package keeper
 
 import (
@@ -21,11 +22,10 @@ import (
 	"encoding/hex"
 	"strings"
 
+	"cosmossdk.io/errors"
 	"cosmossdk.io/math"
-	"github.com/ethereum/go-ethereum/crypto"
-
-	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ethereum/go-ethereum/crypto"
 
 	"github.com/circlefin/noble-cctp/x/cctp/types"
 	fiattokenfactorytypes "github.com/circlefin/noble-fiattokenfactory/x/fiattokenfactory/types"
@@ -57,46 +57,52 @@ func (k msgServer) depositForBurn(
 	burnToken string,
 	destinationCaller []byte,
 ) (uint64, error) {
+	// check for valid `from` address
+	fromAccAddress, err := sdk.AccAddressFromBech32(from)
+	if err != nil {
+		return 0, errors.Wrapf(types.ErrInvalidAddress, "invalid from address (%s)", err)
+	}
+
 	if !amount.IsPositive() {
-		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "amount must be positive")
+		return 0, errors.Wrap(types.ErrDepositForBurn, "amount must be positive")
 	}
 
 	emptyByteArr := make([]byte, types.MintRecipientLen)
 	if mintRecipient == nil || bytes.Equal(mintRecipient, emptyByteArr) {
-		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "mint recipient must be nonzero")
+		return 0, errors.Wrap(types.ErrDepositForBurn, "mint recipient must be nonzero")
 	}
 
 	tokenMessenger, found := k.GetRemoteTokenMessenger(ctx, destinationDomain)
 	if !found {
-		return 0, sdkerrors.Wrap(types.ErrDepositForBurn, "unable to look up destination token messenger")
+		return 0, errors.Wrap(types.ErrDepositForBurn, "unable to look up destination token messenger")
 	}
 
 	// Note: fiat token factory only supports burning 1 token denom
 	denom := k.fiattokenfactory.GetMintingDenom(ctx)
 	if !strings.EqualFold(denom.Denom, burnToken) {
-		return 0, sdkerrors.Wrapf(types.ErrBurn, "burning denom: %s is not supported", burnToken)
+		return 0, errors.Wrapf(types.ErrBurn, "burning denom: %s is not supported", burnToken)
 	}
 
 	// check if burning/minting is paused
 	paused, _ := k.GetBurningAndMintingPaused(ctx)
 	if paused.Paused {
-		return 0, sdkerrors.Wrap(types.ErrBurn, "burning and minting are paused")
+		return 0, errors.Wrap(types.ErrBurn, "burning and minting are paused")
 	}
 
 	// check if amount is greater than configured PerMessageBurnLimit for this token
 	perMessageBurnLimit, found := k.GetPerMessageBurnLimit(ctx, strings.ToLower(burnToken))
 	if found {
 		if amount.GT(perMessageBurnLimit.Amount) {
-			return 0, sdkerrors.Wrap(types.ErrBurn, "cannot burn more than the maximum per message burn limit")
+			return 0, errors.Wrap(types.ErrBurn, "cannot burn more than the maximum per message burn limit")
 		}
 	}
 
 	// burn coins
-	coin := sdk.NewCoin(burnToken, sdk.NewIntFromBigInt(amount.BigInt()))
+	coin := sdk.NewCoin(burnToken, math.NewIntFromBigInt(amount.BigInt()))
 
-	err := k.bank.SendCoinsFromAccountToModule(ctx, sdk.MustAccAddressFromBech32(from), types.ModuleName, sdk.NewCoins(coin))
+	err = k.bank.SendCoinsFromAccountToModule(ctx, fromAccAddress, types.ModuleName, sdk.NewCoins(coin))
 	if err != nil {
-		return 0, sdkerrors.Wrap(err, "error during transfer")
+		return 0, errors.Wrap(err, "error during transfer")
 	}
 
 	fiatBurnMsg := fiattokenfactorytypes.MsgBurn{
@@ -105,11 +111,11 @@ func (k msgServer) depositForBurn(
 	}
 	_, err = k.fiattokenfactory.Burn(ctx, &fiatBurnMsg)
 	if err != nil {
-		return 0, sdkerrors.Wrapf(err, "error during burn")
+		return 0, errors.Wrapf(err, "error during burn")
 	}
 
 	messageSender := make([]byte, 32)
-	copy(messageSender[12:], sdk.MustAccAddressFromBech32(from))
+	copy(messageSender[12:], fromAccAddress)
 
 	burnMessage := types.BurnMessage{
 		Version:       types.MessageBodyVersion,
@@ -123,7 +129,7 @@ func (k msgServer) depositForBurn(
 
 	newMessageBodyBytes, err := burnMessage.Bytes()
 	if err != nil {
-		return 0, sdkerrors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message into bytes")
+		return 0, errors.Wrapf(types.ErrParsingBurnMessage, "error parsing burn message into bytes")
 	}
 
 	if len(destinationCaller) == 0 {
@@ -134,7 +140,7 @@ func (k msgServer) depositForBurn(
 			MessageBody:       newMessageBodyBytes,
 		}
 
-		resp, err := k.SendMessage(sdk.WrapSDKContext(ctx), &message)
+		resp, err := k.SendMessage(ctx, &message)
 		if err != nil {
 			return 0, err
 		}
@@ -148,7 +154,7 @@ func (k msgServer) depositForBurn(
 			DestinationCaller: destinationCaller,
 		}
 
-		resp, err := k.SendMessageWithCaller(sdk.WrapSDKContext(ctx), &message)
+		resp, err := k.SendMessageWithCaller(ctx, &message)
 		if err != nil {
 			return 0, err
 		}

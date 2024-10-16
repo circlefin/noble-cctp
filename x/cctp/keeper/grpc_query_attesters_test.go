@@ -1,39 +1,38 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package keeper_test
 
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"cosmossdk.io/store/prefix"
+	storetypes "cosmossdk.io/store/types"
+	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
+	"github.com/circlefin/noble-cctp/testutil/nullify"
+	"github.com/circlefin/noble-cctp/x/cctp/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	keepertest "github.com/circlefin/noble-cctp/testutil/keeper"
-	"github.com/circlefin/noble-cctp/testutil/nullify"
-	"github.com/circlefin/noble-cctp/x/cctp/types"
 )
 
 func TestAttesterQuerySingle(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
+	keeper, ctx := keepertest.CctpKeeper()
 	msgs := createNAttesters(keeper, ctx, 2)
 	for _, tc := range []struct {
 		desc     string
@@ -68,7 +67,7 @@ func TestAttesterQuerySingle(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.Attester(wctx, tc.request)
+			response, err := keeper.Attester(ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
@@ -83,8 +82,7 @@ func TestAttesterQuerySingle(t *testing.T) {
 }
 
 func TestAttesterQueryPaginated(t *testing.T) {
-	keeper, ctx := keepertest.CctpKeeper(t)
-	wctx := sdk.WrapSDKContext(ctx)
+	keeper, ctx := keepertest.CctpKeeper()
 	msgs := createNAttesters(keeper, ctx, 5)
 	Attester := make([]types.Attester, len(msgs))
 	copy(Attester, msgs)
@@ -102,7 +100,7 @@ func TestAttesterQueryPaginated(t *testing.T) {
 	t.Run("ByOffset", func(t *testing.T) {
 		step := 2
 		for i := 0; i < len(Attester); i += step {
-			resp, err := keeper.Attesters(wctx, request(nil, uint64(i), uint64(step), false))
+			resp, err := keeper.Attesters(ctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Attesters), step)
 			require.Subset(t,
@@ -115,7 +113,7 @@ func TestAttesterQueryPaginated(t *testing.T) {
 		step := 2
 		var next []byte
 		for i := 0; i < len(Attester); i += step {
-			resp, err := keeper.Attesters(wctx, request(next, 0, uint64(step), false))
+			resp, err := keeper.Attesters(ctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Attesters), step)
 			require.Subset(t,
@@ -126,7 +124,7 @@ func TestAttesterQueryPaginated(t *testing.T) {
 		}
 	})
 	t.Run("Total", func(t *testing.T) {
-		resp, err := keeper.Attesters(wctx, request(nil, 0, 0, true))
+		resp, err := keeper.Attesters(ctx, request(nil, 0, 0, true))
 		require.NoError(t, err)
 		require.Equal(t, len(Attester), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
@@ -135,24 +133,24 @@ func TestAttesterQueryPaginated(t *testing.T) {
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {
-		_, err := keeper.Attesters(wctx, nil)
+		_, err := keeper.Attesters(ctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
 	t.Run("PaginateError", func(t *testing.T) {
-		_, err := keeper.Attesters(wctx, request([]byte("key"), 1, 0, true))
+		_, err := keeper.Attesters(ctx, request([]byte("key"), 1, 0, true))
 		require.Contains(t, err.Error(), "invalid request, either offset or key is expected, got both")
 	})
 }
 
 func TestAttesterQueryPaginatedInvalidState(t *testing.T) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-	keeper, ctx := keepertest.CctpKeeperWithKey(t, storeKey)
+	storeKey := storetypes.NewKVStoreKey(types.StoreKey)
+	keeper, ctx := keepertest.CctpKeeperWithKey(storeKey)
 
-	store := prefix.NewStore(ctx.KVStore(storeKey), types.KeyPrefix(types.AttesterKeyPrefix))
+	adapter := runtime.KVStoreAdapter(runtime.NewKVStoreService(storeKey).OpenKVStore(ctx))
+	store := prefix.NewStore(adapter, types.KeyPrefix(types.AttesterKeyPrefix))
 	store.Set(types.KeyPrefix(string(types.AttesterKey([]byte("attester")))), []byte("invalid"))
 
-	goCtx := sdk.WrapSDKContext(ctx)
-	_, err := keeper.Attesters(goCtx, &types.QueryAllAttestersRequest{})
+	_, err := keeper.Attesters(ctx, &types.QueryAllAttestersRequest{})
 
 	parsedErr, ok := status.FromError(err)
 	require.True(t, ok)

@@ -1,18 +1,18 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
 
 package cctp_test
 
@@ -101,7 +101,7 @@ func TestGenesisHappyPath(t *testing.T) {
 		},
 	}
 
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)
 	require.NotNil(t, got)
@@ -127,7 +127,7 @@ func TestGenesisHappyPath(t *testing.T) {
 
 func TestGenesisBurningAndMintingPausedDefault(t *testing.T) {
 	genesisState := types.GenesisState{}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)
@@ -139,7 +139,7 @@ func TestGenesisSendingAndReceivingMessagesPausedDefault(t *testing.T) {
 	genesisState := types.GenesisState{
 		BurningAndMintingPaused: &types.BurningAndMintingPaused{Paused: true},
 	}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)
@@ -152,7 +152,7 @@ func TestGenesisMaxMessageBodySizeIsDefault(t *testing.T) {
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)
@@ -165,7 +165,7 @@ func TestGenesisNextAvailableNonceDefault(t *testing.T) {
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)
@@ -179,7 +179,7 @@ func TestGenesisSignatureThresholdPanicsWhenZero(t *testing.T) {
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 		SignatureThreshold:                &types.SignatureThreshold{Amount: uint32(0)},
 	}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	assert.Panics(t, func() {
 		cctp.InitGenesis(ctx, k, genesisState)
@@ -191,7 +191,7 @@ func TestGenesisSignatureThresholdDefault(t *testing.T) {
 		BurningAndMintingPaused:           &types.BurningAndMintingPaused{Paused: true},
 		SendingAndReceivingMessagesPaused: &types.SendingAndReceivingMessagesPaused{Paused: true},
 	}
-	k, ctx := keepertest.CctpKeeper(t)
+	k, ctx := keepertest.CctpKeeper()
 
 	cctp.InitGenesis(ctx, k, genesisState)
 	got := cctp.ExportGenesis(ctx, k)

@@ -1,18 +1,19 @@
-/*
- * Copyright (c) 2023, © Circle Internet Financial, LTD.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2024 Circle Internet Group, Inc.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package keeper_test
 
 import (
@@ -22,7 +23,6 @@ import (
 	"github.com/circlefin/noble-cctp/testutil/sample"
 	"github.com/circlefin/noble-cctp/x/cctp/keeper"
 	"github.com/circlefin/noble-cctp/x/cctp/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )
@@ -35,12 +35,13 @@ func init() {
 
 /*
  * Happy path
+ * Invalid remote token
  * Authority not set
  * Invalid authority
  * Existing token pair found
  */
 func TestLinkTokenPairHappyPath(t *testing.T) {
-	testkeeper, ctx := keepertest.CctpKeeper(t)
+	testkeeper, ctx := keepertest.CctpKeeper()
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	tokenController := sample.AccAddress()
@@ -53,7 +54,7 @@ func TestLinkTokenPairHappyPath(t *testing.T) {
 		LocalToken:   "uusdc",
 	}
 
-	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+	_, err := server.LinkTokenPair(ctx, &message)
 	require.NoError(t, err)
 
 	actual, found := testkeeper.GetTokenPair(ctx, message.RemoteDomain, message.RemoteToken)
@@ -63,8 +64,26 @@ func TestLinkTokenPairHappyPath(t *testing.T) {
 	require.Equal(t, message.LocalToken, actual.LocalToken)
 }
 
+func TestLinkTokenPairInvalidRemoteToken(t *testing.T) {
+	testkeeper, ctx := keepertest.CctpKeeper()
+	server := keeper.NewMsgServerImpl(testkeeper)
+
+	tokenController := sample.AccAddress()
+	testkeeper.SetTokenController(ctx, tokenController)
+
+	message := types.MsgLinkTokenPair{
+		From:         tokenController,
+		RemoteDomain: 0,
+		RemoteToken:  make([]byte, 5),
+		LocalToken:   "uusdc",
+	}
+
+	_, err := server.LinkTokenPair(ctx, &message)
+	require.ErrorIs(t, err, types.ErrInvalidRemoteToken)
+}
+
 func TestLinkTokenPairAuthorityNotSet(t *testing.T) {
-	testkeeper, ctx := keepertest.CctpKeeper(t)
+	testkeeper, ctx := keepertest.CctpKeeper()
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	message := types.MsgLinkTokenPair{
@@ -75,12 +94,12 @@ func TestLinkTokenPairAuthorityNotSet(t *testing.T) {
 	}
 
 	require.PanicsWithValue(t, "cctp token controller not found in state", func() {
-		_, _ = server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+		_, _ = server.LinkTokenPair(ctx, &message)
 	})
 }
 
 func TestLinkTokenPairInvalidAuthority(t *testing.T) {
-	testkeeper, ctx := keepertest.CctpKeeper(t)
+	testkeeper, ctx := keepertest.CctpKeeper()
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	tokenController := sample.AccAddress()
@@ -93,12 +112,12 @@ func TestLinkTokenPairInvalidAuthority(t *testing.T) {
 		LocalToken:   "uusdc",
 	}
 
-	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+	_, err := server.LinkTokenPair(ctx, &message)
 	require.ErrorIs(t, types.ErrUnauthorized, err)
 }
 
 func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
-	testkeeper, ctx := keepertest.CctpKeeper(t)
+	testkeeper, ctx := keepertest.CctpKeeper()
 	server := keeper.NewMsgServerImpl(testkeeper)
 
 	tokenController := sample.AccAddress()
@@ -119,6 +138,6 @@ func TestLinkTokenPairExistingTokenPairFound(t *testing.T) {
 		LocalToken:   existingTokenPair.LocalToken,
 	}
 
-	_, err := server.LinkTokenPair(sdk.WrapSDKContext(ctx), &message)
+	_, err := server.LinkTokenPair(ctx, &message)
 	require.ErrorIs(t, types.ErrTokenPairAlreadyFound, err)
 }
