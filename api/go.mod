@@ -1,6 +1,6 @@
 module github.com/circlefin/noble-cctp/api
 
-go 1.22.1
+go 1.23.0
 
 require (
 	cosmossdk.io/api v0.7.5
@@ -14,8 +14,8 @@ require (
 require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20240404231335-c0f41cb1a7a0 // indirect
-	golang.org/x/net v0.26.0 // indirect
-	golang.org/x/sys v0.21.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240730163845-b1a4ccb954bf // indirect
 )
