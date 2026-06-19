@@ -12,7 +12,7 @@ require (
 	cosmossdk.io/store v1.1.0
 	github.com/circlefin/noble-cctp/api v0.0.0-00010101000000-000000000000
 	github.com/circlefin/noble-fiattokenfactory v0.0.0-20241030165025-e3796e8ba8c1
-	github.com/cometbft/cometbft v0.38.19
+	github.com/cometbft/cometbft v0.38.21
 	github.com/cosmos/btcutil v1.0.5
 	github.com/cosmos/cosmos-db v1.0.2
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5
